@@ -1,0 +1,1 @@
+const { getAllUsers } = require('./users/users');

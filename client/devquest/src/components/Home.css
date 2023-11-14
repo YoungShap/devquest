@@ -1,0 +1,18 @@
+.MyTitle {
+    margin-top: 40px;
+}
+
+.MyTitle h1 {
+    text-align: center;
+    color: #d8c297;
+    font-family: 'Oswald, sans-serif';
+    margin-bottom: 8px;
+    font-size: 40px;
+}
+
+.MyTitle p {
+    text-align: center;
+    font-family: 'Oswald, sans-serif';
+    color: #e0d0ad;
+    font-size: 20px;
+}
