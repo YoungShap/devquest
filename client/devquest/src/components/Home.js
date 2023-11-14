@@ -11,10 +11,8 @@ import { IoLogoPython } from 'react-icons/io';
 import { DiRuby } from 'react-icons/di';
 import { Link } from 'react-router-dom';
 
-
-
 export default function Home() {
-    return (
+    return ( 
         <div className='main-container'>
             <div className='MyTitle'>
                 <h1>Welcome to DevQuest!</h1>
