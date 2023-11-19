@@ -28,7 +28,7 @@
 }
 
 .project-card:hover {
-    box-shadow: 0px 0px 10px 0px hsl(271, 79%, 72%);
+    box-shadow: 0px 0px 10px 0px hsl(271, 91%, 69%);
     transition: 0.4s;
     cursor: pointer;
 }
@@ -76,4 +76,5 @@
         font-size: 20px;
     }
 }
+
 
