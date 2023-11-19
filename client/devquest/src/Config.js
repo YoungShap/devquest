@@ -15,7 +15,7 @@ export const pages = [
     { route: '/projects/mern', title: 'MERN', permissions: [RoleTypes.user, RoleTypes.admin, RoleTypes.business] },
     { route: '/projects/mean', title: 'MEAN', permissions: [RoleTypes.business, RoleTypes.admin] },
     { route: '/projects/ruby', title: 'Ruby', permissions: [RoleTypes.business, RoleTypes.admin] },
-    { route: '/projects/react', techId: 4, title: 'React', permissions: [RoleTypes.business, RoleTypes.admin] },
+    { route: '/projects/react', title: 'React', permissions: [RoleTypes.business, RoleTypes.admin] },
     { route: '/projects/angular', title: 'Angular', permissions: [RoleTypes.business, RoleTypes.admin] },
     { route: '/projects/js', title: 'JS', permissions: [RoleTypes.business, RoleTypes.admin] },
     { route: '/projects/python', title: 'Python', permissions: [RoleTypes.business, RoleTypes.admin] },

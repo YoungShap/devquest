@@ -56,7 +56,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className='project-card'>
-                    <div className='card-image'></div>
+                    <div className='card-image' style={{ backgroundImage: `url(${require('../assets/myP.png')})` }}></div>
                     <h1 className='card-h1'>Business Cards App</h1>
                     <div className='my-p'>
                         <p><b>Category : React</b></p>

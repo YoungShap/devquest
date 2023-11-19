@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path');
 const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
@@ -28,6 +29,7 @@ app.use(express.json())
 
 //routes
 app.use('/', projectRoutes)
+app.use('/serverAssets', express.static(path.join(__dirname, 'public/serverAssets')))
 
 //listen for requests
 app.listen(process.env.PORT, () => {

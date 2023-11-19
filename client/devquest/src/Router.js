@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./user/Login";
 import ReactProjects from "./categories/ReactProjects";
+import AddProject from "./CRUD/AddProject";
 
 export default function Router() {  // this router is for when a user is connected  //
     return (
@@ -9,8 +10,8 @@ export default function Router() {  // this router is for when a user is connect
             <Route path="/" element={<Home/>} />
             <Route path='/login' element={<Login />} />
             <Route path='projects/react' element={<ReactProjects />} />
-            {/* <Route path='/cards/favorite' element={<FavoriteCards />} />
-            <Route path='/admin/clients' element={<ClientManagement />} />
+            <Route path='projects/add' element={<AddProject />} />
+            {/* <Route path='/admin/clients' element={<ClientManagement />} />
             <Route path='/business/cards/new' element={<CreateCard />} />
             <Route path='/business/cards/:id' element={<EditCard />} />
             <Route path='/admin/clients/:id' element={<ClientEdit/>} />
