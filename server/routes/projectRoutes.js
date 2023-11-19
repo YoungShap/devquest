@@ -1,30 +1,20 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const Project = require("../models/Project");
 const router = express.Router();
 
-const app = express();
+const app = express()
 
-
-const projectSchema = new mongoose.Schema({
-    name: String,
-    techId:Number,
-    imgSrc:String,
-  });
-
-
-// Create a mongoose model based on the schema
-const Project = mongoose.model('Project', projectSchema);
 
 // GET request to retrieve all projects
-app.get("/projects", async (req, res) => {
+router.get("/projects", async (req, res) => {
     try {
-      const projects = await Project.find({}); // Find all books
-      res.status(200).send(projects); // Send the array of books as response
+        const projects = await Project.find({}) // Find all books
+        res.status(200).send(projects); // Send the array of books as response
     } catch (error) {
-      console.error(error); // Log the error
-      res.status(500).send("Error retrieving projects");
+        console.error(error); // Log the error
+        res.status(500).send("Error retrieving projects")
     }
-  });
+})
 
 // // GET a single project
 // router.get('/:id', (req, res) => {
