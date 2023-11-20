@@ -32,13 +32,13 @@ export default function Home() {
                     </div>
                 </div>
                 <div className='project-card'>
-                    <div className='card-image' style={{ backgroundImage: `url(${require('../assets/task.png')})` }}></div>
-                    <h1 className='card-h1'>Task Manager</h1>
+                    <div className='card-image' style={{ backgroundImage: `url(${require('../assets/paint.png')})` }}></div>
+                    <h1 className='card-h1'>Painting Game</h1>
                     <div className='my-p'>
                         <p><b>Category : MEAN Stack</b></p>
-                        <p><b>Dev Name : DevStackr</b></p>
+                        <p><b>Dev Name : Antkaynak</b></p>
                         <div className='card-icons'>
-                            <a target="_blank" href='https://github.com/Devstackr/task-manager-mean-stack/tree/master' ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></a>
+                            <a target="_blank" href='https://github.com/antkaynak/Painterino-v2' ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></a>
                             <Link to={'projects/mean'}><GrStackOverflow style={{ color: '#50c770', fontSize: '34px', backgroundColor: 'black', borderRadius: '50%' }} /></Link>
                         </div>
                     </div>

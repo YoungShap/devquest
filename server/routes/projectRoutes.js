@@ -29,13 +29,10 @@ const upload = multer({ storage });
 
 router.post('/projects/add', upload.single('imgSrc'), async (req, res) => {
   try {
-      // Assuming the request body contains necessary project information
       const { name, category, dev, favorite, ghub } = req.body;
 
-      // Assuming 'imgSrc' is the field name in your form
       const imgSrc = req.file.filename;
-
-      // Create a new project instance using the Project model
+      
       const newProject = new Project({
           name,
           category,
