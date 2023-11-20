@@ -32,6 +32,7 @@ export const pages = [
     { route: "/signup", title: 'Signup', permissions: [RoleTypes.none] },
   ];
   export const settings = [
+    { route: 'projects/add', title: 'Add Project', permissions: [RoleTypes.user, RoleTypes.business] },
     { route: '/account', title: 'My Account', permissions: [RoleTypes.user, RoleTypes.business] },
   ];
 

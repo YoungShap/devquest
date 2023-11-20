@@ -12,7 +12,7 @@ import { DiRuby } from 'react-icons/di';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
-    return ( 
+    return (
         <div className='main-container'>
             <div className='MyTitle'>
                 <h1>Welcome to DevQuest!</h1>
@@ -20,13 +20,13 @@ export default function Home() {
             </div>
             <div className='card-frame'>
                 <div className='project-card'>
-                    <div className='card-image' style={{ backgroundImage: `url(${require('../assets/music2.png')})` }}></div>
-                    <h1 className='card-h1'>Music App</h1>
+                    <div className='card-image' style={{ backgroundImage: `url(${require('../assets/Social.png')})` }}></div>
+                    <h1 className='card-h1'>Social Media App</h1>
                     <div className='my-p'>
                         <p><b>Category : MERN Stack</b></p>
-                        <p><b>Dev Name : Vetrivel-VP</b></p>
+                        <p><b>Dev Name : Ed-Roh</b></p>
                         <div className='card-icons'>
-                            <a target="_blank" href='https://github.com/Vetrivel-VP/musicapp-mernstack' ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></a>
+                            <a target="_blank" href='https://github.com/ed-roh/mern-social-media' ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></a>
                             <Link to={'projects/mern'}><GiStoneStack style={{ color: '#69a8d7', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></Link>
                         </div>
                     </div>

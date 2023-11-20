@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema({
-    _id: String,
     name: String,
     category: String,
     dev : String,

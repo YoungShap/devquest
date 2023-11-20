@@ -2,17 +2,16 @@
     background-color: rgba(223, 224, 224, 0);
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 70%;
     margin: auto;
     margin-top: 20px;
 }
 
 .options2 .submitG {
     margin: auto;
-    width: 60%;
+    width: 70%;
     height: 40px;
     margin: auto;
-    width: 60%;
     margin-bottom: 5px;
     border-radius: 5px;
     border: none;

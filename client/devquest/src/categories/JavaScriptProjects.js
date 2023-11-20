@@ -31,14 +31,14 @@ export default function ReactProjects() {
     return (
         <div className='main-container'>
             <div className='MyTitle'>
-                <h1>React</h1>
-                <p>Here are some of our favorite projects from all Categories</p>
+                <h1>JavaScript</h1>
+                <p>filler </p>
             </div>
             <div className='card-frame'>
                 {
-                    projects.filter(p => p.category == "React").map(p =>
+                    projects.filter(p => p.category == "JS").map(p =>
                         <div className='project-card'>
-                          <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
+                            <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>
                             <div className='my-p'>
                                 <p><b>Category : {p.category}</b></p>

@@ -1,6 +1,8 @@
 const express = require('express');
-const Project = require("../models/Project");
+const Project = require('../models/project');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 
 const app = express()
 
@@ -17,31 +19,43 @@ router.get("/projects", async (req, res) => {
 })
 
 // POST a new project
-router.post('/projects/add', async (req, res) => {
-    try {
+const storage = multer.diskStorage({
+  destination: 'uploads/',
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  },
+});
+const upload = multer({ storage });
+
+router.post('/projects/add', upload.single('imgSrc'), async (req, res) => {
+  try {
       // Assuming the request body contains necessary project information
-      const { name, category, dev, imgSrc, favorite, ghub } = req.body;
-  
+      const { name, category, dev, favorite, ghub } = req.body;
+
+      // Assuming 'imgSrc' is the field name in your form
+      const imgSrc = req.file.filename;
+
       // Create a new project instance using the Project model
       const newProject = new Project({
-        name,
-        category,
-        dev,
-        imgSrc,
-        favorite,
-        ghub,
+          name,
+          category,
+          dev,
+          favorite,
+          ghub,
+          imgSrc,
       });
-  
+
       // Save the new project to the database
       const savedProject = await newProject.save();
-  
-      // Respond with the saved project data
+
+      // Respond with the saved project data, including the generated id
       res.json(savedProject);
-    } catch (error) {
+  } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+  }
+});
+
 
 // // GET a single project
 // router.get('/:id', (req, res) => {

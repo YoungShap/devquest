@@ -11,7 +11,7 @@ export default function AddProject() {
         category: '',
         dev: '',
         imgSrc: '',
-        favorite: '',
+        favorite: false,
         ghub: '',
     });
 
@@ -25,12 +25,12 @@ export default function AddProject() {
     //     imgUrl: Joi.string().min(0).max(550),
     //   });
 
-    const handleInputChange = ev => {
+    const handleInputChange = (ev) => {
         const { id, value } = ev.target;
-        let obj = {
+        setFormData({
             ...formData,
             [id]: value,
-        };
+        });
         // const schema = cardSchema.validate(obj, { abortEarly: false, allowUnknown: true });
         // const err = { ...errors, [id]: undefined };
 
@@ -45,30 +45,42 @@ export default function AddProject() {
         //     setIsValid(true);
         // }
 
-        setFormData(obj);
         // setErrors(err);
     };
+    const handleFileChange = (ev) => {
+        const file = ev.target.files[0];
+        setFormData({
+           ...formData,
+           imgSrc: file || '', // Save the File object or an empty string if no file is selected
+        });
+     };
+     console.log(formData);
 
-    function Add(ev) {
+     function Add(ev) {
         ev.preventDefault();
+      
+        const formDataToSend = new FormData();
+        formDataToSend.append('name', formData.name);
+        formDataToSend.append('category', formData.category);
+        formDataToSend.append('dev', formData.dev);
+        formDataToSend.append('imgSrc', formData.imgSrc);
+        formDataToSend.append('ghub', formData.ghub);
+      
         fetch(`http://localhost:4000/projects/add`, {
             credentials: 'include',
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(formData),
-          })
-            .then(res => res.json())
-            .then(data => {
-              setFormData(data);
-            //   snackbar("Card Added Sucssesfully")
-              navigate('/');
-            }
-            )
-            .catch(err => {
+            body: formDataToSend,
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            setFormData(data);
+            //   snackbar("Card Added Successfully")
+        })
+        .catch((err) => {
             //   snackbar(err.message);
-              navigate('/error');
-            })
-            // .finally(() => setIsLoading(false));
+            navigate('/error');
+            console.log(err);
+        });
     }
 
 
@@ -80,37 +92,43 @@ export default function AddProject() {
                 <div className='row'>
                     <div className='column'>
                         <label>Project Name*</label>
-                        <input type="text" id='title' value={formData.name} onChange={handleInputChange} />
-                        {/* {errors.title ? <div className='fieldError'>{errors.title}</div> : ''} */}
+                        <input type="text" id='name' value={formData.name} onChange={handleInputChange} />
+                        {/* {errors.name ? <div className='fieldError'>{errors.name}</div> : ''} */}
                     </div>
                     <div className='column'>
-                        <label>subtitle*</label>
-                        <input type="text" id='subtitle' value={formData.subtitle} onChange={handleInputChange} />
-                        {/* {errors.subtitle ? <div className='fieldError'>{errors.subtitle}</div> : ''} */}
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='column'>
-                        <label>description*</label>
-                        <input type="text" id='description' value={formData.description} onChange={handleInputChange} />
+                        <label>Category*</label>
+                        <select placeholder='Choose...' id='category' value={formData.category} onChange={handleInputChange}>
+                            <option value="">Choose...</option>
+                            <option value="Mern">MERN</option>
+                            <option value="Mean">MEAN</option>
+                            <option value="Ruby">Ruby</option>
+                            <option value="React">React</option>
+                            <option value="Angular">Angular</option>
+                            <option value="JS" >JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="PhP">PHP</option>
+                            <option value="HTMLCSS">HTML&CSS</option>
+                        </select>
                         {/* {errors.description ? <div className='fieldError'>{errors.description}</div> : ''} */}
                     </div>
+                </div>
+                <div className='ghub'>
                     <div className='column'>
-                        <label>Phone*</label>
-                        <input type="tel" id='phone' value={formData.phone} onChange={handleInputChange} />
-                        {/* {errors.phone ? <div className='fieldError'>{errors.phone}</div> : ''} */}
+                        <label>GitHub Link*</label>
+                        <input type="text" id='ghub' value={formData.ghub} onChange={handleInputChange} />
+                        {/* {errors.ghub ? <div className='fieldError'>{errors.ghub}</div> : ''} */}
                     </div>
                 </div>
                 <div className='row'>
                     <div className='column'>
-                        <label>Email*</label>
-                        <input type="email" id='email' value={formData.email} onChange={handleInputChange} />
-                        {/* {errors.email ? <div className='fieldError'>{errors.email}</div> : ''} */}
+                        <label>Developer Name*</label>
+                        <input type="text" id='dev' value={formData.dev} onChange={handleInputChange} />
+                        {/* {errors.dev ? <div className='fieldError'>{errors.dev}</div> : ''} */}
                     </div>
                     <div className='column'>
-                        <label>web*</label>
-                        <input type="text" id='web' value={formData.web} onChange={handleInputChange} />
-                        {/* {errors.web ? <div className='fieldError'>{errors.web}</div> : ''} */}
+                        <label>Image Upload*</label>
+                        <input type="file" id="imgSrc" onChange={handleFileChange} accept="image/*" />
+                        {/* {errors.imgSrc ? <div className='fieldError'>{errors.imgSrc}</div> : ''} */}
                     </div>
                 </div>
                 <div className='options2'>
@@ -118,7 +136,7 @@ export default function AddProject() {
                         <button className='cancel' onClick={() => navigate('/')}>CANCEL</button>
                         <button className='refresh'><BiRefresh size={22} /></button>
                     </div>
-                    <button className='submitG' onClick={AddProject}>SUBMIT</button>
+                    <button className='submitG' onClick={Add}>SUBMIT</button>
                 </div>
             </form>
         </div>
