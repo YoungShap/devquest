@@ -4,9 +4,6 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 
-const app = express()
-
-
 // GET request to retrieve all projects
 router.get("/projects", async (req, res) => {
     try {
@@ -19,7 +16,7 @@ router.get("/projects", async (req, res) => {
 })
 
 // POST a new project
-const storage = multer.diskStorage({
+const storage = multer.diskStorage({ 
   destination: 'uploads/',
   filename: (req, file, cb) => {
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));

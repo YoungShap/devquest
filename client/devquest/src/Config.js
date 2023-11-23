@@ -36,3 +36,10 @@ export const pages = [
     { route: '/account', title: 'My Account', permissions: [RoleTypes.user, RoleTypes.business] },
   ];
 
+  export const structure = [
+    { name: 'lastName', type: 'text', label: 'Last Name', required: true, block: true },
+    { name: 'devName', type: 'text', label: 'User Name', required: true, block: true },
+    { name: 'password', type: 'password', label: 'Password', required: true, block: true },
+    { name: 'email', type: 'email', label: 'Email', required: false, block: false },
+  ]
+

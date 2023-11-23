@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function Copyright(props) {
     return (
@@ -30,14 +32,66 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
+    const navigate = useNavigate();
+    const [user, setUser] = useState();
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const handleInputChange = ev => {
+        const { id, value } = ev.target;
+        let obj = {
+            ...formData,
+            [id]: value,
+        };
+        setFormData(obj);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        fetch(`http://localhost:4000/auth/login`, {
+            credentials: 'include',
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+
+                email: data.get('email'),
+                password: data.get('password'),
+            }),
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    return res.text().then(x => {
+                        throw new Error(x);
+                    });
+                }
+            })
+            .then(data => {
+                setUser(data);
+                // setRoleType(RoleTypes.user);
+
+                // if (data.business) {
+                //     setRoleType(RoleTypes.business);
+                // } else if (data.admin) {
+                //     setRoleType(RoleTypes.admin);
+                // }
+
+                // snackbar(`${data.fullName} logged in successfully!`);
+                navigate('/');
+            })
+            .catch(err => {
+                // snackbar(err.message);
+            })
+            .finally(() => {
+                // setIsLoading(false);
+            });
     };
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -51,14 +105,15 @@ export default function Login() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main',backgroundColor:'black' }} >
-                        <LockOutlinedIcon  />
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main', backgroundColor: 'black' }} >
+                        <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5" sx={{color:'white'}} >
+                    <Typography component="h1" variant="h5" sx={{ color: 'white' }} >
                         Login
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField sx={{ backgroundColor: 'black', input:{color:'white'}, label:{color:'white'}, borderRadius:'5px'}}
+                        <TextField sx={{ backgroundColor: 'black', input: { color: 'white' }, label: { color: 'white' }, borderRadius: '5px' }}
+                            onChange={handleInputChange}
                             margin="normal"
                             required
                             fullWidth
@@ -68,7 +123,8 @@ export default function Login() {
                             autoComplete="email"
                             autoFocus
                         />
-                        <TextField sx={{ backgroundColor: 'black', input:{color:'white'}, label:{color:'white'}, borderRadius:'5px'}}
+                        <TextField sx={{ backgroundColor: 'black', input: { color: 'white' }, label: { color: 'white' }, borderRadius: '5px' }}
+                            onChange={handleInputChange}
                             margin="normal"
                             required
                             fullWidth
@@ -89,13 +145,13 @@ export default function Login() {
                         </Button>
                     </Box>
                 </Box>
-                        <Grid container>
-                            <Grid item>
-                                <Link href="/signup" variant="body2" sx={{ color: '#ddc8b3', textDecoration: 'none' }}>
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
+                <Grid container>
+                    <Grid item>
+                        <Link href="/signup" variant="body2" sx={{ color: '#ddc8b3', textDecoration: 'none' }}>
+                            {"Don't have an account? Sign Up"}
+                        </Link>
+                    </Grid>
+                </Grid>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>

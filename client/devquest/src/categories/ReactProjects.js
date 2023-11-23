@@ -36,7 +36,7 @@ export default function ReactProjects() {
             </div>
             <div className='card-frame'>
                 {
-                    projects.filter(p => p.category == "React").map(p =>
+                    projects.filter(p => p.category === "React").map(p =>
                         <div className='project-card'>
                           <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>
