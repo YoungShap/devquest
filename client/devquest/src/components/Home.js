@@ -80,13 +80,13 @@ export default function Home() {
                     </div>
                 </div>
                 <div className='project-card'>
-                    <div className='card-image' style={{ backgroundImage: `url(${require('../assets/snake.png')})` }}></div>
-                    <h1 className='card-h1'>Snake Game</h1>
+                    <div className='card-image' style={{ backgroundImage: `url(${require('../assets/tictac.png')})` }}></div>
+                    <h1 className='card-h1'>TicTacToe</h1>
                     <div className='my-p'>
                         <p><b>Category : JavaScript</b></p>
-                        <p><b>Dev Name : ImKennyYip</b></p>
+                        <p><b>Dev Name : YoungShap</b></p>
                         <div className='card-icons'>
-                            <a target="_blank" href='https://github.com/ImKennyYip/snake' ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></a>
+                            <a target="_blank" href='https://github.com/YoungShap/AvivShapiraProject/tree/master/JS-TS-Projects/project4' ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></a>
                             <Link to={'projects/js'}><SiJavascript style={{ color: '#fbc700', fontSize: '36px', borderRadius: '10px' }} /></Link>
                         </div>
                     </div>
@@ -104,13 +104,13 @@ export default function Home() {
                     </div>
                 </div>
                 <div className='project-card'>
-                    <div className='card-image' style={{ backgroundImage: `url(${require('../assets/school.png')})` }}></div>
-                    <h1 className='card-h1'>School System</h1>
+                    <div className='card-image' style={{ backgroundImage: `url(${require('../assets/tile.png')})` }}></div>
+                    <h1 className='card-h1'>Tile Game</h1>
                     <div className='my-p'>
                         <p><b>Category : PhP</b></p>
-                        <p><b>Dev Name : TechWithTim</b></p>
+                        <p><b>Dev Name : Brendt</b></p>
                         <div className='card-icons'>
-                            <a target="_blank" href='https://github.com/codingWithElias/school-management-system-php' ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></a>
+                            <a target="_blank" href='https://github.com/brendt/majo.stitcher.io' ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></a>
                             <Link to={'projects/php'}><BsFiletypePhp style={{ color: '#be8cff', fontSize: '37px' }} /></Link>
                         </div>
                     </div>
