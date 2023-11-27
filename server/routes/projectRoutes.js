@@ -3,6 +3,8 @@ const Project = require('../models/project');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const authGuard = require('../authentication/auth-guard');
+const projectOwnership = require('../authentication/projectOwnership');
 
 // GET request to retrieve all projects
 router.get("/projects", async (req, res) => {
@@ -16,50 +18,59 @@ router.get("/projects", async (req, res) => {
 })
 
 // POST a new project
-const storage = multer.diskStorage({ 
-  destination: 'uploads/',
-  filename: (req, file, cb) => {
-      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  },
+const storage = multer.diskStorage({
+    destination: 'uploads/',
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
 });
 const upload = multer({ storage });
 
-router.post('/projects/add', upload.single('imgSrc'), async (req, res) => {
-  try {
-      const { name, category, dev, favorite, ghub } = req.body;
+router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res) => {
+    try {
+        // authGuard middleware can now access req.body and req.file
 
-      const imgSrc = req.file.filename;
-      
-      const newProject = new Project({
-          name,
-          category,
-          dev,
-          favorite,
-          ghub,
-          imgSrc,
-      });
+        const { name, category, dev, favorite, ghub } = req.body;
 
-      // Save the new project to the database
-      const savedProject = await newProject.save();
+        const imgSrc = req.file.filename;
 
-      // Respond with the saved project data, including the generated id
-      res.json(savedProject);
-  } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-  }
+        const newProject = new Project({
+            name,
+            category,
+            dev,
+            favorite,
+            ghub,
+            imgSrc,
+        });
+
+        // Save the new project to the database
+        const savedProject = await newProject.save();
+
+        // Respond with the saved project data
+        res.json(savedProject);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
+//DELETE a project
+router.delete('/projects/:id', authGuard, projectOwnership,  async (req, res) => {
+    try {
+        await Project.deleteOne({ _id: req.params.id });
+        res.send();
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 // // GET a single project
 // router.get('/:id', (req, res) => {
 //     res.json({ msg: 'GET a single project' })
 // })
 
-// //DELETE a project
-// router.delete('/:id', (req, res) => {
-//     res.json({ msg: 'DELETE a project' })
-// })
 
 // //UPDATE/PUT projects
 // router.put('/:id', (req, res) => {

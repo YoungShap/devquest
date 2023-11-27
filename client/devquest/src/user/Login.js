@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -14,6 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { GeneralContext } from '../App';
 
 function Copyright(props) {
     return (
@@ -32,8 +31,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
+    const { setUser } = React.useContext(GeneralContext);
     const navigate = useNavigate();
-    const [user, setUser] = useState();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -50,46 +49,35 @@ export default function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
 
-        fetch(`http://localhost:4000/auth/login`, {
+          fetch("http://localhost:4000/auth/login", {
             credentials: 'include',
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({
-
-                email: data.get('email'),
-                password: data.get('password'),
-            }),
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(formData),
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return res.text().then(x => {
-                        throw new Error(x);
-                    });
-                }
-            })
-            .then(data => {
-                setUser(data);
-                // setRoleType(RoleTypes.user);
-
-                // if (data.business) {
-                //     setRoleType(RoleTypes.business);
-                // } else if (data.admin) {
-                //     setRoleType(RoleTypes.admin);
-                // }
-
-                // snackbar(`${data.fullName} logged in successfully!`);
-                navigate('/');
-            })
-            .catch(err => {
-                // snackbar(err.message);
-            })
-            .finally(() => {
-                // setIsLoading(false);
-            });
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return res.text().then(x => {
+                    throw new Error(x);
+                });
+            }
+        })
+        .then(data => {
+            setUser(data);
+            localStorage.token = data.token;
+            navigate('/');
+        })
+        .catch(err => {
+            // setLoginError(err.message);
+        })
+        .finally(() => {
+            // setLoading(false);
+        });
     };
 
 

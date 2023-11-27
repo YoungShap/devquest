@@ -54,7 +54,6 @@ export default function AddProject() {
            imgSrc: file || '', // Save the File object or an empty string if no file is selected
         });
      };
-     console.log(formData);
 
      function Add(ev) {
         ev.preventDefault();
@@ -68,6 +67,9 @@ export default function AddProject() {
       
         fetch(`http://localhost:4000/projects/add`, {
             credentials: 'include',
+            headers: {
+                'Authorization': localStorage.token
+            },
             method: 'POST',
             body: formDataToSend,
         })
