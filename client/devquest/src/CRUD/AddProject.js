@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import './Form.css'
 import './FormBtn.css'
 import { BiRefresh } from 'react-icons/bi';
+import { GeneralContext } from '../App';
 
 export default function AddProject() {
+    const { user } = React.useContext(GeneralContext);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
@@ -50,21 +52,23 @@ export default function AddProject() {
     const handleFileChange = (ev) => {
         const file = ev.target.files[0];
         setFormData({
-           ...formData,
-           imgSrc: file || '', // Save the File object or an empty string if no file is selected
+            ...formData,
+            imgSrc: file || '', // Save the File object or an empty string if no file is selected
         });
-     };
+    };
 
-     function Add(ev) {
+
+    function Add(ev) {
         ev.preventDefault();
-      
+
         const formDataToSend = new FormData();
         formDataToSend.append('name', formData.name);
         formDataToSend.append('category', formData.category);
         formDataToSend.append('dev', formData.dev);
         formDataToSend.append('imgSrc', formData.imgSrc);
         formDataToSend.append('ghub', formData.ghub);
-      
+        formDataToSend.append('ownerId', user.devName);
+
         fetch(`http://localhost:4000/projects/add`, {
             credentials: 'include',
             headers: {
@@ -73,18 +77,17 @@ export default function AddProject() {
             method: 'POST',
             body: formDataToSend,
         })
-        .then((res) => res.json())
-        .then((data) => {
-            setFormData(data);
-            //   snackbar("Card Added Successfully")
-        })
-        .catch((err) => {
-            //   snackbar(err.message);
-            navigate('/error');
-            console.log(err);
-        });
+            .then((res) => res.json())
+            .then((data) => {
+                setFormData(data);
+                //   snackbar("Card Added Successfully")
+            })
+            .catch((err) => {
+                //   snackbar(err.message);
+                navigate('/error');
+                console.log(err);
+            });
     }
-
 
     return (
         <div className="container2">

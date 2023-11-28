@@ -4,7 +4,6 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const authGuard = require('../authentication/auth-guard');
-const projectOwnership = require('../authentication/projectOwnership');
 
 // GET request to retrieve all projects
 router.get("/projects", async (req, res) => {
@@ -30,10 +29,9 @@ router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res
     try {
         // authGuard middleware can now access req.body and req.file
 
-        const { name, category, dev, favorite, ghub } = req.body;
-
+        const { name, category, dev, favorite, ghub, ownerId } = req.body;
         const imgSrc = req.file.filename;
-
+        
         const newProject = new Project({
             name,
             category,
@@ -41,6 +39,7 @@ router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res
             favorite,
             ghub,
             imgSrc,
+            ownerId,
         });
 
         // Save the new project to the database
@@ -54,8 +53,9 @@ router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res
     }
 });
 
+
 //DELETE a project
-router.delete('/projects/:id', authGuard, projectOwnership,  async (req, res) => {
+router.delete('/projects/:id', authGuard, async (req, res) => {
     try {
         await Project.deleteOne({ _id: req.params.id });
         res.send();
@@ -69,7 +69,7 @@ router.delete('/projects/:id', authGuard, projectOwnership,  async (req, res) =>
 // // GET a single project
 // router.get('/:id', (req, res) => {
 //     res.json({ msg: 'GET a single project' })
-// })
+// }) 
 
 
 // //UPDATE/PUT projects

@@ -3,10 +3,12 @@ import '../components/Home.css'
 import '../components/Cards.css'
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Link } from 'react-router-dom';
+import { BsFillTrash3Fill } from 'react-icons/bs';
+import { GeneralContext } from '../App';
 
 export default function ReactProjects() {
-
-    const [projects, setProjects] = useState([{}]);
+    const { user } = React.useContext(GeneralContext);
+    const [projects, setProjects] = useState([]);
 
     useEffect(() => {
         fetch("http://localhost:4000/projects")
@@ -28,6 +30,22 @@ export default function ReactProjects() {
             })
     }, []);
 
+    const deleteProject = id => {
+        if (!window.confirm('Are you sure you want to remove this Project?')) {
+            return;
+          }
+        fetch(`http://localhost:4000/projects/${id}`, {
+            method: 'DELETE',
+            credentials:'include',
+            headers: {
+                'Authorization': localStorage.token
+            },
+        }) 
+        .then(() => {
+            setProjects(projects.filter(p => p._id !== id));
+        });
+    }
+
     return (
         <div className='main-container'>
             <div className='MyTitle'>
@@ -37,7 +55,7 @@ export default function ReactProjects() {
             <div className='card-frame'>
                 {
                     projects.filter(p => p.category == "Mern").map(p =>
-                        <div className='project-card'>
+                        <div className='project-card' key={p._id}>
                            <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>
                             <div className='my-p'>
@@ -45,6 +63,7 @@ export default function ReactProjects() {
                                 <p><b>Dev Name : {p.dev}</b></p>
                                 <div className='card-icons'>
                                     <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></Link>
+                                    {user && <BsFillTrash3Fill className='Trash' size={26} style={{color:'white'}} onClick={() => deleteProject(p._id)} />}
                                 </div>
                             </div>
                         </div>
