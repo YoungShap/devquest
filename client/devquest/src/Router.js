@@ -12,6 +12,7 @@ import PhpProjects from "./categories/PhpProjects";
 import HtmlCssProjects from "./categories/HtmlCssProjects";
 import AddProject from "./CRUD/AddProject";
 import SignUp from "./user/SignUp";
+import EditProject from "./CRUD/EditProject";
 
 export default function Router() {  // this router is for when a user is connected  //
     return (
@@ -20,6 +21,7 @@ export default function Router() {  // this router is for when a user is connect
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='projects/add' element={<AddProject />} />
+            <Route path='projects/edit/:id' element={<EditProject />} />
             <Route path='/projects/mern' element={<MernProjects />} />
             <Route path='/projects/mean' element={<MeanProjects />} />
             <Route path='/projects/ruby' element={<RubyProjects />} />

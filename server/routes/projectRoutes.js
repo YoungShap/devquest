@@ -29,17 +29,17 @@ router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res
     try {
         // authGuard middleware can now access req.body and req.file
 
-        const { name, category, dev, favorite, ghub, ownerId } = req.body;
+        const { name, category, dev, ghub, uploadBy } = req.body;
         const imgSrc = req.file.filename;
-        
+
         const newProject = new Project({
             name,
             category,
             dev,
-            favorite,
+            favorite:false,
             ghub,
             imgSrc,
-            ownerId,
+            uploadBy,
         });
 
         // Save the new project to the database
@@ -66,15 +66,42 @@ router.delete('/projects/:id', authGuard, async (req, res) => {
     }
 });
 
-// // GET a single project
-// router.get('/:id', (req, res) => {
-//     res.json({ msg: 'GET a single project' })
-// }) 
+//EDIT a project
+router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res) => {
+    try {
+        const { name, category, dev, ghub } = req.body;
 
+        const imgSrc = req.file ? req.file.filename : undefined;
 
-// //UPDATE/PUT projects
-// router.put('/:id', (req, res) => {
-//     res.json({ msg: 'UPDATE a project' })
-// })
+        const project = await Project.findOne({ _id: req.params.id });
+
+        if (!project) {
+            return res.status(404).send("Project not found!");
+        }
+
+        // Update project properties
+        project.name = name;
+        project.category = category;
+        project.dev = dev;
+        project.ghub = ghub;
+
+        if (imgSrc) {
+            project.imgSrc = imgSrc;
+        }
+
+        await project.save();
+
+        res.json(project);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/projects/:id', authGuard, async (req, res) => {
+    res.send(await Project.findOne({ _id: req.params.id }));  
+});    
+ 
+
 
 module.exports = router 

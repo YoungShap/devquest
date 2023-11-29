@@ -4,7 +4,9 @@ import '../components/Cards.css'
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Link } from 'react-router-dom';
 import { BsFillTrash3Fill } from 'react-icons/bs';
+import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
+
 
 export default function ReactProjects() {
     const { user } = React.useContext(GeneralContext);
@@ -64,6 +66,7 @@ export default function ReactProjects() {
                                 <div className='card-icons'>
                                     <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></Link>
                                     {user && <BsFillTrash3Fill className='Trash' size={26} style={{color:'white'}} onClick={() => deleteProject(p._id)} />}
+                                   { user && <Link className='Edit' to={`/projects/edit/${p._id}`}><span><FiEdit size={26} /></span></Link> }
                                 </div>
                             </div>
                         </div>

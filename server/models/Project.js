@@ -7,7 +7,7 @@ const projectSchema = new mongoose.Schema({
     imgSrc: String,
     favorite: Boolean,
     ghub: String,
-    ownerId: String,
+    uploadBy: String,
 });
 
 const Project = mongoose.models.Project || mongoose.model('Project', projectSchema);
