@@ -14,14 +14,20 @@
 
 @media screen and (max-width:600px) {
     .MyTitle .p {
-        font-size: 12px;
+        font-size: 15px;
     }
     .MyTitle ul li {
-        font-size: 12px;
+        font-size: 14px;
     }
     
     .MyTitle h1 {
         font-size: 25px;
+    }
+}
+
+@media screen and (width:280px)  {
+    .MyTitle ul li {
+        font-size: 12px;
     }
 }
 

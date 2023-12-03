@@ -3,18 +3,45 @@
     justify-content: center;
     align-items: center;
     gap: 16px;
-    width: 80%;
+    width: 85%;
     margin: auto;
     margin-top: 60px;
 }
 
 .learn-btns button {
-    background-image: linear-gradient(120deg, #0e0d0d,#210838);
+    background-image: linear-gradient(120deg, #0e0d0d, #210838);
     color: white;
     width: 100%;
     font-size: 12px;
 }
 
+.learn-btns a {
+    width: 100%;
+}
+
 .learn-btns button:hover {
     box-shadow: 0px 0px 6px 2px #b76bf5;
 }
+
+.MyTitle .learn-p {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    font-size: 25px;
+    color: rgba(230, 221, 174, 0.842);
+}
+
+@media screen and (max-width:600px) {
+    .MyTitle .learn-p {
+        font-size: 22px;
+    }
+
+    .learn-btns button{
+        font-size: 10px;
+    }
+
+    .learn-btns {
+        gap: 4px;
+    }
+}
+

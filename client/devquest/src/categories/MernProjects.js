@@ -61,6 +61,7 @@ export default function ReactProjects() {
                     <li> <b>React:</b> JavaScript library for dynamic and interactive user interfaces on the client side.</li><br></br>
                     <li><b>Node.Js:</b> Backend runtime enabling server-side JavaScript execution.</li>
                 </ul>
+                <p className='learn-p'>Learn all about M.E.R.N Stack:</p>
             </div>
             <div className='learn-btns'>
             <Button variant="contained">React</Button>
