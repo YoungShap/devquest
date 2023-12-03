@@ -72,6 +72,7 @@ router.post('/signup', async (req, res) => {
         email,
         devName,
         password: await bcrypt.hash(password, 10),
+        favorites: [],
     });
 
     // הוספת המשתמש לדטה בייס
@@ -83,4 +84,24 @@ router.post('/signup', async (req, res) => {
     res.send(newUser);
 });
 
-module.exports = router;
+router.put("/users/:id", async (req, res) => {
+    try {
+        const { favorites } = req.body
+        const user = await User.findOne({ _id: req.params.id });
+        if (!user) {
+            return res.status(404).send('User not found!');
+        }
+        user.favorites = favorites;
+
+        await user.save();
+
+        const updatedUserInfo = { favorites: user.favorites };
+        res.json(updatedUserInfo);
+    }
+    catch {
+        console.error('error');
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+module.exports = router; 

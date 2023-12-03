@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
-import Login from "./user/Login";
 import ReactProjects from "./categories/ReactProjects";
 import MernProjects from "./categories/MernProjects";
 import MeanProjects from "./categories/MeanProjects";
@@ -11,8 +10,10 @@ import PythonProjects from "./categories/PythonProjects";
 import PhpProjects from "./categories/PhpProjects";
 import HtmlCssProjects from "./categories/HtmlCssProjects";
 import AddProject from "./CRUD/AddProject";
-import SignUp from "./user/SignUp";
 import EditProject from "./CRUD/EditProject";
+import Login from "./user/Login";
+import SignUp from "./user/SignUp";
+import Favorites from "./user/Favorites";
 
 export default function Router() {  // this router is for when a user is connected  //
     return (
@@ -31,6 +32,7 @@ export default function Router() {  // this router is for when a user is connect
             <Route path='/projects/python' element={<PythonProjects/>} />
             <Route path='/projects/php' element={<PhpProjects />} />
             <Route path='/projects/htmlcss' element={<HtmlCssProjects />} />
+            <Route path='/projects/favorites' element={<Favorites />} />
             {/* <Route path="*" element={<ErrorPage/>} />
             <Route path="/error" element={<ErrorPage/>} /> */}
         </Routes>

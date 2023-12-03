@@ -1,12 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./user/Login";
+import SignUp from "./user/SignUp";
 
 export default function Router() {  // this router is for when a user is connected  //
     return (
         <Routes>
             <Route path="/" element={<Home/>} />
             <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<SignUp />} />
             {/* <Route path='/cards/favorite' element={<FavoriteCards />} />
             <Route path='/admin/clients' element={<ClientManagement />} />
             <Route path='/business/cards/new' element={<CreateCard />} />

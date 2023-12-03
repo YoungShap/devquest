@@ -1,18 +1,43 @@
 .MyTitle {
+    width: 90%;
+    margin: auto;
     margin-top: 40px;
 }
 
 .MyTitle h1 {
     text-align: center;
-    color: #d8c297;
+    color: rgba(226, 219, 180, 0.842);
     font-family: 'Oswald, sans-serif';
     margin-bottom: 8px;
     font-size: 40px;
 }
 
+@media screen and (max-width:600px) {
+    .MyTitle .p {
+        font-size: 12px;
+    }
+    .MyTitle ul li {
+        font-size: 12px;
+    }
+    
+    .MyTitle h1 {
+        font-size: 25px;
+    }
+}
+
 .MyTitle p {
-    text-align: center;
     font-family: 'Oswald, sans-serif';
-    color: #e0d0ad;
+    color: rgba(226, 219, 180, 0.842);
     font-size: 20px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.MyTitle ul {
+    margin-top: 18px;
+    font-family: sans-serif;
+    color: #daefffd6;
+    font-size: 18px;
+    border-radius: 10px;
+    width: 60%;
 }

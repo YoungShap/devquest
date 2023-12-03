@@ -1,9 +1,8 @@
 // user roleTypes(Levels different users) //
 export const RoleTypes = {
   none: 0,
-  user: 1,
-  businessDev: 2,
-  admin: 3,
+  dev: 2,
+  admin: 2,
 }
 
 export  const checkPermissions = (permissions, userRoleType) => {
@@ -25,11 +24,11 @@ export const pages = [
   export const TopNavPages = [
     { route: '/', title: 'Home' },
     { route: '/about', title: 'About', permissions: [RoleTypes.user, RoleTypes.business] },
-    { route: '/favorite', title: 'Favorite Projects', permissions: [RoleTypes.user, RoleTypes.business] },
+    { route: '/projects/favorites', title: 'Favorite Projects', permissions: [RoleTypes.user, RoleTypes.business] },
     { route: '/myprojects', title: 'My Projects', permissions: [RoleTypes.user, RoleTypes.business] },
     { route: '/admin/clients', title: 'Admin', permissions: [RoleTypes.admin] },
     { route: "/login", title: 'Login', permissions: [RoleTypes.none1] },
-    { route: "/signup", title: 'Signup', permissions: [RoleTypes.none] },
+    { route: "/signup", title: 'Signup', permissions: [RoleTypes.none1] },
   ];
   export const settings = [
     { route: 'projects/add', title: 'Add Project', permissions: [RoleTypes.user, RoleTypes.business] },

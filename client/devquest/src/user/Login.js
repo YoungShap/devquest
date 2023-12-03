@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { GeneralContext } from '../App';
+import { RoleTypes } from '../Config';
 
 function Copyright(props) {
     return (
@@ -31,7 +32,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-    const { setUser } = React.useContext(GeneralContext);
+    const { setUser, setRoleType } = React.useContext(GeneralContext);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
@@ -70,6 +71,11 @@ export default function Login() {
         .then(data => {
             setUser(data);
             localStorage.token = data.token;
+            // if (data.type == 'Dev') {
+            //     setRoleType(RoleTypes.dev);
+            //   } else if (data.type == 'Admin') {
+            //     setRoleType(RoleTypes.admin);
+            //   }
             navigate('/');
         })
         .catch(err => {

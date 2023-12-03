@@ -9,12 +9,11 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { GeneralContext } from '../App';
 import { useContext, useState } from 'react';
 import { structure } from '../Config';
 
 const defaultTheme = createTheme();
-export default function Signup() {
+export default function SignUp() {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',

@@ -16,7 +16,7 @@ export default function Home() {
         <div className='main-container'>
             <div className='MyTitle'>
                 <h1>Welcome to DevQuest!</h1>
-                <p>Here are some of our favorite projects from all Categories</p>
+                <p>Here are some projects from all Categories</p>
             </div>
             <div className='card-frame'>
                 <div className='project-card'>
