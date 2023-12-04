@@ -20,7 +20,7 @@
 }
 
 .learn-btns button:hover {
-    box-shadow: 0px 0px 6px 2px #b76bf5;
+    box-shadow: 0px 0px 6px 2px #be8cff;
 }
 
 .MyTitle .learn-p {
@@ -29,6 +29,16 @@
     margin-top: 60px;
     font-size: 25px;
     color: rgba(230, 221, 174, 0.842);
+}
+
+.MyTitle ul {
+    padding: 10px;
+    margin-top: 18px;
+    font-family: sans-serif;
+    color: #bbe2ffd6;
+    font-size: 18px;
+    border-radius: 10px;
+    width: 60%;
 }
 
 @media screen and (max-width:600px) {

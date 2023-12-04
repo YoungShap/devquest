@@ -63,9 +63,9 @@ export default function ReactProjects() {
                 <p className='learn-p'>Learn all about Ruby on Rails:</p>
             </div>
             <div className='learn-btns'>
-            <Link to={'https://guides.rubyonrails.org/'} target='blank'><Button>RailsGuides</Button></Link>
-            <Link to={'https://www.codecademy.com/learn/learn-rails'} target='blank'><Button>CodeCademy</Button></Link>
-            <Link to={'http://railscasts.com/'} target='blank'><Button>RailsCasts</Button></Link>
+                <Link to={'https://guides.rubyonrails.org/'} target='blank'><Button>RailsGuides</Button></Link>
+                <Link to={'https://www.codecademy.com/learn/learn-rails'} target='blank'><Button>CodeCademy</Button></Link>
+                <Link to={'http://railscasts.com/'} target='blank'><Button>RailsCasts</Button></Link>
             </div>
 
             <div className='card-frame'>
