@@ -51,7 +51,7 @@ export default function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-          fetch("http://localhost:4000/auth/login", {
+        fetch("http://localhost:4000/auth/login", {
             credentials: 'include',
             method: "POST",
             headers: {
@@ -59,31 +59,33 @@ export default function Login() {
             },
             body: JSON.stringify(formData),
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return res.text().then(x => {
-                    throw new Error(x);
-                });
-            }
-        })
-        .then(data => {
-            setUser(data);
-            localStorage.token = data.token;
-            // if (data.type == 'Dev') {
-            //     setRoleType(RoleTypes.dev);
-            //   } else if (data.type == 'Admin') {
-            //     setRoleType(RoleTypes.admin);
-            //   }
-            navigate('/');
-        })
-        .catch(err => {
-            // setLoginError(err.message);
-        })
-        .finally(() => {
-            // setLoading(false);
-        });
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    return res.text().then(x => {
+                        throw new Error(x);
+                    });
+                }
+            })
+            .then(data => {
+                setUser(data);
+                localStorage.token = data.token;
+                if (data.type === 'Dev') {
+                    setRoleType(RoleTypes.dev);
+                } else if (data.type === 'Admin') {
+                    setRoleType(RoleTypes.admin);
+                } else {
+                    setRoleType(RoleTypes.none);
+                }
+                navigate('/');
+            })
+            .catch(err => {
+                // setLoginError(err.message);
+            })
+            .finally(() => {
+                // setLoading(false);
+            });
     };
 
 

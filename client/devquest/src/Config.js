@@ -1,7 +1,7 @@
 // user roleTypes(Levels different users) //
 export const RoleTypes = {
   none: 0,
-  dev: 2,
+  dev: 1,
   admin: 2,
 }
 
@@ -11,28 +11,28 @@ export  const checkPermissions = (permissions, userRoleType) => {
 
 // all pages availible and who can access them by filtering roleTypes //
 export const pages = [
-    { route: '/projects/mern', title: 'MERN', permissions: [RoleTypes.user, RoleTypes.admin, RoleTypes.business] },
-    { route: '/projects/mean', title: 'MEAN', permissions: [RoleTypes.business, RoleTypes.admin] },
-    { route: '/projects/ruby', title: 'Ruby', permissions: [RoleTypes.business, RoleTypes.admin] },
-    { route: '/projects/react', title: 'React', permissions: [RoleTypes.business, RoleTypes.admin] },
-    { route: '/projects/angular', title: 'Angular', permissions: [RoleTypes.business, RoleTypes.admin] },
-    { route: '/projects/js', title: 'JS', permissions: [RoleTypes.business, RoleTypes.admin] },
-    { route: '/projects/python', title: 'Python', permissions: [RoleTypes.business, RoleTypes.admin] },
-    { route: '/projects/php', title: 'PhP', permissions: [RoleTypes.business, RoleTypes.admin] },
-    { route: '/projects/htmlcss', title: 'html&css', permissions: [RoleTypes.business, RoleTypes.admin] },
+    { route: '/projects/mern', title: 'MERN', permissions: [RoleTypes.none, RoleTypes.dev, RoleTypes.admin] },
+    { route: '/projects/mean', title: 'MEAN', permissions: [RoleTypes.none, RoleTypes.dev, RoleTypes.admin] },
+    { route: '/projects/ruby', title: 'Ruby', permissions: [RoleTypes.none, RoleTypes.dev, RoleTypes.admin] },
+    { route: '/projects/react', title: 'React', permissions: [RoleTypes.none, RoleTypes.dev, RoleTypes.admin] },
+    { route: '/projects/angular', title: 'Angular', permissions: [RoleTypes.none, RoleTypes.dev, RoleTypes.admin] },
+    { route: '/projects/js', title: 'JS', permissions: [RoleTypes.none, RoleTypes.dev, RoleTypes.admin] },
+    { route: '/projects/python', title: 'Python', permissions: [RoleTypes.none, RoleTypes.dev, RoleTypes.admin] },
+    { route: '/projects/php', title: 'PhP', permissions: [RoleTypes.none, RoleTypes.dev, RoleTypes.admin]},
+    { route: '/projects/htmlcss', title: 'html&css', permissions: [RoleTypes.none, RoleTypes.dev, RoleTypes.admin] },
   ];
   export const TopNavPages = [
     { route: '/', title: 'Home' },
     { route: '/about', title: 'About', permissions: [RoleTypes.user, RoleTypes.business] },
-    { route: '/projects/favorites', title: 'Favorite Projects', permissions: [RoleTypes.user, RoleTypes.business] },
-    { route: '/myprojects', title: 'My Projects', permissions: [RoleTypes.user, RoleTypes.business] },
+    { route: '/projects/favorites', title: 'Favorite Projects', permissions: [RoleTypes.dev, RoleTypes.admin] },
+    { route: '/myprojects', title: 'My Projects', permissions: [RoleTypes.dev, RoleTypes.admin] },
     { route: '/admin/clients', title: 'Admin', permissions: [RoleTypes.admin] },
-    { route: "/login", title: 'Login', permissions: [RoleTypes.none1] },
-    { route: "/signup", title: 'Signup', permissions: [RoleTypes.none1] },
+    { route: "/login", title: 'Login', permissions: [RoleTypes.none] },
+    { route: "/signup", title: 'Signup', permissions: [RoleTypes.none] },
   ];
   export const settings = [
-    { route: 'projects/add', title: 'Add Project', permissions: [RoleTypes.user, RoleTypes.business] },
-    { route: '/account', title: 'My Account', permissions: [RoleTypes.user, RoleTypes.business] },
+    { route: 'projects/add', title: 'Add Project', permissions: [RoleTypes.dev, RoleTypes.admin] },
+    { route: '/account', title: 'My Account', permissions: [RoleTypes.dev, RoleTypes.admin] },
   ];
 
   export const structure = [

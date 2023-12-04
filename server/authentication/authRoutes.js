@@ -84,6 +84,11 @@ router.post('/signup', async (req, res) => {
     res.send(newUser);
 });
 
+router.post('/logout', (req, res) => {
+    res.clearCookie('token'); 
+    res.json({ message: 'Logout successful' });
+});
+
 router.put("/users/:id", async (req, res) => {
     try {
         const { favorites } = req.body

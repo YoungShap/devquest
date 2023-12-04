@@ -4,15 +4,17 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import WebhookIcon from '@mui/icons-material/Webhook';
 import { Link, useNavigate, useResolvedPath } from 'react-router-dom';
 // import { GeneralContext } from '../App';
-import { RoleTypes, checkPermissions, pages, settings } from '../Config';
+import { checkPermissions, pages } from '../Config';
+import { GeneralContext } from '../App';
 // import ToggleTheme from './ToggleTheme';
 
 
 export default function Navbar() {
+    const { roleType } = React.useContext(GeneralContext);
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
     const navigate = useNavigate();
@@ -71,7 +73,7 @@ export default function Navbar() {
                     > {/* and media screen logo name */}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md:'flex', lg: 'flex' },overflowX:'auto' }}>
-                        {pages.filter(p => !p.permissions || checkPermissions(p.permissions)).map((page) => (
+                        {pages.filter(p => !p.permissions || checkPermissions(p.permissions, roleType)).map((page) => (
                             <Link to={page.route} key={page.route} style={{ textDecoration: 'none', color: 'initial' }}>
                                 <Button
                                     onClick={handleCloseNavMenu}

@@ -37,16 +37,17 @@ function App() {
                 })
                 .then(data => {
                     setUser(data);
-                    // setRoleType(RoleTypes.user);
-                    // if (data.type == 'Dev') {
-                    //   setRoleType(RoleTypes.dev);
-                    // } else if (data.type == 'Admin') {
-                    //   setRoleType(RoleTypes.admin);
-                    // }
+                    if (data.type === 'Dev') {
+                        setRoleType(RoleTypes.dev);
+                    } else if (data.type === 'Admin') {
+                        setRoleType(RoleTypes.admin);
+                    } else {
+                        setRoleType(RoleTypes.none);
+                    }
                 })
                 .catch(err => {
                     // snackbar('משתמש לא מחובר');
-                    // setRoleType(RoleTypes.none);
+                    setRoleType(RoleTypes.none);
                     navigate('/');
                 })
                 .finally(() => {
@@ -75,24 +76,24 @@ function App() {
             if (!response.ok) {
                 throw new Error("Error updating user");
             }
-                
-                const updatedUser = await response.json();
-                console.log("Updated User:", updatedUser);
-                
-                setUser((user) => ({ ...user, favorites: updatedUser.favorites }));
-            }
+
+            const updatedUser = await response.json();
+            console.log("Updated User:", updatedUser);
+
+            setUser((user) => ({ ...user, favorites: updatedUser.favorites }));
+        }
         catch (err) {
             console.error(err);
         }
     };
 
     return (
-        <GeneralContext.Provider value={{ user, setUser, setRoleType, favorite  }}>
+        <GeneralContext.Provider value={{ user, setUser, setRoleType, favorite, roleType }}>
             <div className="App">
                 <TopNavbar />
                 <Navbar />
 
-                <Router /> 
+                <Router />
 
 
             </div>
