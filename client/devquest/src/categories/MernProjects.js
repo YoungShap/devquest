@@ -64,9 +64,9 @@ export default function ReactProjects() {
                 <p className='learn-p'>Learn all about M.E.R.N Stack:</p>
             </div>
             <div className='learn-btns'>
-            <Button variant="contained">React</Button>
-            <Button variant="contained">Node.Js</Button>
-            <Button variant="contained">MongoDB</Button>
+                <Link to={'https://www.w3schools.com/react/default.asp'} target='_blank'><Button>react</Button></Link>
+                <Link to={'https://www.w3schools.com/nodejs/default.asp'} target='_blank'><Button>Node.js</Button></Link>
+                <Link to={'https://www.w3schools.com/mongodb/index.php'} target='_blank'><Button>MongoDB</Button></Link>
             </div>
             <div className='card-frame'>
                 {
