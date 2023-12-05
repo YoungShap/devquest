@@ -8,6 +8,7 @@ import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
+import AddCardBtn from '../components/AddCardBtn';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -39,7 +40,7 @@ export default function ReactProjects() {
         }
         fetch(`http://localhost:4000/projects/${id}`, {
             method: 'DELETE',
-            credentials:'include',
+            credentials: 'include',
             headers: {
                 'Authorization': localStorage.token
             },
@@ -54,22 +55,23 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>Angular</h1>
                 <p className='p'>
-                Angular is a full-fledged TypeScript framework for dynamic web applications:
+                    Angular, a full-fledged TypeScript framework, empowers developers in building dynamic web applications with precision and efficiency:
                 </p>
                 <br />
                 <br />
-                <ul>
-  <li><b>Declarative:</b> Angular simplifies UI creation for various app states.</li>
-  <br />
-  <li><b>Component-Based:</b> Develop modular components for dynamic UIs.</li>
-  <br />
-  <li><b>Two-Way Binding:</b> Angular syncs model and view for real-time updates.</li>
-  <br />
-  <li><b>Templates:</b> Use HTML templates for defining and enhancing view dynamics.</li>
-</ul>
+                <div className='info-and-add'>
+                    <ul>
+                        <li><b>Declarative:</b> Simplifying UI creation across app states in Angular.</li><br></br>
+                        <li><b>Component-Based:</b> Crafting dynamic UIs through modular components.</li><br></br>
+                        <li><b>Two-Way Binding:</b> Achieving real-time updates by syncing model and view in Angular.</li><br></br>
+                        <li><b>Templates:</b> Enhancing view dynamics with HTML templates in Angular.</li>
+                    </ul>
 
-
-
+                    {
+                        user &&
+                        <AddCardBtn />
+                    }
+                </div>
                 <p className='learn-p'>Learn all about Angular:</p>
 
             </div>

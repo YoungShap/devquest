@@ -8,6 +8,7 @@ import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
+import AddCardBtn from '../components/AddCardBtn';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -39,7 +40,7 @@ export default function ReactProjects() {
         }
         fetch(`http://localhost:4000/projects/${id}`, {
             method: 'DELETE',
-            credentials:'include',
+            credentials: 'include',
             headers: {
                 'Authorization': localStorage.token
             },
@@ -58,16 +59,19 @@ export default function ReactProjects() {
                 </p>
                 <br />
                 <br />
-                <ul>
-                    <li><b>Readability:</b> Create clean and structured code.</li>
-                    <br />
-                    <li><b>Modularity:</b> Develop scalable layouts with HTML and CSS.</li>
-                    <br />
-                    <li><b>Web Development:</b> Essential for static and dynamic websites.</li>
-                    <br />
-                    <li><b>Styling:</b> Use CSS for effective presentation.</li>
-                </ul>
+                <div className='info-and-add'>
+                    <ul>
+                        <li><b>Readability:</b> Prioritize clean and structured code with HTML and CSS.</li><br></br>
+                        <li><b>Modularity:</b> Build scalable layouts seamlessly using HTML and CSS.</li><br></br>
+                        <li><b>Web Development:</b> HTML and CSS are fundamental for both static and dynamic websites.</li><br></br>
+                        <li><b>Styling:</b> Leverage CSS effectively for presentation in web development.</li>
+                    </ul>
 
+                    {
+                        user &&
+                        <AddCardBtn />
+                    }
+                </div>
                 <p className='learn-p'>Learn all about HTML & CSS:</p>
             </div>
             <div className='learn-btns'>

@@ -35,7 +35,7 @@
     padding: 10px;
     margin-top: 18px;
     font-family: sans-serif;
-    color: #bbe2ffd6;
+    color: #aeddffd6;
     font-size: 18px;
     border-radius: 10px;
     width: 60%;
@@ -53,5 +53,10 @@
     .learn-btns {
         gap: 4px;
     }
+}
+
+.info-and-add{
+    display: flex;
+    flex-direction: row;
 }
 

@@ -8,6 +8,7 @@ import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
+import AddCardBtn from '../components/AddCardBtn';
 
 
 export default function ReactProjects() {
@@ -55,12 +56,18 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>MERN Stack</h1>
                 <p className='p'>The MERN stack is a popular web development framework known for its versatility and scalability:</p><br></br><br></br>
-                <ul>
-                    <li><b>MongoDB:</b> NoSQL database offering flexibility and scalability.</li><br></br>
-                    <li><b>Express.js:</b> Minimalist web app framework for Node.js, simplifying server-side development.</li><br></br>
-                    <li> <b>React:</b> JavaScript library for dynamic and interactive user interfaces on the client side.</li><br></br>
-                    <li><b>Node.Js:</b> Backend runtime enabling server-side JavaScript execution.</li>
-                </ul>
+                <div className='info-and-add'>
+                    <ul>
+                        <li><b>MongoDB:</b> NoSQL database offering flexibility and scalability.</li><br></br>
+                        <li><b>Express.js:</b> Minimalist web app framework for Node.js, simplifying server-side development.</li><br></br>
+                        <li> <b>React:</b> JavaScript library for dynamic and interactive user interfaces on the client side.</li><br></br>
+                        <li><b>Node.Js:</b> Backend runtime enabling server-side JavaScript execution.</li>
+                    </ul>
+                    {
+                        user &&
+                        <AddCardBtn/>
+                    }
+                </div>
                 <p className='learn-p'>Learn all about M.E.R.N Stack:</p>
             </div>
             <div className='learn-btns'>

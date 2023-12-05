@@ -8,6 +8,7 @@ import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
+import AddCardBtn from '../components/AddCardBtn';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -39,7 +40,7 @@ export default function ReactProjects() {
         }
         fetch(`http://localhost:4000/projects/${id}`, {
             method: 'DELETE',
-            credentials:'include',
+            credentials: 'include',
             headers: {
                 'Authorization': localStorage.token
             },
@@ -54,20 +55,25 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>Python</h1>
                 <p className='p'>
-                Python is a versatile language for web application development:
+                    Python is a versatile language for web application development:
                 </p>
                 <br />
                 <br />
-                <ul>
-                    <li><b>Readability:</b> Python prioritizes clean and understandable code.</li>
-                    <br />
-                    <li><b>Modularity:</b> Build scalable applications with Python's modular components.</li>
-                    <br />
-                    <li><b>Data Science:</b> Python excels with rich libraries for data analysis, machine learning, and visualization.</li>
-                    <br />
-                    <li><b>Automation:</b> Use Python for efficient automation and workflows.</li>
-                </ul>
-
+                <div className='info-and-add'>
+                    <ul>
+                        <li><b>Readability:</b> Python prioritizes clean and understandable code.</li>
+                        <br />
+                        <li><b>Modularity:</b> Build scalable applications with Python's modular components.</li>
+                        <br />
+                        <li><b>Data Science:</b> Python excels with rich libraries for data analysis, machine learning, and visualization.</li>
+                        <br />
+                        <li><b>Automation:</b> Use Python for efficient automation and workflows.</li>
+                    </ul>
+                    {
+                        user &&
+                        <AddCardBtn />
+                    }
+                </div>
 
                 <p className='learn-p'>Learn all about Python:</p>
             </div>

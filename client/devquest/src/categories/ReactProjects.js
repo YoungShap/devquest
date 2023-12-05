@@ -8,6 +8,7 @@ import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
+import AddCardBtn from '../components/AddCardBtn';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -39,7 +40,7 @@ export default function ReactProjects() {
         }
         fetch(`http://localhost:4000/projects/${id}`, {
             method: 'DELETE',
-            credentials:'include',
+            credentials: 'include',
             headers: {
                 'Authorization': localStorage.token
             },
@@ -54,19 +55,29 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>React</h1>
                 <p className='p'>
-                React is a robust JavaScript library for dynamic web applications:
+                React, a dynamic JavaScript library, empowers web developers with its robust capabilities in crafting interactive applications:
                 </p>
                 <br />
                 <br />
-                <ul>
-                    <li><b>Declarative:</b> React simplifies UI creation with clear views for each state.</li>
-                    <br />
-                    <li><b>Component-Based:</b> Develop modular components for interactive UIs.</li>
-                    <br />
-                    <li><b>Virtual DOM:</b> Optimizes performance by updating only necessary parts.</li>
-                    <br />
-                    <li><b>JSX:</b> JavaScript syntax in React, streamlining dynamic UI development.</li>
-                </ul>
+                <div className='info-and-add'>
+                    <ul>
+                        <li><b>Declarative:</b> Simplifies UI creation with a clear state view syntax.</li><br></br>
+                        <li><b>Component-Based:</b> Develops modular, reusable components for interactive UIs.</li><br></br>
+                        <li><b>Virtual DOM:</b> Optimizes performance by updating only necessary parts efficiently.</li><br></br>
+                        <li><b>JSX:</b> Simplifies dynamic UI development with a JavaScript syntax closely resembling HTML in React.</li>
+
+
+                    </ul>
+
+
+
+
+
+                    {
+                        user &&
+                        <AddCardBtn />
+                    }
+                </div>
 
                 <p className='learn-p'>Learn all about React:</p>
             </div>

@@ -8,6 +8,7 @@ import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
+import AddCardBtn from '../components/AddCardBtn';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -38,7 +39,7 @@ export default function ReactProjects() {
         }
         fetch(`http://localhost:4000/projects/${id}`, {
             method: 'DELETE',
-            credentials:'include',
+            credentials: 'include',
             headers: {
                 'Authorization': localStorage.token
             },
@@ -57,17 +58,19 @@ export default function ReactProjects() {
                 </p>
                 <br />
                 <br />
-                <ul>
-                    <li><b>Readability:</b> Emphasizes clean code.</li>
-                    <br />
-                    <li><b>Modularity:</b> Develop scalable apps with PHP's modular components.</li>
-                    <br />
-                    <li><b>Web Development:</b> Widely used for dynamic websites and server-side apps.</li>
-                    <br />
-                    <li><b>Server-Side Scripting:</b> Leverage PHP for dynamic server-side scripting.</li>
-                </ul>
+                <div className='info-and-add'>
+                    <ul>
+                        <li><b>Readability:</b> Prioritize clean code practices in PHP development.</li><br></br>
+                        <li><b>Modularity:</b> Create scalable applications with PHP's modular components.</li><br></br>
+                        <li><b>Web Development:</b> PHP is a prevalent choice for dynamic websites and server-side applications.</li><br></br>
+                        <li><b>Server-Side Scripting:</b> Harness PHP for efficient dynamic server-side scripting.</li>
+                    </ul>
 
-
+                    {
+                        user &&
+                        <AddCardBtn />
+                    }
+                </div>
                 <p className='learn-p'>Learn all about PHP:</p>
             </div>
             <div className='learn-btns'>

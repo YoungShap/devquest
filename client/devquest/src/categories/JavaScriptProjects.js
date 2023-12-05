@@ -8,6 +8,7 @@ import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
+import AddCardBtn from '../components/AddCardBtn';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -39,7 +40,7 @@ export default function ReactProjects() {
         }
         fetch(`http://localhost:4000/projects/${id}`, {
             method: 'DELETE',
-            credentials:'include',
+            credentials: 'include',
             headers: {
                 'Authorization': localStorage.token
             },
@@ -54,22 +55,25 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>JavaScript</h1>
                 <p className='p'>
-                JavaScript is a versatile language for dynamic web applications:
+                    JavaScript is a versatile language for dynamic web applications:
                 </p>
                 <br />
                 <br />
-                <ul>
-                    <li><b>Declarative UI:</b> JavaScript enables clear views for app states.</li>
-                    <br />
-                    <li><b>Modular Components:</b> Develop dynamic interfaces with JavaScript's modules.</li>
-                    <br />
-                    <li><b>Event Handling:</b> JavaScript ensures real-time updates and sync between model and view.</li>
-                    <br />
-                    <li><b>DOM Manipulation:</b> Use JavaScript for enhancing view dynamics.</li>
-                </ul>
-
-
-
+                <div className='info-and-add'>
+                    <ul>
+                        <li><b>Declarative UI:</b> JavaScript enables clear views for app states.</li>
+                        <br />
+                        <li><b>Modular Components:</b> Develop dynamic interfaces with JavaScript's modules.</li>
+                        <br />
+                        <li><b>Event Handling:</b> JavaScript ensures real-time updates and sync between model and view.</li>
+                        <br />
+                        <li><b>DOM Manipulation:</b> Use JavaScript for enhancing view dynamics.</li>
+                    </ul>
+                    {
+                        user &&
+                        <AddCardBtn/>
+                    }
+                </div>
                 <p className='learn-p'>Learn all about JavaScript:</p>
             </div>
             <div className='learn-btns'>
