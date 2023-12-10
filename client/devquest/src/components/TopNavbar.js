@@ -39,7 +39,7 @@ export default function Navbar() {
     const logout = () => {
         fetch('http://localhost:4000/auth/logout', {
             method: 'POST',
-            credentials: 'include', 
+            credentials: 'include',
         })
             .then(response => response.json())
             .then(() => {
@@ -78,7 +78,7 @@ export default function Navbar() {
                             }}
                         >
                             DevQuest
-                            <WebhookIcon sx={{ padding: '4px' }} />
+                            <WebhookIcon sx={{ fontSize: '28px', marginTop: '2px' }} />
                         </Typography>
                     </Link>
                     {/* hamburger */}
@@ -183,13 +183,24 @@ export default function Navbar() {
                                 {
                                     settings.map(setting => {
                                         return (
-                                            setting.permissions.includes(roleType) && <Link to={setting.route} key={setting.route} style={{ textDecoration: 'none', color: 'initial' }} >
-                                                <MenuItem onClick={handleCloseUserMenu}>
-                                                    <Typography textAlign="center">{setting.title}</Typography>
-                                                </MenuItem>
-                                            </Link>
-                                        )
-                                    })}
+                                            setting.permissions.includes(roleType) && (
+                                                <Link
+                                                    to={setting.route}
+                                                    key={setting.route}
+                                                    style={{ textDecoration: 'none', color: 'initial' }}
+                                                >
+                                                    <MenuItem onClick={handleCloseUserMenu}>
+                                                        <Typography textAlign="center">
+                                                            {setting.route === '/account/edit/:id' ? 'My Account' : setting.title}
+                                                        </Typography>
+                                                    </MenuItem>
+                                                </Link>
+                                            )
+                                        );
+                                    })
+                                }
+
+
                                 <Link to={'/'} style={{ textDecoration: 'none', color: 'initial' }} >
                                     <MenuItem >
                                         <Typography textAlign="center" onClick={logout}>Logout</Typography>

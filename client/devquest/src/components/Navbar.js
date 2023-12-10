@@ -52,7 +52,7 @@ export default function Navbar() {
                                 padding: '10px',
                             }}
                             >
-                            <WebhookIcon sx={{padding:'4px'}}/>
+                           <WebhookIcon sx={{ fontSize:'28px' }}/>
                         </Typography>
                     </Link>
                     <Typography style={{ textDecoration: 'none', color: '#ddc8b3'}}

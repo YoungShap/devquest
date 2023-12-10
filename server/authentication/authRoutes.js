@@ -4,27 +4,41 @@ const express = require('express');
 require('dotenv').config();
 const User = require('./userModel');
 const authGuard = require('./auth-guard');
+const adminGuard = require('./adminGuard');
 const router = express.Router();
 
-const getUser = (req, res) => {
+const getUserId = (req, res) => {
     if (!req.headers.authorization) {
         return null;
     }
-
     const data = jwt.decode(req.headers.authorization, process.env.JWT_SECRET);
 
     if (!data) {
         return res.status(401).send("User is not authorized");
     }
 
-    return data.user;
-}
+    return data.id;
+};
 
 // Login status
 router.get('/login', authGuard, async (req, res) => {
-    const user = getUser(req, res);
+    const _id = getUserId(req, res);
 
-    res.send(user);
+    try {
+        const LoggedUser = await User.findOne({ _id });
+
+        if (!LoggedUser) {
+            return res.status(403).send("username or password is incorrect");
+        }
+
+        delete LoggedUser.password;
+        delete LoggedUser.email;
+
+        res.send(LoggedUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 router.post('/login', async (req, res) => {
@@ -42,12 +56,13 @@ router.post('/login', async (req, res) => {
         return res.status(403).send("username or password is incorrect");
     }
 
-    // יצירת אובייקט רגיל מהמחלקה של היוזר
+    // יצירת אובייקט רגיל מהמחלקה של היוזר 
     const userResult = user.toObject();
     // מחיקת הסיסמה מהאובייקט שנשלח למשתמש
     delete userResult.password;
+    delete userResult.email;
     // יצירת טוקן
-    userResult.token = jwt.sign({ user: userResult }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    userResult.token = jwt.sign({ id: userResult._id , type: userResult.type }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.send(userResult);
 });
@@ -85,11 +100,36 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-    res.clearCookie('token'); 
+    res.clearCookie('token');
     res.json({ message: 'Logout successful' });
 });
 
-router.put("/users/:id", async (req, res) => {
+
+// GET all users
+router.get("/users", adminGuard, async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.status(200).send(users);
+    } catch (error) {
+        console.error(error); // Log the error
+        res.status(500).send("Error retrieving users")
+    }
+})
+
+//DELETE a User
+router.delete('/users/:id', adminGuard, async (req, res) => {
+    try {
+        await User.deleteOne({ _id: req.params.id });
+        res.send();
+    }
+    catch (error) {
+        console.error(error); 
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}); 
+
+// favorites
+router.put("/users/:id", authGuard, async (req, res) => {
     try {
         const { favorites } = req.body
         const user = await User.findOne({ _id: req.params.id });
@@ -108,5 +148,78 @@ router.put("/users/:id", async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+// GET 1 user
+router.get("/users/:id", adminGuard, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findOne({ _id: id });
 
-module.exports = router; 
+        if (!user) {
+            return res.status(404).send("User not found!");
+        }
+
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+//EDIT(PUT) user
+router.put('/users/edit/:id', authGuard, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await User.findOne({ userId });
+        const { firstName, lastName, password, devName, email, } = req.body;
+
+
+        if (!user) {
+            return res.status(404).send("Project not found!");
+        }
+
+        // Update project properties 
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.password = await bcrypt.hash(password, 10);
+        user.devName = devName;
+        user.email = email;
+
+
+        await user.save();
+
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.put('/admin/users/:id', adminGuard, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findOne({ _id: id });
+        const { firstName, lastName, password, devName, email, } = req.body;
+
+
+        if (!user) {
+            return res.status(404).send("Project not found!");
+        }
+
+        // Update project properties 
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.password = await bcrypt.hash(password, 10);
+        user.devName = devName;
+        user.email = email;
+
+
+        await user.save();
+
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+module.exports = router;  

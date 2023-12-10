@@ -9,6 +9,7 @@ import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
+import { SiPython } from 'react-icons/si';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -59,6 +60,9 @@ export default function ReactProjects() {
                 </p>
                 <br />
                 <br />
+                <div className='learn-icons'>
+                    <SiPython  size={28} style={{ color: "#0093ff" }} />
+                </div>
                 <div className='info-and-add'>
                     <ul>
                         <li><b>Readability:</b> Python prioritizes clean and understandable code.</li>

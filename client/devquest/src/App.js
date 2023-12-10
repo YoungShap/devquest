@@ -14,13 +14,13 @@ function App() {
     const [user, setUser] = useState();
     const navigate = useNavigate();
     const [roleType, setRoleType] = useState(RoleTypes.none);
+    const [search, setSearch] = useState('');
+    const [searchWord, setSearchWord] = useState('');
 
 
     useEffect(() => {
         if (localStorage.token) {
-            // setLoading(true);
-
-            fetch("http://localhost:4000/auth/login", {
+            fetch(`http://localhost:4000/auth/login`, {
                 credentials: 'include',
                 headers: {
                     'Authorization': localStorage.token
@@ -46,12 +46,8 @@ function App() {
                     }
                 })
                 .catch(err => {
-                    // snackbar('משתמש לא מחובר');
                     setRoleType(RoleTypes.none);
                     navigate('/');
-                })
-                .finally(() => {
-                    // setLoading(false);
                 });
         } else {
             navigate('/');
@@ -69,7 +65,8 @@ function App() {
             const response = await fetch(`http://localhost:4000/auth/users/${user._id}`, {
                 method: 'PUT',
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    'Authorization': localStorage.token
                 },
                 body: JSON.stringify(dataToUpdate),
             });
@@ -88,7 +85,9 @@ function App() {
     };
 
     return (
-        <GeneralContext.Provider value={{ user, setUser, setRoleType, favorite, roleType }}>
+        <GeneralContext.Provider value={{
+            user, setUser, setRoleType, favorite, roleType, search,
+            setSearch, searchWord , setSearchWord}}>
             <div className="App">
                 <TopNavbar />
                 <Navbar />

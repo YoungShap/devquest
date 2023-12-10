@@ -9,6 +9,7 @@ import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
+import { FaReact } from 'react-icons/fa';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -55,10 +56,13 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>React</h1>
                 <p className='p'>
-                React, a dynamic JavaScript library, empowers web developers with its robust capabilities in crafting interactive applications:
+                    React, a dynamic JavaScript library, empowers web developers with its robust capabilities in crafting interactive applications:
                 </p>
                 <br />
                 <br />
+                <div className='learn-icons'>
+                    <FaReact size={30} style={{ color: "teal" }} />
+                </div>
                 <div className='info-and-add'>
                     <ul>
                         <li><b>Declarative:</b> Simplifies UI creation with a clear state view syntax.</li><br></br>

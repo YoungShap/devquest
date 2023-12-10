@@ -1,22 +1,53 @@
 import React from 'react'
 import '../components/Home.css'
 import '../components/Cards.css'
+import '../categories/Categories.css'
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { FaReact } from 'react-icons/fa';
+import { FaAngular, FaNodeJs, FaReact } from 'react-icons/fa';
 import { GiStoneStack } from 'react-icons/gi';
 import { GrStackOverflow } from 'react-icons/gr';
 import { BsFiletypePhp } from 'react-icons/bs';
-import { SiAngular, SiJavascript, SiHtml5 } from 'react-icons/si';
-import { IoLogoPython } from 'react-icons/io';
+import { SiAngular, SiJavascript, SiHtml5, SiExpress, SiPython } from 'react-icons/si';
+import { IoLogoCss3, IoLogoPython } from 'react-icons/io';
 import { DiRuby } from 'react-icons/di';
 import { Link } from 'react-router-dom';
+import { BiLogoMongodb } from 'react-icons/bi';
+import { RiJavascriptFill } from 'react-icons/ri';
+import { TbFileTypePhp } from 'react-icons/tb';
+import { GeneralContext } from '../App';
 
 export default function Home() {
+    const { user } = React.useContext(GeneralContext);
     return (
         <div className='main-container'>
             <div className='MyTitle'>
                 <h1>Welcome to DevQuest!</h1>
                 <p>Here are some projects from all Categories</p>
+                <div className='learn-icons-fav'>
+                    <Link to={'projects/mern'}><GiStoneStack style={{ color: "#69a8d7" }} /></Link>
+                   <Link to={'projects/mean'}> <GrStackOverflow style={{ color: "#50c770" }} /></Link>
+                    <Link to={'projects/ruby'}><DiRuby style={{ color: "#870f0f" }} /></Link>
+                   <Link to={'projects/react'}> <FaReact style={{ color: "teal" }} /></Link>
+                    <Link to={'projects/angular'}><FaAngular style={{ color: "#870f0f" }} /></Link>
+                   <Link to={'projects/js'}> <RiJavascriptFill style={{ color: "#b3b31a" }} /></Link>
+                   <Link to={'projects/python'}> <SiPython style={{ color: "#0093ff" }} /></Link>
+                   <Link to={'projects/php'}> <TbFileTypePhp style={{ color: "#be8cff" }} /></Link>
+                   <Link to={'projects/htmlcss'}> <SiHtml5 style={{ color: "#cb6d07" }} /></Link>
+                  <Link to={'projects/htmlcss'}>  <IoLogoCss3 style={{ color: "#318cc3" }} /></Link>
+                </div>
+                {/* <div className='info-and-add'>
+                    <ul>
+                        <li><b>DevQuest: Your Learning Hub</b> Discover a comprehensive platform dedicated to learning and improvement in web development.</li><br></br>
+                        <li><b>Diverse Technology Categories: </b> Explore a wide range of web development technologies and frameworks.</li><br></br>
+                        <li> <b>Hands-On Projects:</b> Engage with hands-on projects in each category to reinforce your skills.</li><br></br>
+                        <li><b>Suitable for All Levels:</b> Whether you're a beginner or an experienced developer, DevQuest caters to all skill levels.</li><br></br>
+                        <li><b>Stay Current:</b>  Keep pace with the ever-evolving web development landscape through curated learning experiences.</li>
+                    </ul>
+                    {
+                        user &&
+                        <AddCardBtn />
+                    }
+                </div> */}
             </div>
             <div className='card-frame'>
                 <div className='project-card'>

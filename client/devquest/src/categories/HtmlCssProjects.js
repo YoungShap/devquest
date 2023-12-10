@@ -9,6 +9,8 @@ import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
+import { SiHtml5 } from 'react-icons/si';
+import { IoLogoCss3 } from 'react-icons/io';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -59,6 +61,10 @@ export default function ReactProjects() {
                 </p>
                 <br />
                 <br />
+                <div className='learn-icons'>
+                    <SiHtml5  size={30} style={{ color: "#cb6d07"}} />
+                    <IoLogoCss3  size={31} style={{ color: "#318cc3" }} />
+                </div>
                 <div className='info-and-add'>
                     <ul>
                         <li><b>Readability:</b> Prioritize clean and structured code with HTML and CSS.</li><br></br>
@@ -66,7 +72,6 @@ export default function ReactProjects() {
                         <li><b>Web Development:</b> HTML and CSS are fundamental for both static and dynamic websites.</li><br></br>
                         <li><b>Styling:</b> Leverage CSS effectively for presentation in web development.</li>
                     </ul>
-
                     {
                         user &&
                         <AddCardBtn />
@@ -75,7 +80,7 @@ export default function ReactProjects() {
                 <p className='learn-p'>Learn all about HTML & CSS:</p>
             </div>
             <div className='learn-btns'>
-                <Link to={'https://developer.mozilla.org/en-US/docs/Web/HTML'} target='_blank'><Button>w3 HTML</Button></Link>
+                <Link to={'https://www.w3schools.com/html/default.asp'} target='_blank'><Button>w3 HTML</Button></Link>
                 <Link to={'https://developer.mozilla.org/en-US/docs/Web/CSS'} target='_blank'><Button>CSS MDN</Button></Link>
                 <Link to={'https://www.codecademy.com/learn/learn-css'} target='_blank'><Button>CodeCademy</Button></Link>
             </div>

@@ -14,6 +14,11 @@ import EditProject from "./CRUD/EditProject";
 import Login from "./user/Login";
 import SignUp from "./user/SignUp";
 import Favorites from "./user/Favorites";
+import MyProjects from "./user/MyProjects";
+import UserManage from "./admin/UserManage";
+import Account from "./user/Account";
+import EditUsers from "./admin/EditUsers";
+
 
 export default function Router() {  // this router is for when a user is connected  //
     return (
@@ -23,6 +28,11 @@ export default function Router() {  // this router is for when a user is connect
             <Route path='/signup' element={<SignUp />} />
             <Route path='projects/add' element={<AddProject />} />
             <Route path='projects/edit/:id' element={<EditProject />} />
+            <Route path='/projects/favorites' element={<Favorites />} />
+            <Route path='/projects/myprojects' element={<MyProjects />} />
+            <Route path='/admin/sandbox' element={<UserManage />} />
+            <Route path='/account' element={<Account />} />
+            <Route path='/admin/users/edit/:id' element={<EditUsers />} />
             <Route path='/projects/mern' element={<MernProjects />} />
             <Route path='/projects/mean' element={<MeanProjects />} />
             <Route path='/projects/ruby' element={<RubyProjects />} />
@@ -32,7 +42,6 @@ export default function Router() {  // this router is for when a user is connect
             <Route path='/projects/python' element={<PythonProjects/>} />
             <Route path='/projects/php' element={<PhpProjects />} />
             <Route path='/projects/htmlcss' element={<HtmlCssProjects />} />
-            <Route path='/projects/favorites' element={<Favorites />} />
             {/* <Route path="*" element={<ErrorPage/>} />
             <Route path="/error" element={<ErrorPage/>} /> */}
         </Routes>

@@ -6,7 +6,7 @@
 
 .MyTitle h1 {
     text-align: center;
-    color: #e1d8a1d7;
+    color: #fcfcc3e6;
     font-family: 'Oswald, sans-serif';
     margin-bottom: 8px;
     font-size: 40px;
@@ -16,16 +16,21 @@
     .MyTitle .p {
         font-size: 15px;
     }
+
     .MyTitle ul li {
         font-size: 14px;
     }
-    
+
     .MyTitle h1 {
         font-size: 25px;
     }
+
+    .main-container .learn-icons-fav svg {
+        font-size: 26px;
+    }
 }
 
-@media screen and (width:280px)  {
+@media screen and (width:280px) {
     .MyTitle ul li {
         font-size: 12px;
     }
@@ -39,3 +44,26 @@
     margin-bottom: 5px;
 }
 
+.learn-icons-fav {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+    margin-bottom: 16px;
+    gap: 8px;
+    margin-top: 25px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.learn-icons-fav svg {
+    box-shadow: 4px 2px 16px 2px rgba(0, 0, 0, 0.616);
+    background-color: rgba(0, 0, 0, 0.61);
+    border-radius: 45%;
+    padding: 5px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    font-size: 30px;
+    cursor: pointer;
+}

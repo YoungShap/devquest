@@ -9,6 +9,7 @@ import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
+import { DiRuby } from 'react-icons/di';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -55,6 +56,9 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>Ruby on Rails</h1>
                 <p className='p'>Ruby on Rails, often simply called Rails, is a robust web development framework known for its convention over configuration and opinionated design:</p><br></br><br></br>
+                <div className='learn-icons'>
+                    <DiRuby size={28} style={{ color: "#870f0f", padding: "7px" }} />
+                </div>
                 <div className='info-and-add'>
                     <ul>
                         <li><b>Ruby:</b> Dynamic, object-oriented programming language.</li><br></br>

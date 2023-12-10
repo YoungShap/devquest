@@ -1,8 +1,8 @@
 .project-card-add  {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.856), rgba(0, 0, 0, 0.829), rgba(7, 1, 20, 0.637), rgba(0, 0, 0, 0.849));
-    height: 200px;
-    width: 20%;
-    margin-top: 30px;
+    background-image: linear-gradient(rgb(0 0 0 / 37%), rgb(0 0 0 / 25%), rgb(7 1 20 / 28%), rgb(0 0 0 / 47%));
+    height: 220px;
+    width: 25%;
+    margin-top: 22px;
     margin-left: 20px;
     padding: 20px;
     border-radius: 10px;
@@ -49,18 +49,24 @@
     cursor: pointer;
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:695px) {
     .addCardLink {
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
     }
 
     .project-card-add {
-        height: 120px;
+        height: 140px;
+        margin-top: 26px;
     }
 
     .card-image-add {
-        height: 54px;
+        height: 58px;
+    }
+
+    .project-card-add .card-h2-add{
+        font-size: 10px;
+        padding-top: 6px;
     }
 }
 .addCardDiv {
@@ -68,4 +74,11 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
+}
+
+.project-card-add h2 {
+    text-align: center;
+    font-size: 16px;
+    padding-top: 8px;
+    color: rgb(252, 227, 194);
 }

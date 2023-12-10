@@ -7,13 +7,16 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { structure } from '../Config';
+import { GeneralContext } from '../App';
 
 const defaultTheme = createTheme();
-export default function SignUp() {
+export default function Account() {
+    const { id } = useParams();
+    const { user, setUser } = useContext(GeneralContext);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -25,6 +28,15 @@ export default function SignUp() {
     //   const [errors, setErrors] = useState({});
     //   const [isValid, setIsValid] = useState(false);
 
+    useEffect(() => {
+        // setIsLoading(true);
+        if (user) {
+          setFormData(user);
+        } else {
+        //   snackbar('Error, No User Found!');
+        }
+        // setIsLoading(false);
+      }, [user])
 
     const handleInputChange = ev => {
         const { id, value } = ev.target;
@@ -47,40 +59,40 @@ export default function SignUp() {
         // } 
 
         setFormData(obj);
+        console.log(formData);
         // setErrors(err);
     };
 
-    function signup(ev) {
+    const save = async (ev) => {
         ev.preventDefault();
-        fetch("http://localhost:4000/auth/signup", {
-            credentials: 'include',
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-        })
-            .then(res => {
-                if (res.ok) {
-                    return res.json()
-                        .then(() => {
-                            //   snackbar("User was created successfully")
-                            navigate('/login');
-                        })
-                } else {
-                    return res.text()
-                        .then(x => {
-                            throw new Error(x);
-                        });
-                }
-            })
-            .catch(err => {
-               console.log(err);
-            })
-            .finally(() => {
-                // setIsLoading(false);
-            })
-    }
 
-    return (
+        const userId = user._id
+       
+        try {
+          const response = await fetch(
+            `http://localhost:4000/auth/users/edit/${userId}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': localStorage.token,
+              },
+              body: JSON.stringify(formData),
+            }
+          );
+    
+          if (!response.ok) {
+            throw new Error("Error updating user");
+          }
+    
+          const updatedUser = await response.json();
+          setUser(updatedUser);
+          navigate("/");
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="md">
                 <CssBaseline />
@@ -96,14 +108,15 @@ export default function SignUp() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5" sx={{ color: 'white' }}>
-                        Sign up
+                        Edit Account
                     </Typography>
-                    <Box component="form" noValidate onSubmit={signup} sx={{ mt: 3 }}>
+                    <Box component="form" noValidate onSubmit={save} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField sx={{ backgroundColor: 'black', input: { color: 'white' }, label: { color: 'white' }, borderRadius: '5px' }}
                                     onChange={handleInputChange}
                                     autoComplete="given-name"
+                                    value={formData.firstName}
                                     name="firstName"
                                     required
                                     fullWidth
@@ -124,6 +137,7 @@ export default function SignUp() {
                                             fullWidth
                                             id={item.name}
                                             label={item.label}
+                                            value={formData[item.name]}
                                         />
                                         {/* {errors[item.name] ? <div className='fieldError'>{errors[item.name]}</div> : ''} */}
                                     </Grid>)
@@ -135,7 +149,7 @@ export default function SignUp() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign Up
+                           Save Changes
                         </Button >
                         <Grid container justifyContent="center">
                             <Grid item>

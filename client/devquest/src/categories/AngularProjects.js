@@ -9,6 +9,7 @@ import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
+import { FaAngular } from 'react-icons/fa';
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -59,6 +60,9 @@ export default function ReactProjects() {
                 </p>
                 <br />
                 <br />
+                <div className='learn-icons'>
+                    <FaAngular size={30} style={{ color: "#870f0f" }} />
+                </div>
                 <div className='info-and-add'>
                     <ul>
                         <li><b>Declarative:</b> Simplifying UI creation across app states in Angular.</li><br></br>

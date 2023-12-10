@@ -1,19 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import '../components/Home.css'
 import '../components/Cards.css'
+import '../categories/Categories.css'
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Link } from 'react-router-dom';
 import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
+import { BiLogoMongodb } from 'react-icons/bi';
+import { SiExpress, SiHtml5, SiPython } from 'react-icons/si';
+import { FaAngular, FaNodeJs, FaReact } from 'react-icons/fa';
+import { DiRuby } from 'react-icons/di';
+import { RiJavascriptFill } from 'react-icons/ri';
+import { TbFileTypePhp } from 'react-icons/tb';
+import { IoLogoCss3 } from 'react-icons/io';
 
 
 export default function Favorites() {
-    const { user, setUser, favorite } = React.useContext(GeneralContext);
+    const { user, favorite } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:4000/projects")
+        fetch("http://localhost:4000/projects", {
+            credentials: 'include',
+            headers: {
+                'Authorization': localStorage.token
+            },
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -30,7 +43,7 @@ export default function Favorites() {
                     error
                 );
             })
-    }, []);
+    }, [favorite]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -48,40 +61,25 @@ export default function Favorites() {
             });
     }
 
-    const unfavorite = async (id) => {
-        const updatedFavs = user.favorites.filter((favId) => favId !== id);
-        const dataToUpdate = {
-            favorites: updatedFavs,
-        };
-
-        try {
-            const response = await fetch(`http://localhost:4000/auth/users/${user._id}`, {
-                method: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataToUpdate),
-            });
-
-            if (!response.ok) {
-                throw new Error("Error updating user");
-            }
-
-            const updatedUser = await response.json();
-            console.log("Updated User:", updatedUser);
-
-            setUser((user) => ({ ...user, favorites: updatedUser.favorites }));
-            setProjects(projects.filter(p => p._id !== id));
-        } catch (err) {
-            console.error(err);
-        }
-    };
 
     return (
         <div className='main-container'>
             <div className='MyTitle'>
                 <h1>Favorite Projects</h1>
-                <p>filler </p>
+                <p>Here you'll find all your Favorite Projects</p>
+                <div className='learn-icons-fav'>
+                    <BiLogoMongodb style={{ color: "green" }} />
+                    <SiExpress style={{ color: "#7d8000" }} />
+                    <FaReact style={{ color: "teal" }} />
+                    <FaAngular style={{ color: "#870f0f" }} />
+                    <FaNodeJs style={{ color: "green" }} />
+                    <DiRuby style={{ color: "#870f0f" }} />
+                    <RiJavascriptFill style={{ color: "#b3b31a" }} />
+                    <SiPython style={{ color: "#0093ff" }} />
+                    <TbFileTypePhp style={{ color: "#be8cff" }} />
+                    <SiHtml5 style={{ color: "#cb6d07" }} />
+                    <IoLogoCss3 style={{ color: "#318cc3" }} />
+                </div>
             </div>
             <div className='card-frame'>
                 {
@@ -96,7 +94,7 @@ export default function Favorites() {
                                     <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></Link>
                                     {user && <BsFillTrash3Fill className='Trash' size={26} style={{ color: 'white' }} onClick={() => deleteProject(p._id)} />}
                                     {user && <Link className='Edit' to={`/projects/edit/${p._id}`}><span><FiEdit size={26} /></span></Link>}
-                                    <span > {user && <BsFillHeartFill className='Heart' size={26} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => unfavorite(p._id)} />}</span>
+                                    <span > {user && <BsFillHeartFill className='Heart' size={26} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => favorite(p._id)} />}</span>
                                 </div>
                             </div>
                         </div>

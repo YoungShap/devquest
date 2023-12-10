@@ -9,6 +9,8 @@ import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
+import { TbFileTypePhp } from "react-icons/tb";
+
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -58,6 +60,9 @@ export default function ReactProjects() {
                 </p>
                 <br />
                 <br />
+                <div className='learn-icons'>
+                    <TbFileTypePhp  size={32} style={{ color: "#be8cff" }} />
+                </div>
                 <div className='info-and-add'>
                     <ul>
                         <li><b>Readability:</b> Prioritize clean code practices in PHP development.</li><br></br>

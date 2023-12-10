@@ -33,7 +33,7 @@ export default function EditProject() {
             .catch(() => {
                 navigate("/error");
             });
-    }, []);
+    }, []); 
     
     // const cardSchema = Joi.object({
     //     name: Joi.string().min(3).max(50).required(),

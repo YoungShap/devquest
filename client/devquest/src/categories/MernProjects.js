@@ -9,6 +9,9 @@ import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
+import { BiLogoMongodb } from 'react-icons/bi';
+import { FaNodeJs, FaReact } from 'react-icons/fa';
+import { SiExpress } from 'react-icons/si';
 
 
 export default function ReactProjects() {
@@ -56,6 +59,12 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>MERN Stack</h1>
                 <p className='p'>The MERN stack is a popular web development framework known for its versatility and scalability:</p><br></br><br></br>
+                <div className='learn-icons'>
+                    <BiLogoMongodb size={30} style={{ color: "green" }} />
+                    <SiExpress size={30} style={{ color: "#7d8000" }} />
+                    <FaReact size={30} style={{ color: "teal" }} />
+                    <FaNodeJs size={30} style={{ color: "green" }} />
+                </div>
                 <div className='info-and-add'>
                     <ul>
                         <li><b>MongoDB:</b> NoSQL database offering flexibility and scalability.</li><br></br>
@@ -65,7 +74,7 @@ export default function ReactProjects() {
                     </ul>
                     {
                         user &&
-                        <AddCardBtn/>
+                        <AddCardBtn />
                     }
                 </div>
                 <p className='learn-p'>Learn all about M.E.R.N Stack:</p>

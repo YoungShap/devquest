@@ -9,6 +9,7 @@ import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
+import { RiJavascriptFill } from "react-icons/ri";
 
 export default function ReactProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
@@ -59,6 +60,9 @@ export default function ReactProjects() {
                 </p>
                 <br />
                 <br />
+                <div className='learn-icons'>
+                    <RiJavascriptFill size={30} style={{ color: "#b3b31a" }} />
+                </div>
                 <div className='info-and-add'>
                     <ul>
                         <li><b>Declarative UI:</b> JavaScript enables clear views for app states.</li>
@@ -71,7 +75,7 @@ export default function ReactProjects() {
                     </ul>
                     {
                         user &&
-                        <AddCardBtn/>
+                        <AddCardBtn />
                     }
                 </div>
                 <p className='learn-p'>Learn all about JavaScript:</p>

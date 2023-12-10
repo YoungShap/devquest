@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import '../components/Home.css'
 import '../components/Cards.css'
-import './Categories.css'
+import '../categories/Categories.css'
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Link } from 'react-router-dom';
 import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { GeneralContext } from '../App';
-import { Button } from '@mui/material';
-import AddCardBtn from '../components/AddCardBtn';
 import { BiLogoMongodb } from 'react-icons/bi';
-import { SiExpress } from 'react-icons/si';
-import { FaAngular, FaNodeJs } from 'react-icons/fa';
+import { SiExpress, SiHtml5, SiPython } from 'react-icons/si';
+import { FaAngular, FaNodeJs, FaReact } from 'react-icons/fa';
+import { DiRuby } from 'react-icons/di';
+import { RiJavascriptFill } from 'react-icons/ri';
+import { TbFileTypePhp } from 'react-icons/tb';
+import { IoLogoCss3 } from 'react-icons/io';
+import AddCardBtn from '../components/AddCardBtn';
 
-export default function ReactProjects() {
+
+export default function MyProjects() {
     const { user, favorite } = React.useContext(GeneralContext);
-    const [projects, setProjects] = useState([{}]);
+    const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:4000/projects")
+        fetch("http://localhost:4000/projects", {
+            credentials: 'include',
+            headers: {
+                'Authorization': localStorage.token
+            },
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -26,8 +35,10 @@ export default function ReactProjects() {
                 return response.json();
             })
             .then((data) => {
-                setProjects(data);
-                console.log(data);
+                if (user && user.devName) {
+                    setProjects(data.filter(p => p.uploadBy === user.devName));
+                    console.log(data);
+                }
             })
             .catch((error) => {
                 console.error(
@@ -35,7 +46,7 @@ export default function ReactProjects() {
                     error
                 );
             })
-    }, []);
+    }, [favorite]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -53,41 +64,42 @@ export default function ReactProjects() {
             });
     }
 
+
     return (
         <div className='main-container'>
             <div className='MyTitle'>
-                <h1>MEAN Stack</h1>
-                <p className='p'>The MEAN stack is a dynamic web development framework known for its comprehensive and efficient components:</p><br></br><br></br>
-                <div className='learn-icons'>
-                    <BiLogoMongodb size={30} style={{ color: "green" }} />
-                    <SiExpress size={30} style={{ color: "#7d8000" }} />
-                    <FaAngular size={30} style={{ color: "#870f0f" }} />
-                    <FaNodeJs size={30} style={{ color: "green" }} />
+                <h1>My Projects</h1>
+                <p>Here you'll find all of the Projects added by You!</p>
+                <div className='learn-icons-fav'>
+                    <BiLogoMongodb style={{ color: "green" }} />
+                    <SiExpress style={{ color: "#7d8000" }} />
+                    <FaReact style={{ color: "teal" }} />
+                    <FaAngular style={{ color: "#870f0f" }} />
+                    <FaNodeJs style={{ color: "green" }} />
+                    <DiRuby style={{ color: "#870f0f" }} />
+                    <RiJavascriptFill style={{ color: "#b3b31a" }} />
+                    <SiPython style={{ color: "#0093ff" }} />
+                    <TbFileTypePhp style={{ color: "#be8cff" }} />
+                    <SiHtml5 style={{ color: "#cb6d07" }} />
+                    <IoLogoCss3 style={{ color: "#318cc3" }} />
                 </div>
                 <div className='info-and-add'>
                     <ul>
-                        <li><b>MongoDB:</b> NoSQL database providing flexibility and scalability.</li><br></br>
-                        <li><b>Express.js:</b> Minimalist web app framework for Node.js, streamlining server-side development.</li><br></br>
-                        <li> <b>Angular:</b> Frontend framework for building dynamic and robust user interfaces.</li><br></br>
-                        <li><b>Node.js:</b> Backend runtime enabling server-side JavaScript execution.</li>
+                        <li><b>Customize and refine your projects with easy editing options.</b></li><br></br>
+                        <li><b>Elevate your preferred projects to the Favorites tab for quick access.</b></li><br></br>
+                        <li><b>Add more Projects to enrich the community's learning experience.</b></li><br></br>
                     </ul>
+
                     {
                         user &&
                         <AddCardBtn />
                     }
                 </div>
-                <p className='learn-p'>Learn all about M.E.A.N Stack:</p>
             </div>
-            <div className='learn-btns'>
-                <Link to={'https://www.w3schools.com/angular/default.asp'} target='_blank'><Button>angular</Button></Link>
-                <Link to={'https://www.w3schools.com/nodejs/default.asp'} target='_blank'><Button>Node.js</Button></Link>
-                <Link to={'https://www.w3schools.com/mongodb/index.php'} target='_blank'><Button>MongoDB</Button></Link>
-            </div>
-
             <div className='card-frame'>
                 {
-                    projects.filter(p => p.category == "Mean").map(p =>
-                        <div className='project-card'>
+                    projects.map(p =>
+                        <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>
                             <div className='my-p'>
