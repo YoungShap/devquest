@@ -5,7 +5,7 @@ const projectSchema = new mongoose.Schema({
     category: String,
     dev: String,
     imgSrc: String,
-    favorite: Boolean,
+    homePage: Boolean,
     ghub: String,
     uploadBy: String,
 });

@@ -4,6 +4,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const authGuard = require('../authentication/auth-guard');
+const adminGuard = require('../authentication/adminGuard');
 
 // GET request to retrieve all projects
 router.get("/projects", async (req, res) => {
@@ -36,7 +37,7 @@ router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res
             name,
             category,
             dev,
-            favorite:false,
+            homePage:false,
             ghub,
             imgSrc,
             uploadBy,
@@ -91,7 +92,7 @@ router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res)
 
         await project.save();
 
-        res.json(project);
+        res.json(project); 
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -102,6 +103,22 @@ router.get('/projects/:id', authGuard, async (req, res) => {
     res.send(await Project.findOne({ _id: req.params.id }));  
 });    
  
+router.put('/projects/toggleHome/:id', adminGuard,  async (req, res) => {
+    try {
+        // Fetch the project by ID
+        const project = await Project.findOne({ _id: req.params.id });
 
+        // Toggle the homePage value
+        project.homePage = !project.homePage;
 
-module.exports = router 
+        // Save the updated project
+        await project.save();
+
+        res.status(200).json({ success: true, message: 'Toggle successful', project });
+    } catch (error) {
+        console.error('Toggle failed:', error);
+        res.status(500).json({ success: false, message: 'Toggle failed' });
+    }
+}); 
+  
+module.exports = router  

@@ -32,13 +32,13 @@
     background-color: rgba(15, 14, 14, 0.938);
     color: white;
     padding: 15px;
-    width: 100%;
+    width: 95%;
     margin-top: 5px;
     border-radius: 5px;
     border: 2px solid rgba(98, 26, 112, 0.178)
 }
 
-.container2 .row {
+.container2 .row  {
     flex-direction: row;
     display: flex;
     margin: auto;
@@ -46,6 +46,7 @@
     margin-top: 10px;
     gap: 15px;
 }
+
 
 @media screen and (max-width:934px) {
     .container2 .row {

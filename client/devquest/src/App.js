@@ -16,8 +16,9 @@ function App() {
     const [roleType, setRoleType] = useState(RoleTypes.none);
     const [search, setSearch] = useState('');
     const [searchWord, setSearchWord] = useState('');
+    const [homeProjects, setHomeProjects] = useState([]);
 
-
+    // LOGIN STATUS:
     useEffect(() => {
         if (localStorage.token) {
             fetch(`http://localhost:4000/auth/login`, {
@@ -54,6 +55,7 @@ function App() {
         }
     }, []);
 
+    // FAVORITE FUNCTION USED IN 10 MORE COMPONENTS(that is why its in the App):
     const favorite = async (id) => {
         const isAlreadyFav = user.favorites.includes(id);
         const updatedFavs = isAlreadyFav ? user.favorites.filter((favId) => favId !== id) :
@@ -84,10 +86,42 @@ function App() {
         }
     };
 
+    // Admin only function to add/remove projects from the home page
+    const toggleHomePage = (id) => {
+        fetch(`http://localhost:4000/projects/toggleHome/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': localStorage.token
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error updating user");
+                }
+                return response.json();
+            })
+            .then(updatedHome => {
+                setHomeProjects((prevProjects) => {
+                    const updatedProjects = [...prevProjects];
+                    const index = updatedProjects.findIndex(project => project._id === id);
+                    if (index !== -1) {
+                        updatedProjects[index].homePage = updatedHome.homePage;
+                    }
+                    return updatedProjects;
+                });
+                console.log("Toggle successful");
+            })
+            .catch(error => {
+                console.error('Toggle failed:', error);
+                // Handle error
+            });
+    };
+
     return (
         <GeneralContext.Provider value={{
             user, setUser, setRoleType, favorite, roleType, search,
-            setSearch, searchWord , setSearchWord}}>
+            setSearch, searchWord, setSearchWord, toggleHomePage
+        }}>
             <div className="App">
                 <TopNavbar />
                 <Navbar />

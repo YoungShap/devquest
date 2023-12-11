@@ -25,7 +25,7 @@ export const pages = [
   ];
   export const TopNavPages = [
     { route: '/', title: 'Home' },
-    { route: '/about', title: 'About', permissions: [RoleTypes.user, RoleTypes.business] },
+    { route: '/about', title: 'About', permissions: [RoleTypes.dev, RoleTypes.admin, RoleTypes.none] },
     { route: '/projects/favorites', title: 'Favorite Projects', permissions: [RoleTypes.dev, RoleTypes.admin] },
     { route: '/projects/myprojects', title: 'My Projects', permissions: [RoleTypes.dev, RoleTypes.admin] },
     { route: '/admin/sandbox', title: 'Admin', permissions: [RoleTypes.admin] },

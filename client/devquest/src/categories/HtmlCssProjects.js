@@ -10,10 +10,10 @@ import { GeneralContext } from '../App';
 import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
 import { SiHtml5 } from 'react-icons/si';
-import { IoLogoCss3 } from 'react-icons/io';
+import { IoLogoCss3, IoMdHome } from 'react-icons/io';
 
 export default function ReactProjects() {
-    const { user, favorite } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([{}]);
 
     useEffect(() => {
@@ -26,7 +26,6 @@ export default function ReactProjects() {
             })
             .then((data) => {
                 setProjects(data);
-                console.log(data);
             })
             .catch((error) => {
                 console.error(
@@ -34,7 +33,7 @@ export default function ReactProjects() {
                     error
                 );
             })
-    }, []);
+    }, [toggleHomePage]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -62,8 +61,8 @@ export default function ReactProjects() {
                 <br />
                 <br />
                 <div className='learn-icons'>
-                    <SiHtml5  size={30} style={{ color: "#cb6d07"}} />
-                    <IoLogoCss3  size={31} style={{ color: "#318cc3" }} />
+                    <SiHtml5 size={30} style={{ color: "#cb6d07" }} />
+                    <IoLogoCss3 size={31} style={{ color: "#318cc3" }} />
                 </div>
                 <div className='info-and-add'>
                     <ul>
@@ -88,7 +87,7 @@ export default function ReactProjects() {
             <div className='card-frame'>
                 {
                     projects.filter(p => p.category == "HTMLCSS").map(p =>
-                        <div className='project-card'>
+                        <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>
                             <div className='my-p'>
@@ -99,6 +98,10 @@ export default function ReactProjects() {
                                     {user && <BsFillTrash3Fill className='Trash' size={26} style={{ color: 'white' }} onClick={() => deleteProject(p._id)} />}
                                     {user && <Link className='Edit' to={`/projects/edit/${p._id}`}><span><FiEdit size={26} /></span></Link>}
                                     <span > {user && <BsFillHeartFill className='Heart' size={26} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => favorite(p._id)} />}</span>
+                                    {roleType === 2 ?
+                                        <IoMdHome size={36} style={{ color: p.homePage === true ? "green" : "red" }} onClick={() => toggleHomePage(p._id)} /> :
+                                        ''
+                                    }
                                 </div>
                             </div>
                         </div>
