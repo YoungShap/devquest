@@ -19,7 +19,7 @@
 
 .project-card {
     padding: 16px;
-    width: 480px;
+    width: 500px;
     height: 480px;
     background-image: linear-gradient(rgba(0, 0, 0, 0.856), rgba(0, 0, 0, 0.829), rgba(7, 1, 20, 0.637), rgba(0, 0, 0, 0.849));
     border-radius: 16px 16px 20px 20px;
