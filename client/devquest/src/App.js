@@ -101,15 +101,11 @@ function App() {
                 return response.json();
             })
             .then(updatedHome => {
-                setHomeProjects((prevProjects) => {
-                    const updatedProjects = [...prevProjects];
-                    const index = updatedProjects.findIndex(project => project._id === id);
-                    if (index !== -1) {
-                        updatedProjects[index].homePage = updatedHome.homePage;
-                    }
-                    return updatedProjects;
-                });
-                console.log("Toggle successful");
+                setHomeProjects((prevProjects) =>
+                prevProjects.map((project) =>
+                    project._id === id ? { ...project, homePage: updatedHome.homePage } : project
+                )
+            );          
             })
             .catch(error => {
                 console.error('Toggle failed:', error);
@@ -120,7 +116,8 @@ function App() {
     return (
         <GeneralContext.Provider value={{
             user, setUser, setRoleType, favorite, roleType, search,
-            setSearch, searchWord, setSearchWord, toggleHomePage
+            setSearch, searchWord, setSearchWord, toggleHomePage, homeProjects, 
+            setHomeProjects
         }}>
             <div className="App">
                 <TopNavbar />

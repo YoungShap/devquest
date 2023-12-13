@@ -75,3 +75,22 @@
     border-radius: 45%;
     padding: 5px;
 }
+
+.project-card .add-home {
+    box-shadow: 4px 2px 16px 2px rgba(0, 0, 0, 0.616);
+    background-color: rgb(22, 22, 22);
+    border-radius: 45%;
+    padding: 5px;
+}
+
+.card-icons {
+    display: flex;
+    font-size: 38px;
+    width: 100%;
+}
+
+.user-icons {
+    align-items: flex-end;
+    margin-top: 2px;
+    margin-left: 4px;
+}

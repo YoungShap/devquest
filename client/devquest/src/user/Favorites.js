@@ -13,11 +13,11 @@ import { FaAngular, FaNodeJs, FaReact } from 'react-icons/fa';
 import { DiRuby } from 'react-icons/di';
 import { RiJavascriptFill } from 'react-icons/ri';
 import { TbFileTypePhp } from 'react-icons/tb';
-import { IoLogoCss3 } from 'react-icons/io';
+import { IoLogoCss3, IoMdHome } from 'react-icons/io';
 
 
 export default function Favorites() {
-    const { user, favorite } = React.useContext(GeneralContext);
+    const { user, favorite, roleType } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -91,10 +91,13 @@ export default function Favorites() {
                                 <p><b>Category : {p.category}</b></p>
                                 <p><b>Dev Name : {p.dev}</b></p>
                                 <div className='card-icons'>
-                                    <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></Link>
+                                    <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%', padding:"0" }} /></Link>
+                                    <div className='spacer'></div>
+                                    <div className='user-icons'>
                                     {user && <BsFillTrash3Fill className='Trash' size={26} style={{ color: 'white' }} onClick={() => deleteProject(p._id)} />}
                                     {user && <Link className='Edit' to={`/projects/edit/${p._id}`}><span><FiEdit size={26} /></span></Link>}
-                                    <span > {user && <BsFillHeartFill className='Heart' size={26} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => favorite(p._id)} />}</span>
+                                     {user && <BsFillHeartFill className='Heart' size={26} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => favorite(p._id)} />}
+                                    </div>
                                 </div>
                             </div>
                         </div>
