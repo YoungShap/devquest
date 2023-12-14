@@ -16,6 +16,7 @@ import { GeneralContext } from '../App';
 
 export default function Home() {
     const { toggleHomePage, roleType, setHomeProjects, homeProjects } = React.useContext(GeneralContext);
+    const {home, setHome}= useState();
 
     useEffect(() => {
         fetch("http://localhost:4000/projects")
@@ -35,7 +36,7 @@ export default function Home() {
                     error
                 );
             });
-    }, [toggleHomePage]);
+    }, []);
 
     return (
         <div className='main-container'>

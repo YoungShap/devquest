@@ -105,7 +105,8 @@ function App() {
                 prevProjects.map((project) =>
                     project._id === id ? { ...project, homePage: updatedHome.homePage } : project
                 )
-            );          
+            );      
+            setHomeProjects(updatedHome.filter(p => p._id !== id));    
             })
             .catch(error => {
                 console.error('Toggle failed:', error);
