@@ -68,8 +68,9 @@ export default function MyProjects() {
     return (
         <div className='main-container'>
             <div className='MyTitle'>
-                <h1>My Projects</h1>
-                <p>Here you'll find all of the Projects added by You!</p>
+                <div className='profile-pic'></div>
+                <h1 style={{marginTop:"4px"}} >{user.devName}</h1>
+                <p>Here you'll find all of the Projects that You added</p>
                 <div className='learn-icons-fav'>
                     <BiLogoMongodb style={{ color: "green" }} />
                     <SiExpress style={{ color: "#7d8000" }} />
@@ -106,10 +107,13 @@ export default function MyProjects() {
                                 <p><b>Category : {p.category}</b></p>
                                 <p><b>Dev Name : {p.dev}</b></p>
                                 <div className='card-icons'>
-                                    <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></Link>
+                                    <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%', padding:"0" }} /></Link>
+                                    <div className='spacer'></div>
+                                    <div className='user-icons'>
                                     {user && <BsFillTrash3Fill className='Trash' size={26} style={{ color: 'white' }} onClick={() => deleteProject(p._id)} />}
                                     {user && <Link className='Edit' to={`/projects/edit/${p._id}`}><span><FiEdit size={26} /></span></Link>}
-                                    <span > {user && <BsFillHeartFill className='Heart' size={26} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => favorite(p._id)} />}</span>
+                                     {user && <BsFillHeartFill className='Heart' size={26} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => favorite(p._id)} />}
+                                    </div>
                                 </div>
                             </div>
                         </div>

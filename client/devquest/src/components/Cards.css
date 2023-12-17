@@ -12,7 +12,6 @@
     width: 100%;
     background-size: cover;
     background-position: center;
-    /* background-image: url(../assets/myP.png); */
     filter: brightness(60%);
     border-radius: 10px;
 }
@@ -75,6 +74,16 @@
         margin-top: 8px;
         font-size: 20px;
     }
+}
+
+.profile-pic {
+    background-image: url("https://scontent.ftlv5-1.fna.fbcdn.net/v/t39.30808-6/252445103_4649106638443276_1503644380268451162_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=kywyWuzY69QAX-z6qIR&_nc_ht=scontent.ftlv5-1.fna&oh=00_AfD-Kg43tZvN3paM1hShq2jjHKCi3NLmvf6QnELLYotVyQ&oe=657FA029");
+    height: 86px;
+    width: 86px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
 }
 
 

@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Container } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { structure } from '../Config';
@@ -15,7 +15,6 @@ import { GeneralContext } from '../App';
 
 const defaultTheme = createTheme();
 export default function Account() {
-    const { id } = useParams();
     const { user, setUser } = useContext(GeneralContext);
     const [formData, setFormData] = useState({
         firstName: '',
@@ -151,13 +150,6 @@ export default function Account() {
                         >
                            Save Changes
                         </Button >
-                        <Grid container justifyContent="center">
-                            <Grid item>
-                                <Link to="/login" style={{ color: '#ffffea' }}>
-                                    Already have an account? Login
-                                </Link>
-                            </Grid>
-                        </Grid>
                     </Box>
                 </Box>
             </Container>
