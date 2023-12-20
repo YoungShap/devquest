@@ -13,10 +13,11 @@ import { BiLogoMongodb } from 'react-icons/bi';
 import { FaNodeJs, FaReact } from 'react-icons/fa';
 import { SiExpress } from 'react-icons/si';
 import { IoMdHome } from 'react-icons/io';
+import Searchbar, { search } from '../components/SearchBar';
 
 
 export default function ReactProjects() {
-    const { user, favorite, toggleHomePage, roleType } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -28,7 +29,7 @@ export default function ReactProjects() {
                 return response.json();
             })
             .then((data) => {
-                setProjects(data);
+                setProjects(data.filter(p => p.category === "Mern"));
                 console.log(data);
             })
             .catch((error) => {
@@ -37,7 +38,7 @@ export default function ReactProjects() {
                     error
                 );
             })
-    }, [toggleHomePage]);
+    }, [toggleHomePage]); 
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -60,6 +61,8 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>MERN Stack</h1>
                 <p className='p'>The MERN stack is a popular web development framework known for its versatility and scalability:</p><br></br><br></br>
+                <div className='search'><Searchbar /></div>
+                {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
                 <div className='learn-icons'>
                     <BiLogoMongodb size={30} style={{ color: "green" }} />
                     <SiExpress size={30} style={{ color: "#7d8000" }} />
@@ -87,7 +90,7 @@ export default function ReactProjects() {
             </div>
             <div className='card-frame'>
                 {
-                    projects.filter(p => p.category === "Mern").map(p =>
+                    projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>

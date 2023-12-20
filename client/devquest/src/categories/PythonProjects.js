@@ -11,9 +11,10 @@ import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
 import { SiPython } from 'react-icons/si';
 import { IoMdHome } from 'react-icons/io';
+import Searchbar, { search } from '../components/SearchBar';
 
 export default function ReactProjects() {
-    const { user, favorite, toggleHomePage, roleType } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([{}]);
 
     useEffect(() => {
@@ -25,7 +26,7 @@ export default function ReactProjects() {
                 return response.json();
             })
             .then((data) => {
-                setProjects(data);
+                setProjects(data.filter(p => p.category === "Python"));
                 console.log(data);
             })
             .catch((error) => {
@@ -58,9 +59,9 @@ export default function ReactProjects() {
                 <h1>Python</h1>
                 <p className='p'>
                     Python is a versatile language for web application development:
-                </p>
-                <br />
-                <br />
+                </p><br></br><br></br>
+                <div className='search'><Searchbar /></div>
+                {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
                 <div className='learn-icons'>
                     <SiPython  size={28} style={{ color: "#0093ff" }} />
                 </div>
@@ -89,7 +90,7 @@ export default function ReactProjects() {
             </div>
             <div className='card-frame'>
                 {
-                    projects.filter(p => p.category === "Python").map(p =>
+                    projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>

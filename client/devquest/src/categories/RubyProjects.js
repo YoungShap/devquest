@@ -11,9 +11,10 @@ import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
 import { DiRuby } from 'react-icons/di';
 import { IoMdHome } from 'react-icons/io';
+import Searchbar, { search } from '../components/SearchBar';
 
 export default function ReactProjects() {
-    const { user, favorite, toggleHomePage, roleType } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([{}]);
 
     useEffect(() => {
@@ -25,7 +26,7 @@ export default function ReactProjects() {
                 return response.json();
             })
             .then((data) => {
-                setProjects(data);
+                setProjects(data.filter(p => p.category === "Ruby"));
                 console.log(data);
             })
             .catch((error) => {
@@ -57,6 +58,8 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>Ruby on Rails</h1>
                 <p className='p'>Ruby on Rails, often simply called Rails, is a robust web development framework known for its convention over configuration and opinionated design:</p><br></br><br></br>
+                <div className='search'><Searchbar /></div>
+                {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
                 <div className='learn-icons'>
                     <DiRuby size={28} style={{ color: "#870f0f", padding: "7px" }} />
                 </div>
@@ -82,7 +85,7 @@ export default function ReactProjects() {
 
             <div className='card-frame'>
                 {
-                    projects.filter(p => p.category === "Ruby").map(p =>
+                    projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -42,7 +42,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
@@ -56,10 +55,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Searchbar() {
-    const { searchWord, setSearchWord } = React.useContext(GeneralContext);
+    const { searchWord, setSearchWord } = useContext(GeneralContext);
+
+    // Clear the search term when the component mounts 
+    useEffect(() => {
+        setSearchWord('');
+    }, []); 
+
+    const handleSearchChange = (value) => {
+        setSearchWord(value);
+    }
 
     return (
-        <Box >
+        <Box>
             <Toolbar>
                 <Search>
                     <SearchIconWrapper>
@@ -69,7 +77,7 @@ export default function Searchbar() {
                         placeholder="Search…"
                         inputProps={{ 'aria-label': 'search' }}
                         value={searchWord}
-                        onChange={ev => setSearchWord(ev.target.value)}
+                        onChange={(ev) => handleSearchChange(ev.target.value)}
                     />
                 </Search>
             </Toolbar>

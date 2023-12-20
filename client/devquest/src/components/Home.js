@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import '../components/Home.css'
 import '../components/Cards.css'
 import '../categories/Categories.css'
@@ -13,9 +13,10 @@ import { Link } from 'react-router-dom';
 import { RiJavascriptFill } from 'react-icons/ri';
 import { TbFileTypePhp } from 'react-icons/tb';
 import { GeneralContext } from '../App';
+import Searchbar, { search } from '../components/SearchBar';
 
 export default function Home() {
-    const { toggleHomePage, roleType, setHomeProjects, homeProjects } = React.useContext(GeneralContext);
+    const { toggleHomePage, roleType, setHomeProjects, homeProjects, searchWord } = React.useContext(GeneralContext);
 
     useEffect(() => {
         fetch("http://localhost:4000/projects")
@@ -35,13 +36,15 @@ export default function Home() {
                     error
                 );
             });
-    }, []);
+    }, [setHomeProjects]);
 
     return (
         <div className='main-container'>
             <div className='MyTitle'>
                 <h1>Welcome to DevQuest!</h1>
-                <p>Here are some projects from all <b>Categories:</b></p>
+                <p>Here are some projects from all <b>Categories:</b></p><br></br><br></br>
+                <div className='search'><Searchbar /></div>
+                {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
                 <div className='learn-icons-fav'>
                     <Link to={'projects/mern'}><GiStoneStack style={{ color: "#69a8d7" }} /></Link>
                     <Link to={'projects/mean'}> <GrStackOverflow style={{ color: "#50c770" }} /></Link>
@@ -57,7 +60,7 @@ export default function Home() {
             </div>
             <div className='card-frame'>
                 {
-                    homeProjects.map(p => (
+                    homeProjects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p => (
                         <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>

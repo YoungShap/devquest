@@ -13,11 +13,12 @@ import { FaAngular, FaNodeJs, FaReact } from 'react-icons/fa';
 import { DiRuby } from 'react-icons/di';
 import { RiJavascriptFill } from 'react-icons/ri';
 import { TbFileTypePhp } from 'react-icons/tb';
-import { IoLogoCss3, IoMdHome } from 'react-icons/io';
+import { IoLogoCss3 } from 'react-icons/io';
+import Searchbar, { search } from '../components/SearchBar';
 
 
 export default function Favorites() {
-    const { user, favorite, roleType } = React.useContext(GeneralContext);
+    const { user, favorite, searchWord} = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -66,7 +67,9 @@ export default function Favorites() {
         <div className='main-container'>
             <div className='MyTitle'>
                 <h1>Favorite Projects</h1>
-                <p>Here you'll find all your Favorite Projects</p>
+                <p>Here you'll find all your Favorite Projects</p><br></br><br></br>
+                <div className='search'><Searchbar /></div>
+                {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
                 <div className='learn-icons-fav'>
                     <BiLogoMongodb style={{ color: "green" }} />
                     <SiExpress style={{ color: "#7d8000" }} />
@@ -83,7 +86,7 @@ export default function Favorites() {
             </div>
             <div className='card-frame'>
                 {
-                    projects.map(p =>
+                    projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>

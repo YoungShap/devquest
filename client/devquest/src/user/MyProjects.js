@@ -15,10 +15,11 @@ import { RiJavascriptFill } from 'react-icons/ri';
 import { TbFileTypePhp } from 'react-icons/tb';
 import { IoLogoCss3 } from 'react-icons/io';
 import AddCardBtn from '../components/AddCardBtn';
+import Searchbar, { search } from '../components/SearchBar';
 
 
 export default function MyProjects() {
-    const { user, favorite } = React.useContext(GeneralContext);
+    const { user, favorite, searchWord } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -46,7 +47,7 @@ export default function MyProjects() {
                     error
                 );
             })
-    }, [favorite]);
+    }, [favorite, user]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -68,9 +69,10 @@ export default function MyProjects() {
     return (
         <div className='main-container'>
             <div className='MyTitle'>
-                <div className='profile-pic'></div>
-                <h1 style={{marginTop:"4px"}} >{user.devName}</h1>
-                <p>Here you'll find all of the Projects that You added</p>
+                <h1>My Projects</h1>
+                <p>Here you'll find all the Projects that You uploaded</p><br></br><br></br>
+                <div className='search'><Searchbar /></div>
+                {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
                 <div className='learn-icons-fav'>
                     <BiLogoMongodb style={{ color: "green" }} />
                     <SiExpress style={{ color: "#7d8000" }} />
@@ -95,11 +97,11 @@ export default function MyProjects() {
                         user &&
                         <AddCardBtn />
                     }
-                </div>
+                </div><br></br><br></br><br></br>
             </div>
             <div className='card-frame'>
                 {
-                    projects.map(p =>
+                    projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>

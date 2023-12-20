@@ -13,9 +13,10 @@ import { BiLogoMongodb } from 'react-icons/bi';
 import { SiExpress } from 'react-icons/si';
 import { FaAngular, FaNodeJs } from 'react-icons/fa';
 import { IoMdHome } from 'react-icons/io';
+import Searchbar, { search } from '../components/SearchBar';
 
 export default function ReactProjects() {
-    const { user, favorite, toggleHomePage, roleType } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([{}]);
 
     useEffect(() => {
@@ -27,7 +28,7 @@ export default function ReactProjects() {
                 return response.json();
             })
             .then((data) => {
-                setProjects(data);
+                setProjects(data.filter(p => p.category === "Mean"));
                 console.log(data);
             })
             .catch((error) => {
@@ -59,6 +60,8 @@ export default function ReactProjects() {
             <div className='MyTitle'>
                 <h1>MEAN Stack</h1>
                 <p className='p'>The MEAN stack is a dynamic web development framework known for its comprehensive and efficient components:</p><br></br><br></br>
+                <div className='search'><Searchbar /></div>
+                {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
                 <div className='learn-icons'>
                     <BiLogoMongodb size={30} style={{ color: "green" }} />
                     <SiExpress size={30} style={{ color: "#7d8000" }} />
@@ -87,7 +90,7 @@ export default function ReactProjects() {
 
             <div className='card-frame'>
                 {
-                    projects.filter(p => p.category === "Mean").map(p =>
+                    projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>

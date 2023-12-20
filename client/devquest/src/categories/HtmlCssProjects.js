@@ -11,9 +11,10 @@ import { Button } from '@mui/material';
 import AddCardBtn from '../components/AddCardBtn';
 import { SiHtml5 } from 'react-icons/si';
 import { IoLogoCss3, IoMdHome } from 'react-icons/io';
+import Searchbar, { search } from '../components/SearchBar';
 
 export default function ReactProjects() {
-    const { user, favorite, toggleHomePage, roleType } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord  } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([{}]);
 
     useEffect(() => {
@@ -25,7 +26,7 @@ export default function ReactProjects() {
                 return response.json();
             })
             .then((data) => {
-                setProjects(data);
+                setProjects(data.filter(p => p.category === "HTMLCSS"));
             })
             .catch((error) => {
                 console.error(
@@ -57,9 +58,9 @@ export default function ReactProjects() {
                 <h1>HTML & CSS</h1>
                 <p className='p'>
                     HTML and CSS form the foundation of web development, enabling the creation of visually appealing and structured websites.
-                </p>
-                <br />
-                <br />
+                </p><br></br><br></br>
+                <div className='search'><Searchbar /></div>
+                {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
                 <div className='learn-icons'>
                     <SiHtml5 size={30} style={{ color: "#cb6d07" }} />
                     <IoLogoCss3 size={31} style={{ color: "#318cc3" }} />
@@ -86,7 +87,7 @@ export default function ReactProjects() {
 
             <div className='card-frame'>
                 {
-                    projects.filter(p => p.category === "HTMLCSS").map(p =>
+                    projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
                             <h1 className='card-h1'>{p.name}</h1>

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { GeneralContext } from '../App';
 import Searchbar, { search } from '../components/SearchBar';
 import { BsFillTrash3Fill } from 'react-icons/bs';
-import { MdAdminPanelSettings, MdBusinessCenter } from 'react-icons/md';
+import { MdAdminPanelSettings} from 'react-icons/md';
 import { FiEdit } from 'react-icons/fi';
 import './SandBox.css'
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { FaDev } from 'react-icons/fa';
 export default function UserManage() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
-    const { setIsLoading, snackbar, roleType, user, searchWord } = useContext(GeneralContext);
+    const { searchWord } = useContext(GeneralContext);
 
 
     useEffect(() => {
@@ -50,7 +50,7 @@ export default function UserManage() {
     return (
         <div className='big-container'>
             <span className='MyTitle'><h1>Admin Sandbox</h1>
-                <p>Manage all Users </p>
+                <p>Manage all Users </p><br></br><br></br>
                 <div className='search'><Searchbar /></div>
                 {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
             </span>
