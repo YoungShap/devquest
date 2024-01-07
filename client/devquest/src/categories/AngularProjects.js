@@ -15,7 +15,7 @@ import Searchbar, { search } from '../components/SearchBar';
 
 export default function AngualrProjects() {
     const { user, favorite, toggleHomePage, roleType, searchWord } = React.useContext(GeneralContext);
-    const [projects, setProjects] = useState([{}]);
+    const [projects, setProjects] = useState([]);
 
     useEffect(() => {
         fetch("http://localhost:4000/projects")
@@ -67,10 +67,10 @@ export default function AngualrProjects() {
                 </div>
                 <div className='info-and-add'>
                     <ul>
-                        <li><b>Declarative:</b> Simplifying UI creation across app states in Angular.</li><br></br>
-                        <li><b>Component-Based:</b> Crafting dynamic UIs through modular components.</li><br></br>
-                        <li><b>Two-Way Binding:</b> Achieving real-time updates by syncing model and view in Angular.</li><br></br>
-                        <li><b>Templates:</b> Enhancing view dynamics with HTML templates in Angular.</li>
+                        <li key={1} ><b>Declarative:</b> Simplifying UI creation across app states in Angular.</li><br></br>
+                        <li key={2} ><b>Component-Based:</b> Crafting dynamic UIs through modular components.</li><br></br>
+                        <li key={3} ><b>Two-Way Binding:</b> Achieving real-time updates by syncing model and view in Angular.</li><br></br>
+                        <li key={4} ><b>Templates:</b> Enhancing view dynamics with HTML templates in Angular.</li>
                     </ul>
 
                     {
@@ -79,7 +79,6 @@ export default function AngualrProjects() {
                     }
                 </div>
                 <p className='learn-p'>Learn all about Angular:</p>
-
             </div>
             <div className='learn-btns'>
                 <Link to={'https://angular.io/'} target='_blank'><Button>Angular.io</Button></Link>
@@ -91,7 +90,11 @@ export default function AngualrProjects() {
                 {
                     projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
-                            <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
+                             {p.imgSrc ? (
+                                <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
+                            ) : (
+                                <div className='card-image-default'>No Image Found</div>
+                            )}
                             <h1 className='card-h1'>{p.name}</h1>
                             <div className='my-p'>
                                 <p><b>Category : {p.category}</b></p>

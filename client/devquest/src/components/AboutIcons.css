@@ -1,0 +1,31 @@
+.learn-icons-about {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+    margin-bottom: 16px;
+    gap: 8px;
+    margin-top: 25px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.learn-icons-about svg {
+    box-shadow: 4px 2px 16px 2px rgba(0, 0, 0, 0.616);
+    background-color: rgba(0, 0, 0, 0.61);
+    border-radius: 45%;
+    padding: 5px;
+    margin-bottom: 16px;
+    margin-top: -8px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+@media screen and (max-width:600px) {
+
+    .MyTitle .learn-icons-about svg {
+        font-size: 26px;
+    }
+
+}

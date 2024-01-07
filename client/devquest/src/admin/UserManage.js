@@ -9,9 +9,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaDev } from 'react-icons/fa';
 
 export default function UserManage() {
+    const { searchWord } = useContext(GeneralContext);
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
-    const { searchWord } = useContext(GeneralContext);
 
 
     useEffect(() => {
@@ -69,7 +69,7 @@ export default function UserManage() {
                     <tbody>
                         {
                             users.filter(u => search(searchWord, u.firstName, u.lastName, u.email,u.devName)).map(u =>
-                                <tr key={u.id}>
+                                <tr key={u._id}>
                                     <td>{u.firstName}</td>
                                     <td>{u.lastName}</td>
                                     <td>{u.devName}</td>

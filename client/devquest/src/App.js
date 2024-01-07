@@ -4,13 +4,12 @@ import Router from './Router';
 import RouterAuth from './RouterAuth';
 import Navbar from './components/Navbar';
 import TopNavbar from './components/TopNavbar';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { RoleTypes } from './Config';
 
 export const GeneralContext = createContext();
 
 function App() {
-    const { id } = useParams();
     const [user, setUser] = useState();
     const navigate = useNavigate();
     const [roleType, setRoleType] = useState(RoleTypes.none);
@@ -102,10 +101,10 @@ function App() {
             })
             .then(updatedHome => {
                 setHomeProjects((prevProjects) =>
-                prevProjects.map((project) =>
-                    project._id === id ? { ...project, homePage: updatedHome.homePage } : project
-                )
-            );          
+                    prevProjects.map((project) =>
+                        project._id === id ? { ...project, homePage: updatedHome.homePage } : project
+                    )
+                );
             })
             .catch(error => {
                 console.error('Toggle failed:', error);
@@ -116,14 +115,17 @@ function App() {
     return (
         <GeneralContext.Provider value={{
             user, setUser, setRoleType, favorite, roleType, search,
-            setSearch, searchWord, setSearchWord, toggleHomePage, homeProjects, 
+            setSearch, searchWord, setSearchWord, toggleHomePage, homeProjects,
             setHomeProjects
         }}>
+            <TopNavbar />
+            <Navbar />
             <div className="App">
-                <TopNavbar />
-                <Navbar />
 
-                <Router />
+                {user ?
+                    <Router /> :
+                    <RouterAuth />
+                }
 
 
             </div>

@@ -16,7 +16,7 @@ import Searchbar, { search } from '../components/SearchBar';
 
 export default function ReactProjects() {
     const { user, favorite, toggleHomePage, roleType, searchWord } = React.useContext(GeneralContext);
-    const [projects, setProjects] = useState([{}]);
+    const [projects, setProjects] = useState([]);
 
     useEffect(() => {
         fetch("http://localhost:4000/projects")
@@ -90,7 +90,11 @@ export default function ReactProjects() {
                 {
                     projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
-                            <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
+                              {p.imgSrc ? (
+                                <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
+                            ) : (
+                                <div className='card-image-default'>No Image Found</div>
+                            )}
                             <h1 className='card-h1'>{p.name}</h1>
                             <div className='my-p'>
                                 <p><b>Category : {p.category}</b></p>

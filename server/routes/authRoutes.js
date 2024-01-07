@@ -2,9 +2,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const express = require('express');
 require('dotenv').config();
-const User = require('./userModel');
-const authGuard = require('./auth-guard');
-const adminGuard = require('./adminGuard');
+const User = require('../models/userModel');
+const authGuard = require('../authentication/auth-guard');
+const adminGuard = require('../authentication/adminGuard');
+const { loginSchema, signupSchema } = require('../config');
 const router = express.Router();
 
 const getUserId = (req, res) => {
@@ -20,20 +21,21 @@ const getUserId = (req, res) => {
     return data.id;
 };
 
+
 // Login status
 router.get('/login', authGuard, async (req, res) => {
     const _id = getUserId(req, res);
-
+    
     try {
         const LoggedUser = await User.findOne({ _id });
-
+        
         if (!LoggedUser) {
             return res.status(403).send("username or password is incorrect");
         }
 
         delete LoggedUser.password;
         delete LoggedUser.email;
-
+        
         res.send(LoggedUser);
     } catch (error) {
         console.error(error);
@@ -41,21 +43,27 @@ router.get('/login', authGuard, async (req, res) => {
     }
 });
 
+//login (POST)
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+    const schema = loginSchema.validate(req.body, { allowUnknown: true });
 
+    if (schema.error) {
+        return res.status(403).send(schema.error.details[0].message);
+    }
+    
     const user = await User.findOne({ email });
-
+    
     if (!user) {
         return res.status(403).send("username or password is incorrect");
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
-
+    
     if (!passwordMatch) {
         return res.status(403).send("username or password is incorrect");
     }
-
+    
     // יצירת אובייקט רגיל מהמחלקה של היוזר 
     const userResult = user.toObject();
     // מחיקת הסיסמה מהאובייקט שנשלח למשתמש
@@ -69,6 +77,11 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
     const { type, firstName, lastName, email, devName, password } = req.body;
+    const schema = signupSchema.validate(req.body, { allowUnknown: true });
+
+    if (schema.error) {
+        return res.status(403).send(schema.error.details[0].message);
+    }
 
     const existingUser = await User.findOne({ $or: [{ email }, { devName }] });
 

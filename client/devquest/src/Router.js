@@ -11,25 +11,23 @@ import PhpProjects from "./categories/PhpProjects";
 import HtmlCssProjects from "./categories/HtmlCssProjects";
 import AddProject from "./CRUD/AddProject";
 import EditProject from "./CRUD/EditProject";
-import Login from "./user/Login";
-import SignUp from "./user/SignUp";
 import Favorites from "./user/Favorites";
 import MyProjects from "./user/MyProjects";
 import UserManage from "./admin/UserManage";
 import Account from "./user/Account";
 import EditUsers from "./admin/EditUsers";
+import About from "./components/About";
 
 
 export default function Router() {  // this router is for when a user is connected  //
     return (
         <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<SignUp />} />
             <Route path='projects/add' element={<AddProject />} />
             <Route path='projects/edit/:id' element={<EditProject />} />
             <Route path='/projects/favorites' element={<Favorites />} />
             <Route path='/projects/myprojects' element={<MyProjects />} />
+            <Route path='/about' element={<About />} />
             <Route path='/admin/sandbox' element={<UserManage />} />
             <Route path='/account' element={<Account />} />
             <Route path='/admin/users/edit/:id' element={<EditUsers />} />

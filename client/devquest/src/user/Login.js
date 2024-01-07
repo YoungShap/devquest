@@ -1,4 +1,5 @@
 import * as React from 'react';
+import '../CRUD/Form.css'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { GeneralContext } from '../App';
 import { RoleTypes } from '../Config';
+import Joi from 'joi';
 
 function Copyright(props) {
     return (
@@ -34,122 +36,147 @@ const defaultTheme = createTheme();
 export default function Login() {
     const { setUser, setRoleType } = React.useContext(GeneralContext);
     const navigate = useNavigate();
+    const [isValid, setIsValid] = useState(false);
+    const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
 
-    const handleInputChange = ev => {
-        const { id, value } = ev.target;
-        let obj = {
-            ...formData,
-            [id]: value,
-        };
-        setFormData(obj);
+
+    const loginSchema = Joi.object({
+        email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+        password: Joi.string().required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d{4})(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,30}$/)
+            .message('user "password" must be at least nine characters long and contain an uppercase letter, a lowercase letter, 4 numbers and one of the following characters !@#$%^&*'),
+    });
+
+const handleInputChange = ev => {
+    const { id, value } = ev.target;
+    let obj = {
+        ...formData,
+        [id]: value,
+    };
+    const schema = loginSchema.validate(obj, { abortEarly: false });
+    const err = { ...errors, [id]: undefined };
+
+    if (schema.error) {
+        const error = schema.error.details.find(e => e.context.key === id);
+
+        if (error) {
+            err[id] = error.message;
+        }
+        setIsValid(false);
+    } else {
+        setIsValid(true);
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    setFormData(obj);
+    setErrors(err);
+}
+const handleSubmit = (event) => {
+    event.preventDefault();
 
-        fetch("http://localhost:4000/auth/login", {
-            credentials: 'include',
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(formData),
+    fetch("http://localhost:4000/auth/login", {
+        credentials: 'include',
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return res.text().then(x => {
+                    throw new Error(x);
+                });
+            }
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return res.text().then(x => {
-                        throw new Error(x);
-                    });
-                }
-            })
-            .then(data => {
-                setUser(data);
-                localStorage.token = data.token;
-                if (data.type === 'Dev') {
-                    setRoleType(RoleTypes.dev);
-                } else if (data.type === 'Admin') {
-                    setRoleType(RoleTypes.admin);
-                } else {
-                    setRoleType(RoleTypes.none);
-                }
-                navigate('/');
-            })
-            .catch(err => {
-                // setLoginError(err.message);
-            })
-            .finally(() => {
-                // setLoading(false);
-            });
-    };
+        .then(data => {
+            setUser(data);
+            localStorage.token = data.token;
+            if (data.type === 'Dev') {
+                setRoleType(RoleTypes.dev);
+            } else if (data.type === 'Admin') {
+                setRoleType(RoleTypes.admin);
+            } else {
+                setRoleType(RoleTypes.none);
+            }
+            navigate('/');
+        })
+        .catch(err => {
+            // setLoginError(err.message);
+        })
+        .finally(() => {
+            // setLoading(false);
+        });
+};
 
 
-    return (
-        <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs" >
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main', backgroundColor: 'black' }} >
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5" sx={{ color: 'white' }} >
+return (
+    <ThemeProvider theme={defaultTheme}>
+        <Container component="main" maxWidth="xs" >
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main', backgroundColor: 'black' }} >
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5" sx={{ color: 'white' }} >
+                    Login
+                </Typography>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <TextField sx={{ backgroundColor: 'black', input: { color: 'white' }, label: { color: 'white' }, borderRadius: '5px' }}
+                        onChange={handleInputChange}
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                    />
+                    {errors.email ? <div style={{color:'#c92626'}} className='fieldError'>{errors.email}</div> : ''}
+                    <TextField sx={{ backgroundColor: 'black', input: { color: 'white' }, label: { color: 'white' }, borderRadius: '5px' }}
+                        onChange={handleInputChange}
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                    />
+                    {errors.password ? <div style={{color:'#c92626'}} className='fieldError'>{errors.password}</div> : ''}
+                    <Button style={{ backgroundColor: 'black', color:'white' }}
+                    disabled={!isValid }
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
                         Login
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField sx={{ backgroundColor: 'black', input: { color: 'white' }, label: { color: 'white' }, borderRadius: '5px' }}
-                            onChange={handleInputChange}
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField sx={{ backgroundColor: 'black', input: { color: 'white' }, label: { color: 'white' }, borderRadius: '5px' }}
-                            onChange={handleInputChange}
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-
-                        <Button style={{ backgroundColor: 'black' }}
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Login
-                        </Button>
-                    </Box>
+                    </Button>
                 </Box>
-                <Grid container>
-                    <Grid item>
-                        <Link href="/signup" variant="body2" sx={{ color: '#ddc8b3', textDecoration: 'none' }}>
-                            {"Don't have an account? Sign Up"}
-                        </Link>
-                    </Grid>
+            </Box>
+            <Grid container>
+                <Grid item>
+                    <Link href="/signup" variant="body2" sx={{ color: '#ddc8b3', textDecoration: 'none' }}>
+                        {"Don't have an account? Sign Up"}
+                    </Link>
                 </Grid>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
-            </Container>
-        </ThemeProvider>
-    );
+            </Grid>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+    </ThemeProvider>
+);
 }

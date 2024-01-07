@@ -1,0 +1,99 @@
+.main-container .about-p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    color: #8ac8ffe6;
+    font-family: serif;
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.MyTitle .about-h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #fcfcc3e6;
+    font-family: 'Oswald, sans-serif';
+    margin-bottom: 8px;
+    font-size: 46px;
+}
+
+@media screen and (max-width:600px) {
+    .MyTitle .about-h1 {
+        font-size: 36px;
+    }
+
+    .MyTitle .about-h1 svg {
+        font-size: 34px;
+    }
+
+    .main-container .about-p {
+        font-size: 18px;
+        padding: 10px;
+    }
+    .main-container .about-heading {
+        font-size: 30px;
+    }
+    .main-container .about-p .about-ul b{ 
+        font-size: 17px;
+    }
+}
+
+@media screen and (width:280px) {
+    .main-container .about-p {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .main-container .about-ul {
+        font-size: 14px;
+    }
+}
+
+.about-heading {
+    text-align: center;
+    color: #cb9237e6;
+    font-family: 'Oswald, sans-serif';
+    margin-bottom: 8px;
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.main-container .about-ul b { 
+  font-size: 22px;
+  color:#72bbfbe6;
+}
+
+.Edit-about {
+    color: white;
+}
+
+.user-icons-about {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px;
+}
+
+.main-container .about {
+    background-image: url(../assets/myP.png);
+}
+
+.about-ul {
+    display: flex;
+    flex-direction: column;
+    color: #cececed6;
+    font-family: system-ui;
+    font-size: 18px;
+    padding: 30px;
+    background-color: #1b072954;
+    border-radius: 10px;
+}
+
+.about-list {
+    display: flex;
+    flex-direction: column;
+}
