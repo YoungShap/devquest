@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const authGuard = require('../authentication/auth-guard');
 const adminGuard = require('../authentication/adminGuard');
+const { ProjectSchema } = require('../config');
 
 // GET request to retrieve all projects
 router.get("/projects", async (req, res) => {
@@ -31,13 +32,22 @@ router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res
         // authGuard middleware can now access req.body and req.file
 
         const { name, category, dev, ghub, uploadBy } = req.body;
-        const imgSrc = req.file.filename;
+        const imgSrc = req.file ? req.file.filename : '../uploads/imgSrc-1702476581922.png';
+
+        // if (!imgSrc) {
+        //     return res.status(403).send('No image provided');
+        // }
+        const schema = ProjectSchema.validate(req.body, { allowUnknown: true });
+
+        if (schema.error) {
+            return res.status(403).send(schema.error.details[0].message);
+        } 
 
         const newProject = new Project({
             name,
-            category,
+            category, 
             dev,
-            homePage:false,
+            homePage: false,
             ghub,
             imgSrc,
             uploadBy,
@@ -92,7 +102,7 @@ router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res)
 
         await project.save();
 
-        res.json(project); 
+        res.json(project);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -100,10 +110,10 @@ router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res)
 });
 
 router.get('/projects/:id', authGuard, async (req, res) => {
-    res.send(await Project.findOne({ _id: req.params.id }));  
-});    
- 
-router.put('/projects/toggleHome/:id', adminGuard,  async (req, res) => {
+    res.send(await Project.findOne({ _id: req.params.id }));
+});
+
+router.put('/projects/toggleHome/:id', adminGuard, async (req, res) => {
     try {
         // Fetch the project by ID
         const project = await Project.findOne({ _id: req.params.id });
@@ -119,6 +129,6 @@ router.put('/projects/toggleHome/:id', adminGuard,  async (req, res) => {
         console.error('Toggle failed:', error);
         res.status(500).json({ success: false, message: 'Toggle failed' });
     }
-}); 
-  
+});
+
 module.exports = router  

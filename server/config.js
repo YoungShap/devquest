@@ -15,7 +15,15 @@ const signupSchema = Joi.object({
       devName: Joi.string().min(3).required()
   });
 
+  const ProjectSchema = Joi.object({
+    name: Joi.string().min(3).max(14).required(),
+    category: Joi.string().required(),
+    dev: Joi.string().min(3).max(16).required(),
+    ghub: Joi.string().max(500).required(),
+});
+
 module.exports = {
     loginSchema,
     signupSchema,
+    ProjectSchema,
 };

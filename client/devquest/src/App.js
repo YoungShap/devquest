@@ -6,6 +6,8 @@ import Navbar from './components/Navbar';
 import TopNavbar from './components/TopNavbar';
 import { useNavigate } from 'react-router-dom';
 import { RoleTypes } from './Config';
+import Snackbar from './components/Snackbar';
+
 
 export const GeneralContext = createContext();
 
@@ -15,7 +17,13 @@ function App() {
     const [roleType, setRoleType] = useState(RoleTypes.none);
     const [search, setSearch] = useState('');
     const [searchWord, setSearchWord] = useState('');
+    const [snackbarText, setSnackbarText] = useState('');
     const [homeProjects, setHomeProjects] = useState([]);
+
+    const snackbar = text => {
+        setSnackbarText(text);
+        setTimeout(() => setSnackbarText(''), 3 * 1000);
+      }
 
     // LOGIN STATUS:
     useEffect(() => {
@@ -44,6 +52,7 @@ function App() {
                     } else {
                         setRoleType(RoleTypes.none);
                     }
+                    snackbar(`${data.devName} Is Connected`);
                 })
                 .catch(err => {
                     setRoleType(RoleTypes.none);
@@ -116,7 +125,7 @@ function App() {
         <GeneralContext.Provider value={{
             user, setUser, setRoleType, favorite, roleType, search,
             setSearch, searchWord, setSearchWord, toggleHomePage, homeProjects,
-            setHomeProjects
+            setHomeProjects, snackbar
         }}>
             <TopNavbar />
             <Navbar />
@@ -126,6 +135,7 @@ function App() {
                     <Router /> :
                     <RouterAuth />
                 }
+                 {snackbarText && <Snackbar text={snackbarText} />}
 
 
             </div>

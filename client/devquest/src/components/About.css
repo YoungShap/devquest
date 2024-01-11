@@ -74,12 +74,8 @@
 .user-icons-about {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
     padding: 2px;
-}
-
-.main-container .about {
-    background-image: url(../assets/myP.png);
 }
 
 .about-ul {

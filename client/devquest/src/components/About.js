@@ -24,7 +24,7 @@ export default function About() {
         <div className='main-container'>
             <div className='MyTitle'>
                 <h1 className='about-h1'>DevQuest<WebhookIcon sx={{ fontSize: '38px', marginTop: "4px" }} /></h1>
-                <p style={{marginTop:"5px"}} >Welcome to DevQuest, your ultimate destination for mastering the art of web development!</p>
+                <p style={{ marginTop: "5px" }} >Welcome to DevQuest, your ultimate destination for mastering the art of web development!</p>
                 <br></br>
                 <div className='learn-icons-about'>
                     <Link to={'/projects/mern'}><GiStoneStack style={{ color: "#69a8d7" }} /></Link>
@@ -45,7 +45,7 @@ export default function About() {
             </>
             <div className='card-frame' style={{ marginTop: "-2px" }}>
                 <div className='project-card'>
-                    <div className='card-image about'></div>
+                    <div className='card-image about' style={{ backgroundImage: `url(/assets/myP.png)` }}></div>
                     <h1 className='card-h1'>Business Cards App</h1>
                     <div className='my-p'>
                         <p><b>Category : Mern </b></p>
@@ -61,6 +61,24 @@ export default function About() {
                         </div>
                     </div>
                 </div>
+                <div className='project-card'>
+                    <div className='card-image about' style={{ backgroundImage: `url(/assets/Social.png)` }}></div>
+                    <h1 className='card-h1'>Social Media App</h1>
+                    <div className='my-p'>
+                        <p><b>Category : Mern </b></p>
+                        <p><b>Dev Name : Ed-Roh</b></p>
+                        <div className='card-icons'>
+                            <GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%', padding: "0px", marginTop: "5px" }} />
+                            <div className='spacer'></div>
+                            <div className='user-icons-about'>
+                                <BsFillTrash3Fill className='Trash' size={26} style={{ color: 'white' }} />
+                                <span className='Edit-about'><FiEdit size={26} /></span>
+                                <BsFillHeartFill className='Heart' size={26} style={{ color: 'red' }} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
             </div>
             <>
                 <h1 className='about-heading'>User Guide :</h1>
@@ -76,7 +94,7 @@ export default function About() {
             <>
                 <h1 className='about-heading'>Sign Up Today :</h1>
                 <div className='about-p'>
-                    <ul className='about-ul' style={{fontFamily:"math"}}>
+                    <ul className='about-ul' style={{ fontFamily: "math" }}>
                         <li><b>Add : </b> Your own Projects </li><br></br>
                         <li><b>Favorite : </b>Keep track of your favorite Projects in the Favorites Tab</li><br></br>
                         <li><b>Edit : </b> Your Porjects on Command</li><br></br>

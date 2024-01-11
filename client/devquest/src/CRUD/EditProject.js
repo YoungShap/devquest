@@ -3,11 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './Form.css'
 import './FormBtn.css'
 import { BiRefresh } from 'react-icons/bi';
-import { GeneralContext } from '../App';
+
 
 export default function EditProject() {
     const { id } = useParams();
-    const { user } = React.useContext(GeneralContext);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',

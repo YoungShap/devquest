@@ -4,10 +4,14 @@ import './Form.css'
 import './FormBtn.css'
 import { BiRefresh } from 'react-icons/bi';
 import { GeneralContext } from '../App';
+import Joi from 'joi';
+
 
 export default function AddProject() {
-    const { user } = React.useContext(GeneralContext);
+    const { user, snackbar } = React.useContext(GeneralContext);
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [isValid, setIsValid] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         category: '',
@@ -17,43 +21,49 @@ export default function AddProject() {
         ghub: '',
     });
 
-    // const cardSchema = Joi.object({
-    //     name: Joi.string().min(3).max(50).required(),
-    //     subtitle: Joi.string().min(0).max(50).empty(),
-    //     description: Joi.string().min(3).max(500).required(),
-    //     techId: Joi.number().min(0).max(0),
-    //     email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-    //     web: Joi.string().required(),
-    //     imgUrl: Joi.string().min(0).max(550),
-    //   });
-
+    const ProjectSchema = Joi.object({
+        name: Joi.string().min(3).max(14).required(),
+        category: Joi.string().required(),
+        dev: Joi.string().min(3).max(16).required(),
+        ghub: Joi.string().max(500).required(),
+    });
     const handleInputChange = (ev) => {
         const { id, value } = ev.target;
-        setFormData({
-            ...formData,
-            [id]: value,
+
+        setFormData((prevState) => {
+            const updatedFormData = {
+                ...prevState,
+                [id]: value,
+            };
+
+            // Perform validation
+            const schema = ProjectSchema.validate(updatedFormData, { abortEarly: false, allowUnknown: true });
+            const err = {};
+
+            if (schema.error) {
+                schema.error.details.forEach((error) => {
+                    err[error.context.key] = error.message;
+                });
+                setIsValid(false);
+            } else {
+                setIsValid(true);
+            }
+
+            // Update errors state
+            setErrors(err);
+
+            return updatedFormData;
         });
-        // const schema = cardSchema.validate(obj, { abortEarly: false, allowUnknown: true });
-        // const err = { ...errors, [id]: undefined };
-
-        // if (schema.error) {
-        //     const error = schema.error.details.find(e => e.context.key === id);
-
-        //     if (error) {
-        //         err[id] = error.message;
-        //     }
-        //     setIsValid(false);
-        // } else {
-        //     setIsValid(true);
-        // }
-
-        // setErrors(err);
     };
+
     const handleFileChange = (ev) => {
         const file = ev.target.files[0];
-        setFormData({
-            ...formData,
-            imgSrc: file || '', // Save the File object or an empty string if no file is selected
+
+        setFormData((prevState) => {
+            return {
+                ...prevState,
+                imgSrc: file || ''// Save the File object or an empty string if no file is selected
+            };
         });
     };
 
@@ -80,11 +90,11 @@ export default function AddProject() {
             .then((res) => res.json())
             .then((data) => {
                 setFormData(data);
-                //   snackbar("Card Added Successfully")
+                snackbar("Project Added Successfully")
+                navigate('/');
             })
             .catch((err) => {
-                //   snackbar(err.message);
-                navigate('/error');
+                snackbar(err.message);
                 console.log(err);
             });
     }
@@ -98,7 +108,7 @@ export default function AddProject() {
                     <div className='column'>
                         <label>Project Name*</label>
                         <input type="text" id='name' value={formData.name} onChange={handleInputChange} />
-                        {/* {errors.name ? <div className='fieldError'>{errors.name}</div> : ''} */}
+                        {errors.name ? <div className='fieldError'>{errors.name}</div> : ''}
                     </div>
                     <div className='column'>
                         <label>Category*</label>
@@ -114,26 +124,25 @@ export default function AddProject() {
                             <option value="PhP">PHP</option>
                             <option value="HTMLCSS">HTML&CSS</option>
                         </select>
-                        {/* {errors.description ? <div className='fieldError'>{errors.description}</div> : ''} */}
+                        {errors.category ? <div className='fieldError'>{errors.category}</div> : ''}
                     </div>
                 </div>
                 <div className='ghub'>
                     <div className='column'>
                         <label>GitHub Link*</label>
                         <input type="text" id='ghub' value={formData.ghub} onChange={handleInputChange} />
-                        {/* {errors.ghub ? <div className='fieldError'>{errors.ghub}</div> : ''} */}
+                        {errors.ghub ? <div className='fieldError'>{errors.ghub}</div> : ''}
                     </div>
                 </div>
                 <div className='row'>
                     <div className='column'>
                         <label>Developer Name*</label>
                         <input type="text" id='dev' value={formData.dev} onChange={handleInputChange} />
-                        {/* {errors.dev ? <div className='fieldError'>{errors.dev}</div> : ''} */}
+                        {errors.dev ? <div className='fieldError'>{errors.dev}</div> : ''}
                     </div>
                     <div className='column'>
-                        <label>Image Upload*</label>
+                        <label>Image Upload(Optional)</label>
                         <input type="file" id="imgSrc" onChange={handleFileChange} accept="image/*" />
-                        {/* {errors.imgSrc ? <div className='fieldError'>{errors.imgSrc}</div> : ''} */}
                     </div>
                 </div>
                 <div className='options2'>
@@ -141,7 +150,7 @@ export default function AddProject() {
                         <button className='cancel' onClick={() => navigate('/')}>CANCEL</button>
                         <button className='refresh'><BiRefresh size={22} /></button>
                     </div>
-                    <button className='submitG' onClick={Add}>SUBMIT</button>
+                    <button className='submitG' onClick={Add} disabled={!isValid}>SUBMIT</button>
                 </div>
             </form>
         </div>
