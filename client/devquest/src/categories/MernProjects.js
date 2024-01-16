@@ -111,11 +111,11 @@ export default function ReactProjects() {
                                     </div>
                                     <div className='expand-card'>
                                         <Link to={`/projects/expand/${p._id}`}><LuExpand size={23.5} /></Link>
+                                    </div>
                                         {roleType === 2 ?
-                                            <IoMdHome size={28} style={{ color: p.homePage === true ? "#2bb32b" : "red", backgroundColor: 'rgb(22, 22, 22)', borderRadius: "50%", marginTop: "11px" }} onClick={() => toggleHomePage(p._id)} /> :
+                                            <IoMdHome size={28} style={{ color: p.homePage === true ? "#2bb32b" : "red", backgroundColor: 'rgb(22, 22, 22)', borderRadius: "50%", marginTop: "13px" }} onClick={() => toggleHomePage(p._id)} /> :
                                             ''
                                         }
-                                    </div>
                                 </div>
                             </div>
                         </div>
