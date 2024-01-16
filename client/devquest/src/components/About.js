@@ -41,7 +41,7 @@ export default function About() {
             </div>
             <>
                 <h1 className='about-heading'>Explore and Learn</h1>
-                <p className='about-p'>Each Category contains a set of Cards like this</p>
+                <p className='about-p'>Each Category contains a set of Cards like these</p>
             </>
             <div className='card-frame' style={{ marginTop: "-2px" }}>
                 <div className='project-card'>

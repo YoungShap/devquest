@@ -5,7 +5,7 @@ require('dotenv').config();
 const User = require('../models/userModel');
 const authGuard = require('../authentication/auth-guard');
 const adminGuard = require('../authentication/adminGuard');
-const { loginSchema, signupSchema } = require('../config');
+const { loginSchema, signupSchema, editAccSchema } = require('../config');
 const router = express.Router();
 
 const getUserId = (req, res) => {
@@ -25,17 +25,17 @@ const getUserId = (req, res) => {
 // Login status
 router.get('/login', authGuard, async (req, res) => {
     const _id = getUserId(req, res);
-    
+
     try {
         const LoggedUser = await User.findOne({ _id });
-        
+
         if (!LoggedUser) {
             return res.status(403).send("username or password is incorrect");
         }
 
         delete LoggedUser.password;
         delete LoggedUser.email;
-        
+
         res.send(LoggedUser);
     } catch (error) {
         console.error(error);
@@ -51,26 +51,26 @@ router.post('/login', async (req, res) => {
     if (schema.error) {
         return res.status(403).send(schema.error.details[0].message);
     }
-    
+
     const user = await User.findOne({ email });
-    
+
     if (!user) {
         return res.status(403).send("username or password is incorrect");
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
-    
+
     if (!passwordMatch) {
         return res.status(403).send("username or password is incorrect");
     }
-    
+
     // יצירת אובייקט רגיל מהמחלקה של היוזר 
     const userResult = user.toObject();
     // מחיקת הסיסמה מהאובייקט שנשלח למשתמש
     delete userResult.password;
     delete userResult.email;
     // יצירת טוקן
-    userResult.token = jwt.sign({ id: userResult._id , type: userResult.type }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    userResult.token = jwt.sign({ id: userResult._id, type: userResult.type }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.send(userResult);
 });
@@ -136,10 +136,10 @@ router.delete('/users/:id', adminGuard, async (req, res) => {
         res.send();
     }
     catch (error) {
-        console.error(error); 
+        console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
-}); 
+});
 
 // favorites
 router.put("/users/:id", authGuard, async (req, res) => {
@@ -180,19 +180,21 @@ router.get("/users/:id", adminGuard, async (req, res) => {
 //EDIT(PUT) user
 router.put('/users/edit/:id', authGuard, async (req, res) => {
     try {
-        const { userId } = req.params;
-        const user = await User.findOne({ userId });
-        const { firstName, lastName, password, devName, email, } = req.body;
+        const { id } = req.params;
+        const user = await User.findOne({ _id: id });
+        const { firstName, lastName, devName, email, } = req.body;
+        const schema = editAccSchema.validate(req.body, { allowUnknown: true });
 
+        if (schema.error) {
+            return res.status(403).send(schema.error.details[0].message);
+        }
 
         if (!user) {
             return res.status(404).send("Project not found!");
         }
 
-        // Update project properties 
         user.firstName = firstName;
         user.lastName = lastName;
-        user.password = await bcrypt.hash(password, 10);
         user.devName = devName;
         user.email = email;
 
@@ -211,13 +213,16 @@ router.put('/admin/users/:id', adminGuard, async (req, res) => {
         const { id } = req.params;
         const user = await User.findOne({ _id: id });
         const { firstName, lastName, password, devName, email, } = req.body;
+        const schema = signupSchema.validate(req.body, { allowUnknown: true });
 
+        if (schema.error) {
+            return res.status(403).send(schema.error.details[0].message);
+        }
 
         if (!user) {
             return res.status(404).send("Project not found!");
         }
 
-        // Update project properties 
         user.firstName = firstName;
         user.lastName = lastName;
         user.password = await bcrypt.hash(password, 10);

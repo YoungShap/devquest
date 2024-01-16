@@ -16,17 +16,17 @@ router.get("/projects", async (req, res) => {
         console.error(error); // Log the error
         res.status(500).send("Error retrieving projects")
     }
-})
-
-// POST a new project
+}) 
+// setting up image upload with multer
 const storage = multer.diskStorage({
     destination: 'uploads/',
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); 
     },
 });
 const upload = multer({ storage });
 
+// POST a new project
 router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res) => {
     try {
         // authGuard middleware can now access req.body and req.file
@@ -34,9 +34,6 @@ router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res
         const { name, category, dev, ghub, uploadBy } = req.body;
         const imgSrc = req.file ? req.file.filename : '../uploads/imgSrc-1702476581922.png';
 
-        // if (!imgSrc) {
-        //     return res.status(403).send('No image provided');
-        // }
         const schema = ProjectSchema.validate(req.body, { allowUnknown: true });
 
         if (schema.error) {
@@ -84,6 +81,12 @@ router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res)
 
         const imgSrc = req.file ? req.file.filename : undefined;
 
+        const schema = ProjectSchema.validate(req.body, { allowUnknown: true });
+
+        if (schema.error) {
+            return res.status(403).send(schema.error.details[0].message);
+        } 
+
         const project = await Project.findOne({ _id: req.params.id });
 
         if (!project) {
@@ -108,7 +111,7 @@ router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res)
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
+//GET 1 Project
 router.get('/projects/:id', authGuard, async (req, res) => {
     res.send(await Project.findOne({ _id: req.params.id }));
 });

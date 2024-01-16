@@ -22,7 +22,7 @@ export default function AddProject() {
     });
 
     const ProjectSchema = Joi.object({
-        name: Joi.string().min(3).max(14).required(),
+        name: Joi.string().min(3).max(18).required(),
         category: Joi.string().required(),
         dev: Joi.string().min(3).max(16).required(),
         ghub: Joi.string().max(500).required(),
@@ -94,7 +94,7 @@ export default function AddProject() {
                 navigate('/');
             })
             .catch((err) => {
-                snackbar(err.message);
+                snackbar('Validation Error');
                 console.log(err);
             });
     }

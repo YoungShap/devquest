@@ -16,14 +16,22 @@ const signupSchema = Joi.object({
   });
 
   const ProjectSchema = Joi.object({
-    name: Joi.string().min(3).max(14).required(),
+    name: Joi.string().min(3).max(18).required(),
     category: Joi.string().required(),
     dev: Joi.string().min(3).max(16).required(),
     ghub: Joi.string().max(500).required(),
 });
 
+const editAccSchema = Joi.object({
+    firstName: Joi.string().min(3).max(10).required(),
+    lastName: Joi.string().min(3).max(10).required(),
+    email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    devName: Joi.string().min(3).max(10).required(),
+  });
+
 module.exports = {
     loginSchema,
     signupSchema,
     ProjectSchema,
+    editAccSchema,
 };

@@ -59,6 +59,11 @@
     padding: 5px;
     border-radius: 50%;
 }
+.expand-card svg{
+   margin-top: 16px;
+   color: #73bd24;
+}
+
 @media screen and (max-width:369px) {
     .card-frame h1 {
         font-size: 20px;
@@ -70,11 +75,18 @@
         margin-top: 5px;
     }
 
-    .card-icons {
-        margin-top: 8px;
-        font-size: 20px;
+}
+@media screen and (max-width:304px) {
+    .project-card .card-icons svg{
+        font-size: 28px;
     }
 }
 
+.project-card .user-icons {
+    margin-top: 5px;
+    margin-left: -2px;
+}
 
-
+/* .card-icons {
+font-size: 38px !important;
+} */

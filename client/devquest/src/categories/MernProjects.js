@@ -13,6 +13,7 @@ import { BiLogoMongodb } from 'react-icons/bi';
 import { FaNodeJs, FaReact } from 'react-icons/fa';
 import { SiExpress } from 'react-icons/si';
 import { IoMdHome } from 'react-icons/io';
+import { LuExpand } from "react-icons/lu";
 import Searchbar, { search } from '../components/SearchBar';
 
 
@@ -38,7 +39,7 @@ export default function ReactProjects() {
                     error
                 );
             })
-    }, [toggleHomePage]); 
+    }, [toggleHomePage]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -102,16 +103,18 @@ export default function ReactProjects() {
                                 <p><b>Category : {p.category}</b></p>
                                 <p><b>Dev Name : {p.dev}</b></p>
                                 <div className='card-icons'>
-                                    <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%', padding:"0" }} /></Link>
-                                    {roleType === 2 ?
-                                        <IoMdHome size={38} style={{ color: p.homePage === true ? "#2bb32b" : "red", backgroundColor: 'rgb(22, 22, 22)', borderRadius:"50%", marginTop:"4px" }} onClick={() => toggleHomePage(p._id)} /> :
-                                        ''
-                                    }
-                                    <div className='spacer'></div>
+                                    <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '29px', backgroundColor: 'black', borderRadius: '50%', padding: "0", marginTop: "8px" }} /></Link>
                                     <div className='user-icons'>
-                                    {user && <BsFillTrash3Fill className='Trash' size={26} style={{ color: 'white' }} onClick={() => deleteProject(p._id)} />}
-                                    {user && <Link className='Edit' to={`/projects/edit/${p._id}`}><span><FiEdit size={26} /></span></Link>}
-                                     {user && <BsFillHeartFill className='Heart' size={26} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => favorite(p._id)} />}
+                                        {user && <BsFillTrash3Fill className='Trash' size={23.5} style={{ color: 'white' }} onClick={() => deleteProject(p._id)} />}
+                                        {user && <Link className='Edit' to={`/projects/edit/${p._id}`}><span><FiEdit size={23.5} /></span></Link>}
+                                        {user && <BsFillHeartFill className='Heart' size={23.5} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => favorite(p._id)} />}
+                                    </div>
+                                    <div className='expand-card'>
+                                        <Link to={`/projects/expand/${p._id}`}><LuExpand size={23.5} /></Link>
+                                        {roleType === 2 ?
+                                            <IoMdHome size={28} style={{ color: p.homePage === true ? "#2bb32b" : "red", backgroundColor: 'rgb(22, 22, 22)', borderRadius: "50%", marginTop: "11px" }} onClick={() => toggleHomePage(p._id)} /> :
+                                            ''
+                                        }
                                     </div>
                                 </div>
                             </div>

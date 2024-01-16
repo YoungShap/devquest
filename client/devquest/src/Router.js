@@ -17,6 +17,7 @@ import UserManage from "./admin/UserManage";
 import Account from "./user/Account";
 import EditUsers from "./admin/EditUsers";
 import About from "./components/About";
+import CardExpand from "./components/CardExpand";
 
 
 export default function Router() {  // this router is for when a user is connected  //
@@ -31,6 +32,7 @@ export default function Router() {  // this router is for when a user is connect
             <Route path='/admin/sandbox' element={<UserManage />} />
             <Route path='/account' element={<Account />} />
             <Route path='/admin/users/edit/:id' element={<EditUsers />} />
+            <Route path='/projects/expand/:id' element={<CardExpand />} />
             <Route path='/projects/mern' element={<MernProjects />} />
             <Route path='/projects/mean' element={<MeanProjects />} />
             <Route path='/projects/ruby' element={<RubyProjects />} />

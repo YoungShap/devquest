@@ -9,8 +9,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { structure, signupSchema } from '../Config';
+import { GeneralContext } from '../App';
 
 const defaultTheme = createTheme();
 export default function SignUp() {
@@ -21,6 +22,7 @@ export default function SignUp() {
         devName: '',
         password: '',
     });
+    const { snackbar } = useContext(GeneralContext);
     const navigate = useNavigate();
       const [errors, setErrors] = useState({});
       const [isValid, setIsValid] = useState(false);
@@ -73,7 +75,7 @@ export default function SignUp() {
                 }
             })
             .catch(err => {
-               console.log(err);
+               snackbar(err.message);
             })
             .finally(() => {
                 // setIsLoading(false);
@@ -130,7 +132,7 @@ export default function SignUp() {
                             }
                         </Grid>
                         <Button style={{ backgroundColor: '#121010', color: 'white' }}
-                         disabled={!isValid }
+                         disabled={!isValid}
                             type="submit"
                             fullWidth
                             variant="contained"

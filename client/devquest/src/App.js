@@ -114,6 +114,7 @@ function App() {
                         project._id === id ? { ...project, homePage: updatedHome.homePage } : project
                     )
                 );
+                snackbar(`Toggle Succseful  `);
             })
             .catch(error => {
                 console.error('Toggle failed:', error);

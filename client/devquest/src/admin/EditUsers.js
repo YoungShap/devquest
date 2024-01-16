@@ -10,13 +10,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
-import { structure } from '../Config';
+import { signupSchema, structure } from '../Config';
 import { GeneralContext } from '../App';
 
 const defaultTheme = createTheme();
 export default function EditUsers() {
     const { id } = useParams();
-    const { user, setUser } = useContext(GeneralContext);
+    const { snackbar } = useContext(GeneralContext);
+    const [errors, setErrors] = useState({});
+    const [isValid, setIsValid] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -25,6 +27,7 @@ export default function EditUsers() {
         password: '',
     });
     const navigate = useNavigate();
+    const [updatedAcc, setUpdatedAcc] = useState();
     //   const [errors, setErrors] = useState({});
     //   const [isValid, setIsValid] = useState(false);
 
@@ -54,27 +57,27 @@ export default function EditUsers() {
 
     const handleInputChange = ev => {
         const { id, value } = ev.target;
-        let obj = {
-            ...formData,
-            [id]: value,
-        };
-        // const schema = signupSchema.validate(obj, { abortEarly: false });
-        // const err = { ...errors, [id]: undefined };
+        setFormData((prevState) => {
+            const updatedFormData = {
+                ...prevState,
+                [id]: value,
+            };
+            const schema = signupSchema.validate(updatedFormData, { abortEarly: false, allowUnknown: true });
+            const err = {};
 
-        // if (schema.error) {
-        //   const error = schema.error.details.find(e => e.context.key === id);
+            if (schema.error) {
+                schema.error.details.forEach((error) => {
+                    err[error.context.key] = error.message;
+                });
+                setIsValid(false);
+            } else {
+                setIsValid(true);
+            }
 
-        //   if (error) {
-        //     err[id] = error.message;
-        //   }
-        //   setIsValid(false);
-        // } else {
-        //   setIsValid(true);
-        // } 
+            setErrors(err);
 
-        setFormData(obj);
-        console.log(formData);
-        // setErrors(err);
+            return updatedFormData;
+        });
     };
 
     const save = async (ev) => {
@@ -97,10 +100,11 @@ export default function EditUsers() {
             }
 
             const updatedUser = await response.json();
-            setUser(updatedUser);
+            setUpdatedAcc(updatedUser);
             navigate("/");
         } catch (error) {
             console.error("Error:", error);
+            snackbar('Validation Error');
         }
     };
     return (
@@ -135,7 +139,7 @@ export default function EditUsers() {
                                     label="First Name"
                                     autoFocus
                                 />
-                                {/* {errors.firstName ? <div className='fieldError'>{errors.firstName}</div> : ''} */}
+                                {errors.firstName ? <div style={{ color: '#d12c2c' }} className='fieldError'>{errors.firstName}</div> : ''}
                             </Grid>
                             {
                                 structure.map(item =>
@@ -150,11 +154,12 @@ export default function EditUsers() {
                                             label={item.label}
                                             value={formData[item.name]}
                                         />
-                                        {/* {errors[item.name] ? <div className='fieldError'>{errors[item.name]}</div> : ''} */}
+                                        {errors[item.name] ? <div style={{ color: '#d12c2c' }} className='fieldError'>{errors[item.name]}</div> : ''}
                                     </Grid>)
                             }
                         </Grid>
                         <Button style={{ backgroundColor: '#121010', color: 'white' }}
+                         disabled={!isValid}
                             type="submit"
                             fullWidth
                             variant="contained"

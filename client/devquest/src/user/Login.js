@@ -34,7 +34,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-    const { setUser, setRoleType, snackbar } = React.useContext(GeneralContext);
+    const { user, setUser, setRoleType, snackbar } = React.useContext(GeneralContext);
     const navigate = useNavigate();
     const [isValid, setIsValid] = useState(false);
     const [errors, setErrors] = useState({});
@@ -103,8 +103,9 @@ const handleSubmit = (event) => {
             } else {
                 setRoleType(RoleTypes.none);
             }
+            snackbar(`${data.devName} Is Connected`);
             navigate('/');
-            snackbar("Login Sucsseful");
+            // window.location.reload();
         })
         .catch(err => {
             snackbar(err.message);

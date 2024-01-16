@@ -3,10 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './Form.css'
 import './FormBtn.css'
 import { BiRefresh } from 'react-icons/bi';
+import Joi from 'joi';
+import { GeneralContext } from '../App';
 
 
 export default function EditProject() {
+    const { snackbar } = React.useContext(GeneralContext);
     const { id } = useParams();
+    const [errors, setErrors] = useState({});
+    const [isValid, setIsValid] = useState(false);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
@@ -15,7 +20,7 @@ export default function EditProject() {
         imgSrc: '',
         ghub: '',
     });
-    
+
     useEffect(() => {
         fetch(`http://localhost:4000/projects/${id}`, {
             credentials: 'include',
@@ -32,59 +37,66 @@ export default function EditProject() {
             .catch(() => {
                 navigate("/error");
             });
-    }, []); 
-    
-    // const cardSchema = Joi.object({
-    //     name: Joi.string().min(3).max(50).required(),
-    //     subtitle: Joi.string().min(0).max(50).empty(),
-    //     description: Joi.string().min(3).max(500).required(),
-    //     techId: Joi.number().min(0).max(0),
-    //     email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-    //     web: Joi.string().required(),
-    //     imgUrl: Joi.string().min(0).max(550),
-    //   });
-    
+    }, []);
+
+    const ProjectSchema = Joi.object({
+        name: Joi.string().min(3).max(18).required(),
+        category: Joi.string().required(),
+        dev: Joi.string().min(3).max(16).required(),
+        ghub: Joi.string().max(500).required(),
+    });
+
     const handleInputChange = (ev) => {
         const { id, value } = ev.target;
-        setFormData({
-            ...formData,
-            [id]: value,
-        });
-        // const schema = cardSchema.validate(obj, { abortEarly: false, allowUnknown: true });
-        // const err = { ...errors, [id]: undefined };
-        
-        // if (schema.error) {
-            //     const error = schema.error.details.find(e => e.context.key === id);
-            
-            //     if (error) {
-                //         err[id] = error.message;
-                //     }
-                //     setIsValid(false);
-                // } else {
-                    //     setIsValid(true);
-                    // }
-                    
-                    // setErrors(err);
-                };
-    const handleFileChange = (ev) => {
-        const file = ev.target.files[0];
-        setFormData({
-            ...formData,
-            imgSrc: file || '', // Save the File object or an empty string if no file is selected
+
+        setFormData((prevState) => {
+            const updatedFormData = {
+                ...prevState,
+                [id]: value,
+            };
+
+            // Perform validation
+            const schema = ProjectSchema.validate(updatedFormData, { abortEarly: false, allowUnknown: true });
+            const err = {};
+
+            if (schema.error) {
+                schema.error.details.forEach((error) => {
+                    err[error.context.key] = error.message;
+                });
+                setIsValid(false);
+            } else {
+                setIsValid(true);
+            }
+
+            // Update errors state
+            setErrors(err);
+
+            return updatedFormData;
         });
     };
-    
-    
+
+    const handleFileChange = (ev) => {
+        const file = ev.target.files[0];
+
+        setFormData((prevState) => {
+            return {
+                ...prevState,
+                imgSrc: file || ''// Save the File object or an empty string if no file is selected
+            };
+        });
+    };
+
+
     function save(ev) {
         ev.preventDefault();
-        
+
         const formDataToSend = new FormData();
         formDataToSend.append('name', formData.name);
         formDataToSend.append('category', formData.category);
         formDataToSend.append('dev', formData.dev);
         formDataToSend.append('imgSrc', formData.imgSrc);
         formDataToSend.append('ghub', formData.ghub);
-        
+
         fetch(`http://localhost:4000/projects/${id}`, {
             credentials: 'include',
             headers: {
@@ -101,7 +113,7 @@ export default function EditProject() {
             })
             .catch((err) => {
                 //   snackbar(err.message);
-                navigate('/error');
+                snackbar('Validation Error');
                 console.log(err);
             });
     }
@@ -115,7 +127,7 @@ export default function EditProject() {
                     <div className='column'>
                         <label>Project Name*</label>
                         <input type="text" id='name' value={formData.name} onChange={handleInputChange} />
-                        {/* {errors.name ? <div className='fieldError'>{errors.name}</div> : ''} */}
+                        {errors.name ? <div className='fieldError'>{errors.name}</div> : ''}
                     </div>
                     <div className='column'>
                         <label>Category*</label>
@@ -131,26 +143,25 @@ export default function EditProject() {
                             <option value="PhP">PHP</option>
                             <option value="HTMLCSS">HTML&CSS</option>
                         </select>
-                        {/* {errors.description ? <div className='fieldError'>{errors.description}</div> : ''} */}
+                        {errors.category ? <div className='fieldError'>{errors.category}</div> : ''}
                     </div>
                 </div>
                 <div className='ghub'>
                     <div className='column'>
                         <label>GitHub Link*</label>
                         <input type="text" id='ghub' value={formData.ghub} onChange={handleInputChange} />
-                        {/* {errors.ghub ? <div className='fieldError'>{errors.ghub}</div> : ''} */}
+                        {errors.ghub ? <div className='fieldError'>{errors.ghub}</div> : ''}
                     </div>
                 </div>
                 <div className='row'>
                     <div className='column'>
                         <label>Developer Name*</label>
                         <input type="text" id='dev' value={formData.dev} onChange={handleInputChange} />
-                        {/* {errors.dev ? <div className='fieldError'>{errors.dev}</div> : ''} */}
+                        {errors.dev ? <div className='fieldError'>{errors.dev}</div> : ''}
                     </div>
                     <div className='column'>
                         <label>Image Upload*(Current image already applied)</label>
                         <input type="file" id="imgSrc" onChange={handleFileChange} accept="image/*" />
-                        {/* {errors.imgSrc ? <div className='fieldError'>{errors.imgSrc}</div> : ''} */}
                     </div>
                 </div>
                 <div className='options2'>
@@ -158,7 +169,7 @@ export default function EditProject() {
                         <button className='cancel' onClick={() => navigate('/')}>CANCEL</button>
                         <button className='refresh'><BiRefresh size={22} /></button>
                     </div>
-                    <button className='submitG' onClick={save}>SUBMIT</button>
+                    <button className='submitG' onClick={save} disabled={!isValid} >SUBMIT</button>
                 </div>
             </form>
         </div>
