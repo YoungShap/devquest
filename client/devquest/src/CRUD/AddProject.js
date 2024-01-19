@@ -14,6 +14,7 @@ export default function AddProject() {
     const [isValid, setIsValid] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
+        description: '',
         category: '',
         dev: '',
         imgSrc: '',
@@ -23,6 +24,7 @@ export default function AddProject() {
 
     const ProjectSchema = Joi.object({
         name: Joi.string().min(3).max(18).required(),
+        description: Joi.string().min(20).max(350),
         category: Joi.string().required(),
         dev: Joi.string().min(3).max(16).required(),
         ghub: Joi.string().max(500).required(),
@@ -73,6 +75,7 @@ export default function AddProject() {
 
         const formDataToSend = new FormData();
         formDataToSend.append('name', formData.name);
+        formDataToSend.append('description', formData.description);
         formDataToSend.append('category', formData.category);
         formDataToSend.append('dev', formData.dev);
         formDataToSend.append('imgSrc', formData.imgSrc);
@@ -134,6 +137,13 @@ export default function AddProject() {
                         {errors.ghub ? <div className='fieldError'>{errors.ghub}</div> : ''}
                     </div>
                 </div>
+                <div className='ghub'>
+                    <div className='column'>
+                        <label>Description*</label>
+                        <input type="text" id='description' value={formData.description} onChange={handleInputChange} />
+                        {errors.description ? <div className='fieldError'>{errors.description}</div> : ''}
+                    </div>
+                </div>
                 <div className='row'>
                     <div className='column'>
                         <label>Developer Name*</label>
@@ -150,7 +160,7 @@ export default function AddProject() {
                         <button className='cancel' onClick={() => navigate('/')}>CANCEL</button>
                         <button className='refresh'><BiRefresh size={22} /></button>
                     </div>
-                    <button className='submitG' onClick={Add} disabled={!isValid}>SUBMIT</button>
+                    <button className='submitG' onClick={Add} >SUBMIT</button>
                 </div>
             </form>
         </div>

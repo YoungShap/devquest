@@ -15,6 +15,7 @@ import { RiJavascriptFill } from 'react-icons/ri';
 import { TbFileTypePhp } from 'react-icons/tb';
 import { IoLogoCss3 } from 'react-icons/io';
 import Searchbar, { search } from '../components/SearchBar';
+import { LuExpand } from 'react-icons/lu';
 
 
 export default function Favorites() {
@@ -94,12 +95,14 @@ export default function Favorites() {
                                 <p><b>Category : {p.category}</b></p>
                                 <p><b>Dev Name : {p.dev}</b></p>
                                 <div className='card-icons'>
-                                    <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%', padding:"0" }} /></Link>
-                                    <div className='spacer'></div>
+                                    <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '29px', backgroundColor: 'black', borderRadius: '50%', padding: "0", marginTop: "9px" }} /></Link>
                                     <div className='user-icons'>
-                                    {user && <BsFillTrash3Fill className='Trash' size={26} style={{ color: 'white' }} onClick={() => deleteProject(p._id)} />}
-                                    {user && <Link className='Edit' to={`/projects/edit/${p._id}`}><span><FiEdit size={26} /></span></Link>}
-                                     {user && <BsFillHeartFill className='Heart' size={26} style={{ color: user.favorites.includes(p._id) ? 'red' : 'rgb(51, 49, 49)' }} onClick={() => favorite(p._id)} />}
+                                        {user && <BsFillTrash3Fill className='Trash' size={23.5} style={{ color: '#b9b0b0' }} onClick={() => deleteProject(p._id)} />}
+                                        {user && <Link className='Edit' to={`/projects/edit/${p._id}`}><span><FiEdit size={23.5} style={{color:"#b9b0b0"}}/></span></Link>}
+                                        {user && <BsFillHeartFill className='Heart' size={23.5} style={{ color: user.favorites.includes(p._id) ? '#cf1212' : '#7d7575' }} onClick={() => favorite(p._id)} />}
+                                    </div>
+                                    <div className='expand-card'>
+                                        <Link to={`/projects/expand/${p._id}`}><LuExpand size={23.5} /></Link>
                                     </div>
                                 </div>
                             </div>

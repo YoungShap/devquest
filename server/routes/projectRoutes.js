@@ -31,7 +31,7 @@ router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res
     try {
         // authGuard middleware can now access req.body and req.file
 
-        const { name, category, dev, ghub, uploadBy } = req.body;
+        const { name, description, category, dev, ghub, uploadBy } = req.body;
         const imgSrc = req.file ? req.file.filename : '../uploads/imgSrc-1702476581922.png';
 
         const schema = ProjectSchema.validate(req.body, { allowUnknown: true });
@@ -42,6 +42,7 @@ router.post('/projects/add', upload.single('imgSrc'), authGuard, async (req, res
 
         const newProject = new Project({
             name,
+            description,
             category, 
             dev,
             homePage: false,
@@ -77,7 +78,7 @@ router.delete('/projects/:id', authGuard, async (req, res) => {
 //EDIT a project
 router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res) => {
     try {
-        const { name, category, dev, ghub } = req.body;
+        const { name, description, category, dev, ghub } = req.body;
 
         const imgSrc = req.file ? req.file.filename : undefined;
 
@@ -95,6 +96,7 @@ router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res)
 
         // Update project properties
         project.name = name;
+        project.description = description
         project.category = category;
         project.dev = dev;
         project.ghub = ghub;

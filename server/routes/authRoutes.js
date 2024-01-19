@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
     const userResult = user.toObject();
     // מחיקת הסיסמה מהאובייקט שנשלח למשתמש
     delete userResult.password;
-    delete userResult.email;
+    // delete userResult.email;
     // יצירת טוקן
     userResult.token = jwt.sign({ id: userResult._id, type: userResult.type }, process.env.JWT_SECRET, { expiresIn: '1h' });
 

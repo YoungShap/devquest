@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom'
 import WebhookIcon from '@mui/icons-material/Webhook';
 import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
+import { LuExpand } from 'react-icons/lu'
 
 export default function About() {
 
@@ -41,7 +42,7 @@ export default function About() {
             </div>
             <>
                 <h1 className='about-heading'>Explore and Learn</h1>
-                <p className='about-p'>Each Category contains a set of Cards like these</p>
+                <p className='about-p'>Each Category contains a set of Cards :</p>
             </>
             <div className='card-frame' style={{ marginTop: "-2px" }}>
                 <div className='project-card'>
@@ -51,12 +52,15 @@ export default function About() {
                         <p><b>Category : Mern </b></p>
                         <p><b>Dev Name : YoungShap</b></p>
                         <div className='card-icons'>
-                            <GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%', padding: "0px", marginTop: "5px" }} />
+                            <GitHubIcon style={{ color: 'white', fontSize: '29px', backgroundColor: 'black', borderRadius: '50%', padding: "2px", marginTop: "15px" }} />
                             <div className='spacer'></div>
                             <div className='user-icons-about'>
-                                <BsFillTrash3Fill className='Trash' size={26} style={{ color: 'white' }} />
-                                <span className='Edit-about'><FiEdit size={26} /></span>
-                                <BsFillHeartFill className='Heart' size={26} style={{ color: 'red' }} />
+                                <BsFillTrash3Fill className='Trash' size={23} style={{ color: '#b9b0b0', marginTop: "2px" }} />
+                                <span className='Edit-about'><FiEdit size={23.5} style={{color:"#b9b0b0"}} /></span>
+                                <BsFillHeartFill className='Heart' size={23.5} style={{ color: 'red', marginTop: "5px" }} />
+                                <div className='expand-card'>
+                                    <LuExpand size={24} style={{marginBottom:'6px', paddingTop:"3px"}} />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,17 +72,20 @@ export default function About() {
                         <p><b>Category : Mern </b></p>
                         <p><b>Dev Name : Ed-Roh</b></p>
                         <div className='card-icons'>
-                            <GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%', padding: "0px", marginTop: "5px" }} />
+                            <GitHubIcon style={{ color: 'white', fontSize: '29px', backgroundColor: 'black', borderRadius: '50%', padding: "2px", marginTop: "15px" }} />
                             <div className='spacer'></div>
                             <div className='user-icons-about'>
-                                <BsFillTrash3Fill className='Trash' size={26} style={{ color: 'white' }} />
-                                <span className='Edit-about'><FiEdit size={26} /></span>
-                                <BsFillHeartFill className='Heart' size={26} style={{ color: 'red' }} />
+                                <BsFillTrash3Fill className='Trash' size={23} style={{ color: '#b9b0b0', marginTop: "2px" }} />
+                                <span className='Edit-about'><FiEdit size={23.5} style={{color:"#b9b0b0"}} /></span>
+                                <BsFillHeartFill className='Heart' size={23.5} style={{ color: 'red', marginTop: "5px" }} />
+                                <div className='expand-card'>
+                                    <LuExpand size={24} style={{marginBottom:'6px', paddingTop:"3px"}} />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-               
+
             </div>
             <>
                 <h1 className='about-heading'>User Guide :</h1>
@@ -87,6 +94,7 @@ export default function About() {
                         <li><b>Each Card shows :</b><br></br> A Screenshot of the Project, the Developer's Github username AND a link to that same Project's Github Repository </li><br></br>
                         <li><b>Right next to the Github Button there are : </b><br></br>Delete and Edit Buttons and they will be displayed depending on if you uploaded the Project or not.</li><br></br>
                         <li><b>Favorites :</b><br></br> The Heart Icon is how you Add/Remove a project from your Favorites Tab, you will need to SignUp to use this Feature. </li><br></br>
+                        <li><b>Expand :</b><br></br> The Green expand button takes you to a bigger version of the card with more info like a description of the project (If provided) </li><br></br>
                         <li><b>Info Buttons : </b><br></br> Each Category has its own Buttons leading you to informational websites like W3schools, CodeCademy and More.</li>
                     </ul>
                 </div>
@@ -97,7 +105,7 @@ export default function About() {
                     <ul className='about-ul' style={{ fontFamily: "math" }}>
                         <li><b>Add : </b> Your own Projects </li><br></br>
                         <li><b>Favorite : </b>Keep track of your favorite Projects in the Favorites Tab</li><br></br>
-                        <li><b>Edit : </b> Your Porjects on Command</li><br></br>
+                        <li><b>Edit : </b>Tweak Your Porjects on Command</li><br></br>
                         <li><b>Contribute : </b> To our growing Community and add more Project ideas for Others!</li>
                     </ul>
                 </div>

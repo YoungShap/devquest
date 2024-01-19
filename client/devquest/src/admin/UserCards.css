@@ -1,0 +1,91 @@
+.Cardframe {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 30px;
+    margin-top: 30px;
+    margin-bottom: 28px;
+    margin: auto;
+}
+
+.Card3 {
+    width: 280px;
+    height: 469px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.274);
+    overflow: hidden;
+    background-image: linear-gradient(#1e03038c , #11234561);
+}
+
+.Card3 h1 {
+    color: #1aade7;
+    padding: 6px;
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.281);
+}
+
+.Card3 p {
+    font-size: 16.5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #d7d7d7;
+}
+
+.Card3 b {
+    color: #b1712d;
+}
+
+.Card3 svg {
+    display: flex;
+    padding: 4px;
+    cursor: pointer;
+}
+
+
+.Card3:hover {
+    transition: 0.2s;
+    cursor: pointer;
+    box-shadow: 0px 8px 20px 4px rgba(7, 95, 110, 0.452);
+}
+
+.myIcons  {
+    display: flex;
+    color: rgb(12, 11, 11);
+    padding: 10px;
+    margin-top: 36px;
+}
+
+@media screen and (max-width:322px) {
+    .Card3 p{
+        font-size: 13px; 
+    }
+    .myIcons {
+        margin-top: 56px;
+    }
+}
+
+.icons1 {
+    display: flex;
+    align-items: center;
+}
+
+.display-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.display-toggle button {
+    background-color: black;
+    box-shadow: #b46fcf 0px 1px 14px 1px;
+    color: white;
+    border-radius: 10px;
+    height: 30px;
+    width: 100px;
+    border: none;
+    cursor: pointer;
+}

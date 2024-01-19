@@ -33,7 +33,6 @@
 }
 
 .card-content {
-    margin-bottom: 10px;
     padding: 14px;
     text-align: left;
 }
@@ -59,12 +58,12 @@
 }
 @media screen and (max-width:450px) {
     .one-card h1{
-        font-size: 28px;
+        font-size: 26px;
     }
     .card-content h2 {
         font-size: 22px;
     }
     .card-content p {
-        font-size: 15px; 
+        font-size: 16px; 
     }
 }

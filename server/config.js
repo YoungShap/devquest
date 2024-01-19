@@ -17,6 +17,7 @@ const signupSchema = Joi.object({
 
   const ProjectSchema = Joi.object({
     name: Joi.string().min(3).max(18).required(),
+    description: Joi.string().min(20).max(350).required(),
     category: Joi.string().required(),
     dev: Joi.string().min(3).max(16).required(),
     ghub: Joi.string().max(500).required(),
