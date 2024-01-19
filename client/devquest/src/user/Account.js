@@ -139,7 +139,7 @@ export default function Account() {
                   </Grid>)
               }
             </Grid>
-            <Button style={{ backgroundColor: '#121010', color: 'white' }}
+            <Button style={{ backgroundColor: '#121010', color: 'white', marginBottom:'-12px' }}
               disabled={!isValid}
               type="submit"
               fullWidth
@@ -147,6 +147,14 @@ export default function Account() {
               sx={{ mt: 3, mb: 2 }}
             >
               Save Changes
+            </Button >
+            <Button style={{ backgroundColor: '#121010', color: 'white' }}
+              type="button"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            onClick={() => navigate('/')}>
+              Cancel
             </Button >
           </Box>
         </Box>

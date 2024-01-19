@@ -58,7 +58,7 @@ export default function UserManage() {
                 <h1>Admin Sandbox</h1>
                 <p>Manage all Users </p><br></br><br></br>
                 <div className='search'><Searchbar /></div>
-                {searchWord && <p className='activeSearch'>Active Search({searchWord})</p>}
+                {searchWord && <p className='activeSearch' style={{marginBottom:"14px"}}>Active Search({searchWord})</p>}
                 <div className='display-toggle'>
                     <button onClick={() => toggleDisplayMode('table')}>Table View</button>
                     <button onClick={() => toggleDisplayMode('cards')}>Card View</button>

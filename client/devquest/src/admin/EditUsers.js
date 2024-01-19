@@ -158,8 +158,8 @@ export default function EditUsers() {
                                     </Grid>)
                             }
                         </Grid>
-                        <Button style={{ backgroundColor: '#121010', color: 'white' }}
-                         disabled={!isValid}
+                        <Button style={{ backgroundColor: '#121010', color: 'white', marginBottom:"-12px"  }}
+                            disabled={!isValid}
                             type="submit"
                             fullWidth
                             variant="contained"
@@ -167,13 +167,14 @@ export default function EditUsers() {
                         >
                             Save Changes
                         </Button >
-                        <Grid container justifyContent="center">
-                            <Grid item>
-                                <Link to="/login" style={{ color: '#ffffea' }}>
-                                    Already have an account? Login
-                                </Link>
-                            </Grid>
-                        </Grid>
+                        <Button style={{ backgroundColor: '#121010', color: 'white'}}
+                            type="button"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            onClick={() => navigate('/admin/sandbox')}>
+                            Cancel
+                        </Button >
                     </Box>
                 </Box>
             </Container>
