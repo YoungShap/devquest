@@ -113,8 +113,12 @@ router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res)
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-//GET 1 Project
+//GET 1 Project(for edit)
 router.get('/projects/:id', authGuard, async (req, res) => {
+    res.send(await Project.findOne({ _id: req.params.id }));
+});
+//GET 1 Project(for expand feature without the authGuard)
+router.get('/projects/expand/:id', async (req, res) => {
     res.send(await Project.findOne({ _id: req.params.id }));
 });
 

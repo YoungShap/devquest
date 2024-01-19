@@ -12,6 +12,7 @@ import JavaScriptProjects from "./categories/JavaScriptProjects";
 import PythonProjects from "./categories/PythonProjects";
 import PhpProjects from "./categories/PhpProjects";
 import HtmlCssProjects from "./categories/HtmlCssProjects";
+import CardExpand from "./components/CardExpand";
 
 export default function Router() {  // this router is for when a user is connected  //
     return (
@@ -20,6 +21,7 @@ export default function Router() {  // this router is for when a user is connect
             <Route path='/about' element={<About />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
+            <Route path='/projects/expand/:id' element={<CardExpand />} />
             <Route path='/projects/mern' element={<MernProjects />} />
             <Route path='/projects/mean' element={<MeanProjects />} />
             <Route path='/projects/ruby' element={<RubyProjects />} />

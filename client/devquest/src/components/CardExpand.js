@@ -20,15 +20,12 @@ export default function CardExpand() {
     dev: '',
     imgSrc: '',
   });
-  const { setIsLoading, snackbar } = useContext(GeneralContext);
+  const { snackbar } = useContext(GeneralContext);
 
   useEffect(() => {
     // setIsLoading(true);
-    fetch(`http://localhost:4000/projects/${id}`, {
+    fetch(`http://localhost:4000/projects/expand/${id}`, {
       credentials: 'include',
-      headers: {
-        'Authorization': localStorage.token
-      },
     })
       .then(res => res.json())
       .then(data => {
