@@ -18,6 +18,8 @@ import Account from "./user/Account";
 import EditUsers from "./admin/EditUsers";
 import About from "./components/About";
 import CardExpand from "./components/CardExpand";
+import ChangePassword from "./user/ChangePassword";
+import ErrorPage from "./components/ErrorPage";
 
 
 export default function Router() {  // this router is for when a user is connected  //
@@ -29,8 +31,11 @@ export default function Router() {  // this router is for when a user is connect
             <Route path='/projects/favorites' element={<Favorites />} />
             <Route path='/projects/myprojects' element={<MyProjects />} />
             <Route path='/about' element={<About />} />
+            <Route path="/error" element={<ErrorPage/>} />
+            <Route path="*" element={<ErrorPage/>} />
             <Route path='/admin/sandbox' element={<UserManage />} />
             <Route path='/account' element={<Account />} />
+            <Route path='/password/:id' element={<ChangePassword />} />
             <Route path='/admin/users/edit/:id' element={<EditUsers />} />
             <Route path='/projects/expand/:id' element={<CardExpand />} />
             <Route path='/projects/mern' element={<MernProjects />} />
@@ -42,8 +47,6 @@ export default function Router() {  // this router is for when a user is connect
             <Route path='/projects/python' element={<PythonProjects/>} />
             <Route path='/projects/php' element={<PhpProjects />} />
             <Route path='/projects/htmlcss' element={<HtmlCssProjects />} />
-            {/* <Route path="*" element={<ErrorPage/>} />
-            <Route path="/error" element={<ErrorPage/>} /> */}
         </Routes>
     )
 }

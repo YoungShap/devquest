@@ -140,6 +140,14 @@ export default function Account() {
               }
             </Grid>
             <Button style={{ backgroundColor: '#121010', color: 'white', marginBottom:'-12px' }}
+              type="button"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            onClick={() => navigate(`/password/${user._id}`)}>
+             🔒 Change Password 🔒
+            </Button >
+            <Button style={{ backgroundColor: '#121010', color: 'white', marginBottom:'-12px' }}
               disabled={!isValid}
               type="submit"
               fullWidth

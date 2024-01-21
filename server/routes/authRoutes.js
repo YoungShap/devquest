@@ -208,6 +208,41 @@ router.put('/users/edit/:id', authGuard, async (req, res) => {
     }
 });
 
+// Change Password 
+router.put("/users/password/:id", authGuard, async (req, res) => {
+    const { password, newPassword } = req.body;
+
+    try {
+        const { id } = req.params;
+        const user = await User.findOne({ _id: id });
+
+        if (!user) {
+            return res.status(403).send("User not found");
+        }
+
+        // Compare the provided current password with the hashed password in the database
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (!passwordMatch) {
+            return res.status(403).send("Current password is incorrect");
+        }
+
+        // Hash the new password
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update the user's password with the new hashed password
+        user.password = hashedNewPassword;
+
+        // Save the updated user in the database
+        await user.save();
+
+        res.send("Password updated successfully");
+    } catch (error) {
+        console.error("Error updating password:", error);
+        res.status(500).send("Internal server error");
+    }
+});
+
 router.put('/admin/users/:id', adminGuard, async (req, res) => {
     try {
         const { id } = req.params;
