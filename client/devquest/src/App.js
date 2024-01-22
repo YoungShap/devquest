@@ -57,7 +57,6 @@ function App() {
                 .catch(err => {
                     setRoleType(RoleTypes.none);
                     navigate('/');
-                    snackbar(err);
                 });
         } else {
             navigate('/');
@@ -88,7 +87,7 @@ function App() {
             const updatedUser = await response.json();
 
             setUser((user) => ({ ...user, favorites: updatedUser.favorites }));
-            snackbar('Success')
+            snackbar('Success');
         }
         catch (err) {
             snackbar(err);

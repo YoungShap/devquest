@@ -151,7 +151,7 @@ router.put("/users/:id", authGuard, async (req, res) => {
         }
         user.favorites = favorites;
 
-        await user.save();
+        await user.save(); 
 
         const updatedUserInfo = { favorites: user.favorites };
         res.json(updatedUserInfo);
