@@ -57,6 +57,7 @@ function App() {
                 .catch(err => {
                     setRoleType(RoleTypes.none);
                     navigate('/');
+                    snackbar(err);
                 });
         } else {
             navigate('/');
@@ -85,12 +86,12 @@ function App() {
             }
 
             const updatedUser = await response.json();
-            console.log("Updated User:", updatedUser);
 
             setUser((user) => ({ ...user, favorites: updatedUser.favorites }));
+            snackbar('Success')
         }
         catch (err) {
-            console.error(err);
+            snackbar(err);
         }
     };
 

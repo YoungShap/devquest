@@ -31,12 +31,11 @@ export default function EditProject() {
         })
             .then(res => res.json())
             .then(data => {
-                // Include the image path in imgSrc
                 setFormData(data);
-                console.log(data);
             })
             .catch(() => {
                 navigate("/error");
+                snackbar('Error');
             });
     }, []);
 
@@ -111,13 +110,12 @@ export default function EditProject() {
             .then((res) => res.json())
             .then((data) => {
                 setFormData(data);
-                //   snackbar("Card Added Successfully")
+                snackbar("Project Updated Successfully")
                 navigate('/');
             })
             .catch((err) => {
-                //   snackbar(err.message);
+                snackbar(err.message);
                 snackbar('Validation Error');
-                console.log(err);
             });
     }
 

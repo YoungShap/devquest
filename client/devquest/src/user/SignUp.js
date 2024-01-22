@@ -24,8 +24,8 @@ export default function SignUp() {
     });
     const { snackbar } = useContext(GeneralContext);
     const navigate = useNavigate();
-      const [errors, setErrors] = useState({});
-      const [isValid, setIsValid] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [isValid, setIsValid] = useState(false);
 
 
     const handleInputChange = ev => {
@@ -38,15 +38,15 @@ export default function SignUp() {
         const err = { ...errors, [id]: undefined };
 
         if (schema.error) {
-          const error = schema.error.details.find(e => e.context.key === id);
+            const error = schema.error.details.find(e => e.context.key === id);
 
-          if (error) {
-            err[id] = error.message;
-          }
-          setIsValid(false);
+            if (error) {
+                err[id] = error.message;
+            }
+            setIsValid(false);
         } else {
-          setIsValid(true);
-        } 
+            setIsValid(true);
+        }
 
         setFormData(obj);
         setErrors(err);
@@ -64,7 +64,7 @@ export default function SignUp() {
                 if (res.ok) {
                     return res.json()
                         .then(() => {
-                            //   snackbar("User was created successfully")
+                            snackbar("User was created successfully")
                             navigate('/login');
                         })
                 } else {
@@ -75,7 +75,7 @@ export default function SignUp() {
                 }
             })
             .catch(err => {
-               snackbar(err.message);
+                snackbar(err.message);
             })
             .finally(() => {
                 // setIsLoading(false);
@@ -113,7 +113,7 @@ export default function SignUp() {
                                     label="First Name"
                                     autoFocus
                                 />
-                                {errors.firstName ? <div style={{color: '#d12c2c'}} className='fieldError'>{errors.firstName}</div> : ''}
+                                {errors.firstName ? <div style={{ color: '#d12c2c' }} className='fieldError'>{errors.firstName}</div> : ''}
                             </Grid>
                             {
                                 structure.map(item =>
@@ -127,12 +127,12 @@ export default function SignUp() {
                                             id={item.name}
                                             label={item.label}
                                         />
-                                        {errors[item.name] ? <div style={{color: '#d12c2c'}} className='fieldError'>{errors[item.name]}</div> : ''}
+                                        {errors[item.name] ? <div style={{ color: '#d12c2c' }} className='fieldError'>{errors[item.name]}</div> : ''}
                                     </Grid>)
                             }
                         </Grid>
                         <Button style={{ backgroundColor: '#121010', color: 'white' }}
-                         disabled={!isValid}
+                            disabled={!isValid}
                             type="submit"
                             fullWidth
                             variant="contained"

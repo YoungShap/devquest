@@ -19,7 +19,7 @@ import { LuExpand } from 'react-icons/lu';
 
 
 export default function Favorites() {
-    const { user, favorite, searchWord, roleType} = React.useContext(GeneralContext);
+    const { user, favorite, searchWord, roleType, snackbar} = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -37,10 +37,9 @@ export default function Favorites() {
             })
             .then((data) => {
                 setProjects(data.filter(p => user.favorites.includes(p._id)));
-                console.log(data);
             })
             .catch((error) => {
-                console.error(
+                snackbar(
                     "There has been a problem with your fetch operation:",
                     error
                 );
@@ -60,8 +59,15 @@ export default function Favorites() {
         })
             .then(() => {
                 setProjects(projects.filter(p => p._id !== id));
-            });
-    }
+                snackbar('Project Deleted');
+            })
+            .catch((error) => {
+                snackbar(
+                    "There has been a problem with your fetch operation:",
+                    error
+                );
+            })
+    };
 
 
     return (

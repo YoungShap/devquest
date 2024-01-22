@@ -16,7 +16,7 @@ import { GeneralContext } from '../App';
 import Searchbar, { search } from '../components/SearchBar';
 
 export default function Home() {
-    const { toggleHomePage, roleType, setHomeProjects, homeProjects, searchWord } = React.useContext(GeneralContext);
+    const { toggleHomePage, roleType, setHomeProjects, homeProjects, searchWord, snackbar } = React.useContext(GeneralContext);
 
     useEffect(() => {
         fetch("http://localhost:4000/projects")
@@ -31,7 +31,7 @@ export default function Home() {
                 setHomeProjects(updatedHomeProjects);
             })
             .catch((error) => {
-                console.error(
+                snackbar(
                     "There has been a problem with your fetch operation:",
                     error
                 );

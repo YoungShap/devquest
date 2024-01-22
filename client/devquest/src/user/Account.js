@@ -84,6 +84,7 @@ export default function Account() {
       const updatedUser = await response.json();
       setUser(updatedUser);
       navigate("/");
+      snackbar('Sucess');
     } catch (error) {
       snackbar(error.message)
     }

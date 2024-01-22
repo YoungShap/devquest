@@ -48,8 +48,8 @@ export default function EditUsers() {
                 setFormData(data);
             })
             .catch((error) => {
-                console.error(
-                    "There has been a problem with your fetch operation:",
+                snackbar(
+                    "There has been a problem with :",
                     error
                 );
             })

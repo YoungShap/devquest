@@ -20,7 +20,7 @@ import { LuExpand } from 'react-icons/lu';
 
 
 export default function MyProjects() {
-    const { user, favorite, searchWord, roleType } = React.useContext(GeneralContext);
+    const { user, favorite, searchWord, roleType, snackbar } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -39,7 +39,6 @@ export default function MyProjects() {
             .then((data) => {
                 if (user && user.devName) {
                     setProjects(data.filter(p => p.uploadBy === user.devName));
-                    console.log(data);
                 }
             })
             .catch((error) => {
@@ -63,8 +62,15 @@ export default function MyProjects() {
         })
             .then(() => {
                 setProjects(projects.filter(p => p._id !== id));
-            });
-    }
+                snackbar('Project Deleted');
+            })
+            .catch((error) => {
+                snackbar(
+                    "There has been a problem with your fetch operation:",
+                    error
+                );
+            })
+    };
 
 
     return (

@@ -15,7 +15,7 @@ import Searchbar, { search } from '../components/SearchBar';
 import { LuExpand } from 'react-icons/lu';
 
 export default function AngualrProjects() {
-    const { user, favorite, toggleHomePage, roleType, searchWord } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord, snackbar } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -31,7 +31,7 @@ export default function AngualrProjects() {
                 console.log(data);
             })
             .catch((error) => {
-                console.error(
+                snackbar(
                     "There has been a problem with your fetch operation:",
                     error
                 );
@@ -51,8 +51,15 @@ export default function AngualrProjects() {
         })
             .then(() => {
                 setProjects(projects.filter(p => p._id !== id));
-            });
-    }
+                snackbar('Project Deleted');
+            })
+            .catch((error) => {
+                snackbar(
+                    "There has been a problem with your fetch operation:",
+                    error
+                );
+            })
+    };
 
     return (
         <div className='main-container'>
