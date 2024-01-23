@@ -70,7 +70,7 @@ router.post('/login', async (req, res) => {
     delete userResult.password;
     // delete userResult.email;
     // יצירת טוקן
-    userResult.token = jwt.sign({ id: userResult._id, type: userResult.type }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    userResult.token = jwt.sign({ id: userResult._id, type: userResult.type }, process.env.JWT_SECRET, { expiresIn: '4h' });
 
     res.send(userResult);
 });

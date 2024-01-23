@@ -5,10 +5,12 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const projectRoutes = require('./routes/projectRoutes');
 const authRoutes = require('./routes/authRoutes');
+const logger = require("./logger/loggerService");
 
 
 // Express app
 const app = express(); 
+app.use(logger);
 
 app.use(cors({
     origin: true,
@@ -18,7 +20,7 @@ app.use(cors({
 }));
 
 mongoose.connect(
-    'mongodb://127.0.0.1:27017/devquest',
+    process.env.MONGO_URI,
     { useNewUrlParser: true, useUnifiedTopology: true }
     )
     .then(() => console.log("MongoDB connected successfully"))
