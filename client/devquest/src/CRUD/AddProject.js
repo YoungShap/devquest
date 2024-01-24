@@ -98,7 +98,6 @@ export default function AddProject() {
             })
             .catch((err) => {
                 snackbar('Validation Error');
-                console.log(err);
             });
     }
 
