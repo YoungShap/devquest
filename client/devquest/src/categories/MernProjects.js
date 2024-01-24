@@ -130,7 +130,9 @@ export default function ReactProjects() {
                                         {user && <BsFillHeartFill className='Heart' size={24} style={{ color: user.favorites.includes(p._id) ? '#cf1212' : '#7d7575' }} onClick={() => favorite(p._id)} />}
                                     </div>
                                     <div className='expand-card'>
-                                        <Link to={`/projects/expand/${p._id}`}><LuExpand size={23.5} /></Link>
+                                        <Link to={`/projects/expand/${p._id}`}>
+                                            <LuExpand size={user ? 23.5 : 26} />
+                                        </Link>
                                     </div>
                                     {roleType === 2 ?
                                         <IoMdHome size={28} style={{ color: p.homePage === true ? "#2bb32b" : "red", backgroundColor: 'rgb(39 39 39)', borderRadius: "8px", marginTop: "13px" }} onClick={() => toggleHomePage(p._id)} /> :
