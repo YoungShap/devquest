@@ -169,7 +169,7 @@ export default function Login() {
                 </Box>
                 <Grid container>
                     <Grid item xs>
-                        <Link style={{fontSize:"18px", fontWeight:'bold', color:"#43c900"}} href="/email" variant="body2">
+                        <Link style={{fontSize:"16px", fontWeight:'bold', color:"#43c900", textDecoration:'none'}} href="/email" variant="body2">
                             Forgot password?
                         </Link>
                     </Grid>
