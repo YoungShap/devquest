@@ -45,7 +45,10 @@ export default function CardExpand() {
       <div className='one-card'>
         <div className='landing-page'>
           <div className='image-container'>
+            { oneCard.imgSrc ?
             <img src={`http://localhost:4000/uploads/${oneCard.imgSrc}`} alt={oneCard.name} />
+            : ''
+          }
           </div>
         </div>
         <h1>{oneCard.name}</h1>

@@ -29,7 +29,6 @@ export default function AngualrProjects() {
         })
             .then((data) => {
                 setProjects(data.filter(p => p.category === "Angular"));
-                console.log(data);
             })
             .catch((error) => {
                 snackbar(

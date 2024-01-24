@@ -29,7 +29,6 @@ export default function ReactProjects() {
             })
             .then((data) => {
                 setProjects(data.filter(p => p.category === "Python"));
-                console.log(data);
             })
             .catch((error) => {
                 snackbar(

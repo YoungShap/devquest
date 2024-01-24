@@ -16,7 +16,7 @@ import { GeneralContext } from '../App';
 import Searchbar, { search } from '../components/SearchBar';
 
 export default function Home() {
-    const { toggleHomePage, roleType, setHomeProjects, homeProjects, searchWord, snackbar, setIsLoading } = React.useContext(GeneralContext);
+    const { setHomeProjects, homeProjects, searchWord, snackbar, setIsLoading } = React.useContext(GeneralContext);
 
     useEffect(() => {
         setIsLoading(true);
@@ -73,20 +73,16 @@ export default function Home() {
                                 <p><b>Dev Name : {p.dev}</b></p>
                                 <div className='card-icons'>
                                     <Link to={p.ghub} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '36px', backgroundColor: 'black', borderRadius: '50%' }} /></Link>
-                                    {/* Conditional rendering for category links */}
                                     {p.category === 'Mern' && <Link to={'projects/mern'}><GiStoneStack style={{ color: "#69a8d7", fontSize: '36px' }} /></Link>}
                                     {p.category === 'Mean' && <Link to={'projects/mean'}> <GrStackOverflow style={{ color: "#50c770", fontSize: '32px' }} /></Link>}
                                     {p.category === 'Ruby' && <Link to={'projects/ruby'}><DiRuby style={{ color: "#870f0f", fontSize: '34px' }} /></Link>}
                                     {p.category === 'React' && <Link to={'projects/react'}> <FaReact style={{ color: "teal", fontSize: '36px' }} /></Link>}
-                                    {p.category === 'Angular' && <Link to={'projects/angular'}><FaAngular style={{ color: "#870f0f", fontSize: '36px', marginTop:"2px" }} /></Link>}
-                                    {p.category === 'JS' && <Link to={'projects/js'}> <RiJavascriptFill style={{ color: "#b3b31a", fontSize: '36px', marginTop:"2px" }} /></Link>}
+                                    {p.category === 'Angular' && <Link to={'projects/angular'}><FaAngular style={{ color: "#870f0f", fontSize: '36px', marginTop: "2px" }} /></Link>}
+                                    {p.category === 'JS' && <Link to={'projects/js'}> <RiJavascriptFill style={{ color: "#b3b31a", fontSize: '36px', marginTop: "2px" }} /></Link>}
                                     {p.category === 'Python' && <Link to={'projects/python'}> <SiPython style={{ color: "#0093ff", fontSize: '34px' }} /></Link>}
                                     {p.category === 'PhP' && <Link to={'projects/php'}> <TbFileTypePhp style={{ color: "#be8cff", fontSize: '36px' }} /></Link>}
                                     {p.category === 'HTMLCSS' && <Link to={'projects/htmlcss'}> <SiHtml5 style={{ color: "#cb6d07", fontSize: '30px' }} /></Link>}
-                                    {roleType === 2 ?
-                                        <IoMdHome size={38} style={{ color: p.homePage === true ? "#2bb32b" : "red", backgroundColor: 'rgb(22, 22, 22)', borderRadius:"50%", marginTop:"4px" }} onClick={() => toggleHomePage(p._id)} /> :
-                                        ''
-                                    }
+
                                 </div>
                             </div>
                         </div>

@@ -31,7 +31,6 @@ export default function ReactProjects() {
             })
             .then((data) => {
                 setProjects(data.filter(p => p.category === "Mean"));
-                console.log(data);
             })
             .catch((error) => {
                 snackbar(
