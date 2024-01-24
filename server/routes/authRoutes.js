@@ -278,10 +278,10 @@ router.put('/admin/users/:id', adminGuard, async (req, res) => {
     }
 });
 
+//send email to reset password
 router.post("/forgotpassword", async (req, res) => {
     const { email } = req.body;
 
-    // 1. Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
         return res.send(
@@ -289,11 +289,10 @@ router.post("/forgotpassword", async (req, res) => {
         );
     }
 
-    // 2. Create a reset token (pseudo code)
     const token = jwt.sign({ id: user._id }, process.env.JWT_FORGOT_PASSWORD, {
         expiresIn: "1h",
     });
-    // Store the token in localStorage
+   
     localStorage.setItem("authToken", token);
 
     // Use the transporter to send an email
@@ -314,7 +313,7 @@ router.post("/forgotpassword", async (req, res) => {
         res.status(500).send("Error in sending password reset link");
     }
 });
-
+//reset (PUT) user password 
 router.put("/resetpassword", async (req, res) => {
     const { token, resetPassword } = req.body;
   
@@ -323,17 +322,14 @@ router.put("/resetpassword", async (req, res) => {
     }
   
     try {
-      // Verify the token
-      const decoded = jwt.verify(token, process.env.JWT_FORGOT_PASSWORD); // Replace with your JWT secret
+      const decoded = jwt.verify(token, process.env.JWT_FORGOT_PASSWORD); 
       const userId = decoded.id;
   
-      // Find the user by ID
       const user = await User.findById(userId);
       if (!user) {
         return res.status(404).send("User not found.");
       }
   
-      // Retrieve the token from sessionStorage
       const storedToken = localStorage.getItem("authToken");
   
       // Check if the token has expired
@@ -345,14 +341,11 @@ router.put("/resetpassword", async (req, res) => {
         return res.status(400).send("Token has expired.");
       }
   
-      // Update the user's password
-      // Hash the new password before saving (use a library like bcrypt)
-      user.password = await bcrypt.hash(resetPassword, 10); // Example using bcrypt
+      user.password = await bcrypt.hash(resetPassword, 10); 
       user.token = undefined; // Clear the reset token
       user.tokenExpiration = undefined; // Clear the token expiration
       await user.save();
   
-      // res.send("Password has been successfully reset.");
       return res.send("Password has been successfully reset.");
     } catch (error) {
       console.error("Reset password error:", error);
