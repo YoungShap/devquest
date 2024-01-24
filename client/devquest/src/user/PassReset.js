@@ -40,7 +40,7 @@ export default function EmailReset() {
         newPassword: '',
         confirmNewPassword: '',
     });
-    const { snackbar } = React.useContext(GeneralContext);
+    const { snackbar, setIsLoading } = React.useContext(GeneralContext);
 
     const passSchema = Joi.object({
         newPassword: Joi.string().required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d{4})(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,30}$/)
@@ -90,7 +90,7 @@ export default function EmailReset() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setIsLoading(true);
         // Extract the token from the URL
         const queryParams = new URLSearchParams(window.location.search);
         const token = queryParams.get("token");
@@ -110,6 +110,7 @@ export default function EmailReset() {
             if (response.ok) {
                 snackbar("Password Changed Successfully.");
                 navigate("/login");
+                setIsLoading(false);
             } else {
                 snackbar("there was an error, please try again");
 

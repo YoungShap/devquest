@@ -39,7 +39,7 @@ export default function EmailReset() {
     const [formData, setFormData] = useState({
         email: '',
     });
-    const { snackbar } = React.useContext(GeneralContext);
+    const { snackbar, setIsLoading } = React.useContext(GeneralContext);
 
     const loginSchema = Joi.object({
         email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
@@ -70,6 +70,7 @@ export default function EmailReset() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const response = await fetch(
                 `http://localhost:4000/auth/forgotpassword`, // Update the URL to your forgot password endpoint
@@ -85,6 +86,7 @@ export default function EmailReset() {
             if (response.ok) {
                 snackbar("You will receive a Password reset link.");
                 navigate("/login");
+                setIsLoading(false);
             } else {
                 snackbar("there was an error, please try again");
 
