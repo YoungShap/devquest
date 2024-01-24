@@ -7,8 +7,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Container } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Checkbox, Container, FormControlLabel } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { signupSchema, structure } from '../Config';
 import { GeneralContext } from '../App';
@@ -25,11 +25,10 @@ export default function EditUsers() {
         email: '',
         devName: '',
         password: '',
+        type: false,
     });
     const navigate = useNavigate();
     const [updatedAcc, setUpdatedAcc] = useState();
-    //   const [errors, setErrors] = useState({});
-    //   const [isValid, setIsValid] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:4000/auth/users/${id}`, {
@@ -62,6 +61,7 @@ export default function EditUsers() {
                 ...prevState,
                 [id]: value,
             };
+
             const schema = signupSchema.validate(updatedFormData, { abortEarly: false, allowUnknown: true });
             const err = {};
 
@@ -79,6 +79,16 @@ export default function EditUsers() {
             return updatedFormData;
         });
     };
+
+    const handleCheckboxChange = (ev) => {
+        const { checked } = ev.target;
+      
+        setFormData((prevState) => ({
+          ...prevState,
+          type: checked ? 'Admin' : 'Dev',
+        }));
+      };
+
 
     const save = async (ev) => {
         ev.preventDefault();
@@ -157,8 +167,20 @@ export default function EditUsers() {
                                         {errors[item.name] ? <div style={{ color: '#d12c2c' }} className='fieldError'>{errors[item.name]}</div> : ''}
                                     </Grid>)
                             }
+                            <Grid item xs={12}>
+                                <FormControlLabel style={{ color: 'white' }}
+                                    label="Admin"
+                                    control={<Checkbox
+                                        color="primary"
+                                        checked={formData.type === 'Admin'}
+                                        onChange={handleCheckboxChange}
+                                        id='type'
+                                        name='type'
+                                    />}
+                                />
+                            </Grid>
                         </Grid>
-                        <Button style={{ backgroundColor: '#121010', color: 'white', marginBottom:"-12px"  }}
+                        <Button style={{ backgroundColor: '#121010', color: 'white', marginBottom: "-12px" }}
                             disabled={!isValid}
                             type="submit"
                             fullWidth
@@ -167,7 +189,7 @@ export default function EditUsers() {
                         >
                             Save Changes
                         </Button >
-                        <Button style={{ backgroundColor: '#121010', color: 'white'}}
+                        <Button style={{ backgroundColor: '#121010', color: 'white' }}
                             type="button"
                             fullWidth
                             variant="contained"

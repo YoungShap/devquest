@@ -247,7 +247,7 @@ router.put('/admin/users/:id', adminGuard, async (req, res) => {
     try {
         const { id } = req.params;
         const user = await User.findOne({ _id: id });
-        const { firstName, lastName, password, devName, email, } = req.body;
+        const { firstName, lastName, password, devName, email, type } = req.body;
         const schema = signupSchema.validate(req.body, { allowUnknown: true });
 
         if (schema.error) {
@@ -263,6 +263,7 @@ router.put('/admin/users/:id', adminGuard, async (req, res) => {
         user.password = await bcrypt.hash(password, 10);
         user.devName = devName;
         user.email = email;
+        user.type = type;
 
 
         await user.save();
