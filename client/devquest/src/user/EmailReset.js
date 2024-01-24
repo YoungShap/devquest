@@ -1,5 +1,4 @@
 import * as React from 'react';
-import '../CRUD/Form.css'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,11 +10,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { GeneralContext } from '../App';
-import { RoleTypes } from '../Config';
 import Joi from 'joi';
+import { GeneralContext } from '../App';
+import { useNavigate } from 'react-router-dom';
+
 
 function Copyright(props) {
     return (
@@ -30,24 +29,20 @@ function Copyright(props) {
     );
 }
 
-
 const defaultTheme = createTheme();
 
-export default function Login() {
-    const { user, setUser, setRoleType, snackbar } = React.useContext(GeneralContext);
-    const navigate = useNavigate();
+
+export default function EmailReset() {
     const [isValid, setIsValid] = useState(false);
-    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
+    const [errors, setErrors] = React.useState({});
     const [formData, setFormData] = useState({
         email: '',
-        password: '',
     });
-
+    const { snackbar } = React.useContext(GeneralContext);
 
     const loginSchema = Joi.object({
         email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-        password: Joi.string().required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d{4})(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,30}$/)
-            .message('user "password" must be at least nine characters long and contain an uppercase letter, a lowercase letter, 4 numbers and one of the following characters !@#$%^&*'),
     });
 
     const handleInputChange = ev => {
@@ -73,49 +68,35 @@ export default function Login() {
         setFormData(obj);
         setErrors(err);
     }
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        fetch("http://localhost:4000/auth/login", {
-            credentials: 'include',
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(formData),
-        })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return res.text().then(x => {
-                        throw new Error(x);
-                    });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(
+                `http://localhost:4000/auth/forgotpassword`, // Update the URL to your forgot password endpoint
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
                 }
-            })
-            .then(data => {
-                setUser(data);
-                localStorage.token = data.token;
-                if (data.type === 'Dev') {
-                    setRoleType(RoleTypes.dev);
-                } else if (data.type === 'Admin') {
-                    setRoleType(RoleTypes.admin);
-                } else {
-                    setRoleType(RoleTypes.none);
-                }
-                snackbar(`${data.devName} Is Connected`);
-                navigate('/');
+            );
 
-            })
-            .catch(err => {
-                snackbar(err.message);
-            });
+            if (response.ok) {
+                snackbar("You will receive a Password reset link.");
+                navigate("/login");
+            } else {
+                snackbar("there was an error, please try again");
+
+            }
+        } catch (err) {
+            snackbar(err);
+        }
     };
-
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs" >
+            <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
                     sx={{
@@ -125,11 +106,11 @@ export default function Login() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main', backgroundColor: 'black' }} >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main', backgroundColor: "black" }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5" sx={{ color: 'white' }} >
-                        Login
+                    <Typography style={{ color: 'white' }} component="h1" variant="h5">
+                        Provide Account Email To Reset
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField sx={{ backgroundColor: 'black', input: { color: 'white' }, label: { color: 'white' }, borderRadius: '5px' }}
@@ -144,41 +125,23 @@ export default function Login() {
                             autoFocus
                         />
                         {errors.email ? <div style={{ color: '#c92626' }} className='fieldError'>{errors.email}</div> : ''}
-                        <TextField sx={{ backgroundColor: 'black', input: { color: 'white' }, label: { color: 'white' }, borderRadius: '5px' }}
-                            onChange={handleInputChange}
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        {errors.password ? <div style={{ color: '#c92626' }} className='fieldError'>{errors.password}</div> : ''}
-                        <Button style={{ backgroundColor: 'black', color: 'white' }}
-                            disabled={!isValid}
+                        <Button style={{ color: 'white', backgroundColor: 'black' }}
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Login
+                            Send Reset Link
                         </Button>
+                        <Grid container>
+                            <Grid item>
+                                <Link href="/login" variant="body2">
+                                    {"I Remember, Let Me Login Please!"}
+                                </Link>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </Box>
-                <Grid container>
-                    <Grid item xs>
-                        <Link style={{fontSize:"18px", fontWeight:'bold'}} href="/email" variant="body2">
-                            Forgot password?
-                        </Link>
-                    </Grid>
-                    <Grid item>
-                        <Link href="/signup" variant="body2" sx={{ color: '#ddc8b3', textDecoration: 'none' }}>
-                            {"Don't have an account? Sign Up"}
-                        </Link>
-                    </Grid>
-                </Grid>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>

@@ -58,10 +58,10 @@ function App() {
                 })
                 .catch(err => {
                     setRoleType(RoleTypes.none);
-                    navigate('/');
+
                 });
         } else {
-            navigate('/');
+           snackbar('No User Connected');
         }
     }, []);
 
@@ -94,40 +94,40 @@ function App() {
         catch (err) {
             snackbar(err);
         }
-    
+
     };
 
     // Admin only function to add/remove projects from the home page
     const toggleHomePage = useCallback((id) => {
-       
-    
+
+
         fetch(`http://localhost:4000/projects/toggleHome/${id}`, {
-          method: 'PUT',
-          headers: {
-            'Authorization': localStorage.token
-          },
+            method: 'PUT',
+            headers: {
+                'Authorization': localStorage.token
+            },
         })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error("Error updating user");
-            }
-            return response.json();
-          })
-          .then(updatedHome => {
-            setHomeProjects((prevProjects) =>
-              prevProjects.map((project) =>
-                project._id === id ? { ...project, homePage: updatedHome.homePage } : project
-              )
-            );
-            snackbar(`Toggle Successful`); 
-          })
-          .catch(error => {
-            console.error('Toggle failed:', error);
-          })
-          .finally(() => {
-           
-          });
-      }, [homeProjects]);
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error updating user");
+                }
+                return response.json();
+            })
+            .then(updatedHome => {
+                setHomeProjects((prevProjects) =>
+                    prevProjects.map((project) =>
+                        project._id === id ? { ...project, homePage: updatedHome.homePage } : project
+                    )
+                );
+                snackbar(`Toggle Successful`);
+            })
+            .catch(error => {
+                console.error('Toggle failed:', error);
+            })
+            .finally(() => {
+
+            });
+    }, [homeProjects]);
 
     return (
         <GeneralContext.Provider value={{

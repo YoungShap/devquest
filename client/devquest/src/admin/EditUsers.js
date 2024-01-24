@@ -112,6 +112,7 @@ export default function EditUsers() {
             const updatedUser = await response.json();
             setUpdatedAcc(updatedUser);
             navigate("/");
+            snackbar('User Updated Successfully');
         } catch (error) {
             console.error("Error:", error);
             snackbar('Validation Error');
