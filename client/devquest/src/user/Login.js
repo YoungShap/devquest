@@ -34,7 +34,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-    const { user, setUser, setRoleType, snackbar } = React.useContext(GeneralContext);
+    const { setUser, setRoleType, snackbar } = React.useContext(GeneralContext);
     const navigate = useNavigate();
     const [isValid, setIsValid] = useState(false);
     const [errors, setErrors] = useState({});

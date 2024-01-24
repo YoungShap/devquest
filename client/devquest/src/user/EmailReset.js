@@ -128,6 +128,7 @@ export default function EmailReset() {
                         />
                         {errors.email ? <div style={{ color: '#c92626' }} className='fieldError'>{errors.email}</div> : ''}
                         <Button style={{ color: 'white', backgroundColor: 'black' }}
+                        disabled={!isValid}
                             type="submit"
                             fullWidth
                             variant="contained"
