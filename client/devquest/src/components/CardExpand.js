@@ -20,10 +20,10 @@ export default function CardExpand() {
     dev: '',
     imgSrc: '',
   });
-  const { snackbar } = useContext(GeneralContext);
+  const { snackbar, setIsLoading } = useContext(GeneralContext);
 
   useEffect(() => {
-    // setIsLoading(true);
+    setIsLoading(true);
     fetch(`http://localhost:4000/projects/expand/${id}`, {
       credentials: 'include',
     })
@@ -36,7 +36,7 @@ export default function CardExpand() {
         navigate('/error');
       })
       .finally(() => {
-        // setIsLoading(false);
+        setIsLoading(false);
       })
   }, [])
 

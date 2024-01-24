@@ -16,9 +16,10 @@ import { GeneralContext } from '../App';
 import Searchbar, { search } from '../components/SearchBar';
 
 export default function Home() {
-    const { toggleHomePage, roleType, setHomeProjects, homeProjects, searchWord, snackbar } = React.useContext(GeneralContext);
+    const { toggleHomePage, roleType, setHomeProjects, homeProjects, searchWord, snackbar, setIsLoading } = React.useContext(GeneralContext);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch("http://localhost:4000/projects")
             .then((response) => {
                 if (!response.ok) {
@@ -35,8 +36,11 @@ export default function Home() {
                     "There has been a problem with your fetch operation:",
                     error
                 );
-            });
-    }, [setHomeProjects]);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
+    }, []);
 
     return (
         <div className='main-container'>

@@ -15,17 +15,18 @@ import Searchbar, { search } from '../components/SearchBar';
 import { LuExpand } from 'react-icons/lu';
 
 export default function AngualrProjects() {
-    const { user, favorite, toggleHomePage, roleType, searchWord, snackbar } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord, snackbar, setIsLoading } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch("http://localhost:4000/projects")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
             .then((data) => {
                 setProjects(data.filter(p => p.category === "Angular"));
                 console.log(data);
@@ -36,12 +37,16 @@ export default function AngualrProjects() {
                     error
                 );
             })
+            .finally(() => {
+                setIsLoading(false);
+            })
     }, [toggleHomePage]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
             return;
         }
+        setIsLoading(true);
         fetch(`http://localhost:4000/projects/${id}`, {
             method: 'DELETE',
             credentials: 'include',
@@ -58,6 +63,9 @@ export default function AngualrProjects() {
                     "There has been a problem with your fetch operation:",
                     error
                 );
+            })
+            .finally(() => {
+                setIsLoading(false);
             })
     };
 

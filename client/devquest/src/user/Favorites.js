@@ -19,10 +19,11 @@ import { LuExpand } from 'react-icons/lu';
 
 
 export default function Favorites() {
-    const { user, favorite, searchWord, roleType, snackbar} = React.useContext(GeneralContext);
+    const { user, favorite, searchWord, roleType, snackbar, setIsLoading} = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch("http://localhost:4000/projects", {
             credentials: 'include',
             headers: {
@@ -44,7 +45,10 @@ export default function Favorites() {
                     error
                 );
             })
-    }, [favorite]);
+            .finally(() => {
+                setIsLoading(false);
+            })
+    }, [user]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {

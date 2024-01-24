@@ -7,6 +7,7 @@
     color: #8ac8ffe6;
     font-family: serif;
     font-size: 20px;
+    padding: 10px;
     margin-bottom: 16px;
 }
 
@@ -34,10 +35,12 @@
         font-size: 18px;
         padding: 10px;
     }
+
     .main-container .about-heading {
         font-size: 30px;
     }
-    .main-container .about-p .about-ul b{ 
+
+    .main-container .about-p .about-ul b {
         font-size: 17px;
     }
 }
@@ -62,9 +65,9 @@
     margin-bottom: 8px;
 }
 
-.main-container .about-ul b { 
-  font-size: 22px;
-  color:#72bbfbe6;
+.main-container .about-ul b {
+    font-size: 22px;
+    color: #72bbfbe6;
 }
 
 .Edit-about {

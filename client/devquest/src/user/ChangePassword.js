@@ -170,7 +170,7 @@ const ChangePassword = () => {
                                     </Grid>
 
                                     <Button
-                                        className={`spinner-button ${isValid ? "valid" : ""}`}
+                                        className={`button ${isValid ? "valid" : ""}`}
                                         disabled={!isValid}
                                         style={{ display: isValid ? "none" : "", color: "red", fontWeight: "bold" }}
                                         sx={{
@@ -182,7 +182,7 @@ const ChangePassword = () => {
 
                                         }}
                                     >
-                                        <span className="spinner"></span>
+                                        <span className="spin"></span>
                                         {isValid ? "Valid" : "Finish the required field..."}
                                     </Button>
 

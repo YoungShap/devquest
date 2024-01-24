@@ -17,10 +17,11 @@ import Searchbar, { search } from '../components/SearchBar';
 import { LuExpand } from 'react-icons/lu';
 
 export default function ReactProjects() {
-    const { user, favorite, toggleHomePage, roleType, searchWord, snackbar } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord, snackbar, setIsLoading } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch("http://localhost:4000/projects")
             .then((response) => {
                 if (!response.ok) {
@@ -37,6 +38,9 @@ export default function ReactProjects() {
                     "There has been a problem with your fetch operation:",
                     error
                 );
+            })
+            .finally(() => {
+                setIsLoading(false);
             })
     }, [toggleHomePage]);
 
@@ -60,6 +64,9 @@ export default function ReactProjects() {
                     "There has been a problem with your fetch operation:",
                     error
                 );
+            })
+            .finally(() => {
+                setIsLoading(false);
             })
     };
 

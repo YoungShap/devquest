@@ -10,12 +10,13 @@ import './UserCards.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function UserManage() {
-    const { searchWord, snackbar } = useContext(GeneralContext);
+    const { searchWord, snackbar, setIsLoading } = useContext(GeneralContext);
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [displayMode, setDisplayMode] = useState('table'); // 'table' or 'cards'
 
     useEffect(() => {
+        setIsLoading(true);
         fetch(`http://localhost:4000/auth/users`, {
             credentials: 'include',
             headers: {
@@ -30,6 +31,9 @@ export default function UserManage() {
             .catch((err) => {
                 navigate('/error');
                 snackbar(err);
+            })
+            .finally(() => {
+                setIsLoading(false);
             })
     }, []);
 
@@ -47,6 +51,13 @@ export default function UserManage() {
             .then(() => {
                 setUsers(users.filter(p => p._id !== id));
                 snackbar('User Deleted');
+            })
+            .catch((err) => {
+                navigate('/error');
+                snackbar(err);
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     }
 

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import './App.css';
 import Router from './Router';
 import RouterAuth from './RouterAuth';
@@ -7,6 +7,7 @@ import TopNavbar from './components/TopNavbar';
 import { useNavigate } from 'react-router-dom';
 import { RoleTypes } from './Config';
 import Snackbar from './components/Snackbar';
+import Loader from './components/Loader';
 
 
 export const GeneralContext = createContext();
@@ -16,6 +17,7 @@ function App() {
     const navigate = useNavigate();
     const [roleType, setRoleType] = useState(RoleTypes.none);
     const [search, setSearch] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [searchWord, setSearchWord] = useState('');
     const [snackbarText, setSnackbarText] = useState('');
     const [homeProjects, setHomeProjects] = useState([]);
@@ -23,7 +25,7 @@ function App() {
     const snackbar = text => {
         setSnackbarText(text);
         setTimeout(() => setSnackbarText(''), 3 * 1000);
-      }
+    }
 
     // LOGIN STATUS:
     useEffect(() => {
@@ -92,41 +94,46 @@ function App() {
         catch (err) {
             snackbar(err);
         }
+    
     };
 
     // Admin only function to add/remove projects from the home page
-    const toggleHomePage = (id) => {
+    const toggleHomePage = useCallback((id) => {
+       
+    
         fetch(`http://localhost:4000/projects/toggleHome/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': localStorage.token
-            },
+          method: 'PUT',
+          headers: {
+            'Authorization': localStorage.token
+          },
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Error updating user");
-                }
-                return response.json();
-            })
-            .then(updatedHome => {
-                setHomeProjects((prevProjects) =>
-                    prevProjects.map((project) =>
-                        project._id === id ? { ...project, homePage: updatedHome.homePage } : project
-                    )
-                );
-                snackbar(`Toggle Succseful  `);
-            })
-            .catch(error => {
-                console.error('Toggle failed:', error);
-                // Handle error
-            });
-    };
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Error updating user");
+            }
+            return response.json();
+          })
+          .then(updatedHome => {
+            setHomeProjects((prevProjects) =>
+              prevProjects.map((project) =>
+                project._id === id ? { ...project, homePage: updatedHome.homePage } : project
+              )
+            );
+            snackbar(`Toggle Successful`); 
+          })
+          .catch(error => {
+            console.error('Toggle failed:', error);
+          })
+          .finally(() => {
+           
+          });
+      }, [homeProjects]);
 
     return (
         <GeneralContext.Provider value={{
             user, setUser, setRoleType, favorite, roleType, search,
             setSearch, searchWord, setSearchWord, toggleHomePage, homeProjects,
-            setHomeProjects, snackbar
+            setHomeProjects, snackbar, setIsLoading
         }}>
             <TopNavbar />
             <Navbar />
@@ -136,7 +143,8 @@ function App() {
                     <Router /> :
                     <RouterAuth />
                 }
-                 {snackbarText && <Snackbar text={snackbarText} />}
+                {isLoading && <Loader />}
+                {snackbarText && <Snackbar text={snackbarText} />}
 
 
             </div>

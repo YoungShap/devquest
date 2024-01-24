@@ -18,9 +18,11 @@ import WebhookIcon from '@mui/icons-material/Webhook';
 import { BsFillHeartFill, BsFillTrash3Fill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { LuExpand } from 'react-icons/lu'
+import { Button } from '@mui/material'
+import { GeneralContext } from '../App'
 
 export default function About() {
-
+    const { user} = React.useContext(GeneralContext);
     return (
         <div className='main-container'>
             <div className='MyTitle'>
@@ -56,10 +58,10 @@ export default function About() {
                             <div className='spacer'></div>
                             <div className='user-icons-about'>
                                 <BsFillTrash3Fill className='Trash' size={23} style={{ color: '#b9b0b0', marginTop: "2px" }} />
-                                <span className='Edit-about'><FiEdit size={23.5} style={{color:"#b9b0b0"}} /></span>
+                                <span className='Edit-about'><FiEdit size={23.5} style={{ color: "#b9b0b0" }} /></span>
                                 <BsFillHeartFill className='Heart' size={23.5} style={{ color: 'red', marginTop: "5px" }} />
                                 <div className='expand-card'>
-                                    <LuExpand size={24} style={{marginBottom:'6px', paddingTop:"3px"}} />
+                                    <LuExpand size={24} style={{ marginBottom: '6px', paddingTop: "3px" }} />
                                 </div>
                             </div>
                         </div>
@@ -76,10 +78,10 @@ export default function About() {
                             <div className='spacer'></div>
                             <div className='user-icons-about'>
                                 <BsFillTrash3Fill className='Trash' size={23} style={{ color: '#b9b0b0', marginTop: "2px" }} />
-                                <span className='Edit-about'><FiEdit size={23.5} style={{color:"#b9b0b0"}} /></span>
+                                <span className='Edit-about'><FiEdit size={23.5} style={{ color: "#b9b0b0" }} /></span>
                                 <BsFillHeartFill className='Heart' size={23.5} style={{ color: 'red', marginTop: "5px" }} />
                                 <div className='expand-card'>
-                                    <LuExpand size={24} style={{marginBottom:'6px', paddingTop:"3px"}} />
+                                    <LuExpand size={24} style={{ marginBottom: '6px', paddingTop: "3px" }} />
                                 </div>
                             </div>
                         </div>
@@ -91,7 +93,8 @@ export default function About() {
                 <h1 className='about-heading'>User Guide :</h1>
                 <div className='about-p'>
                     <ul className='about-ul'>
-                        <li><b>Each Card shows :</b><br></br> A Screenshot of the Project, the Developer's Github username AND a link to that same Project's Github Repository </li><br></br>
+                        <li><b>Categories:</b><br></br> Our Website contains 9 different Categories of web development technologiees(more to come).<br></br>Each category is filled with project ideas and more info related to that category.</li><br></br>
+                        <li><b>Each Card shows :</b><br></br> A Screenshot of the Project, the Developer's Github username AND a link to that same Project's Github Repository. </li><br></br>
                         <li><b>Right next to the Github Button there are : </b><br></br>Delete and Edit Buttons and they will be displayed depending on if you uploaded the Project or not.</li><br></br>
                         <li><b>Favorites :</b><br></br> The Heart Icon is how you Add/Remove a project from your Favorites Tab, you will need to SignUp to use this Feature. </li><br></br>
                         <li><b>Expand :</b><br></br> The Green expand button takes you to a bigger version of the card with more info like a description of the project (If provided) </li><br></br>
@@ -109,7 +112,13 @@ export default function About() {
                         <li><b>Contribute : </b> To our growing Community and add more Project ideas for Others!</li>
                     </ul>
                 </div>
-            </>
+            </> 
+            
+            { !user ?
+            <div className='about-btn'>
+          <Link to={'/signup'}><Button style={{ backgroundColor: '#220e2f', }} variant="contained">Sign Up Now</Button></Link>
+            </div> : ''
+            }
         </div>
     )
 }
