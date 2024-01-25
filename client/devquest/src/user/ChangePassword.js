@@ -185,7 +185,7 @@ const ChangePassword = () => {
                                         {isValid ? "Valid" : "Finish the required field..."}
                                     </Button>
 
-                                    <Button style={{ backgroundColor: 'black', color: 'white' }}
+                                    <Button style={{ backgroundColor: 'black', color: 'white', marginBottom:"300px" }}
                                         type="submit"
                                         fullWidth
                                         variant="contained"
