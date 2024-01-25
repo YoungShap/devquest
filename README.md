@@ -64,7 +64,7 @@ Dive into the source code to understand implementation details and best practice
 
 -In App Password Change.
 
--Forgot My Password email Reset!
+-Forgot My Password Reset with Email!
 
 -Change Display Settings from Table To Cards on the Admin CRM Panel.
 
