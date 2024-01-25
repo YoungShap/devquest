@@ -73,13 +73,28 @@ Dive into the source code to understand implementation details and best practice
 
 Libraries Used - 
 -
+Nodemon,
+Node.Js,
+MongoDB,
+Mongoose,
+Express,
 React,
 React Icons,
+Bcrypt,
+JWT,
+Cors,
+Multer,
+Nodemailer,
+Node-Localstorage,
+dotenv,
+fs,
 JOI,
 MUI,
+MUI Icons,
 Moment,
+Chalk,
+Morgan(Logger),
 React-Dom,
-React-Router-Dom,
-Styled-Components.
+React-Router-Dom.
 
 
