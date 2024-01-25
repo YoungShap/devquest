@@ -71,6 +71,8 @@ Dive into the source code to understand implementation details and best practice
 
 -Change Display Settings from Table To Cards on the Admin CRM Panel.
 
+-Toggle Home Page On/Off for Projects(Admin Only). 
+
 -Expanded view of every Project Card with even more details.
 
 -Searchbar for finding Projects || Users(For Admin) more easily.
