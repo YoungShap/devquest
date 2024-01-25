@@ -6,6 +6,7 @@ const path = require('path');
 const authGuard = require('../authentication/auth-guard');
 const adminGuard = require('../authentication/adminGuard');
 const { ProjectSchema } = require('../config');
+const { default: mongoose } = require('mongoose');
 
 // GET request to retrieve all projects
 router.get("/projects", async (req, res) => {
@@ -117,10 +118,30 @@ router.put('/projects/:id', upload.single('imgSrc'), authGuard, async (req, res)
 router.get('/projects/:id', authGuard, async (req, res) => {
     res.send(await Project.findOne({ _id: req.params.id }));
 });
+
 //GET 1 Project(for expand feature without the authGuard)
 router.get('/projects/expand/:id', async (req, res) => {
-    res.send(await Project.findOne({ _id: req.params.id }));
+    const id = req.params.id;
+
+    // Check if projectId is undefined or not a valid ObjectId
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(403).json({ error: 'Invalid project ID' });
+    }
+
+    try {
+        const project = await Project.findOne({ _id: id });
+
+        if (!project) {
+            return res.status(404).json({ error: 'Project not found' });
+        }
+
+        res.send(project);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
+
 
 router.put('/projects/toggleHome/:id', adminGuard, async (req, res) => {
     try {
