@@ -53,7 +53,7 @@ by clicking the Admin only "Home" button that is on each card insisde the catego
 Features
 -
 -Explore Categories: DevQuest categorizes projects based on different web technologies, ensuring a broad spectrum of learning opportunities.
- Each category is thoughtfully curated to cover a variety of topics, from frontend frameworks to backend technologies.
+ Each category is thoughtfully curated to cover a Specific Language/Technology to the fullest by doing that we let YOU Choose how to Filter your Content.
 
 -Project Showcase: Access a rich collection of projects, each accompanied by a detailed description, GitHub repository link, and a Screenshot of the Project.
 Dive into the source code to understand implementation details and best practices.
