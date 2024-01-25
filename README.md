@@ -35,8 +35,11 @@ DevQuest allows users to create, view, and manage Their Projects. Here are the k
 
 User Levels -
 
+Non-User(Logged Out): 
+View a homepage displaying 1 Project From each Category,view all Categories, About Page and Card Expand Feature.
+
 Dev User:
-View a homepage displaying 1 Project From each Category.
+All Non-User capabilities.
 Add their favorite Projects to their favorites tab, plus:
 Create and Add their own Projects.
 Edit and delete their own Projects.
