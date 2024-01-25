@@ -18,7 +18,7 @@ export default function Footer() {
                 </>
                 <div className='footer-icons'>
                     <Link to={'https://www.linkedin.com/in/aviv-shapira-466561226/'} target="_blank"><FaLinkedin size={48} style={{ color: '#5894f1' }} /></Link>
-                    <Link to={'https://github.com/YoungShap'} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '46px', borderRadius: '50%' }} /></Link>
+                    <Link to={'https://github.com/YoungShap'} target="_blank" ><GitHubIcon style={{ color: 'white', fontSize: '48px', borderRadius: '50%',marginBottom:'2px' }} /></Link>
                 </div>
 
             </div>
