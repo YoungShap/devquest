@@ -66,6 +66,8 @@ Dive into the source code to understand implementation details and best practice
 
 -Forgot My Password email Reset!
 
+-Change Display Settings from Table To Cards on the Admin CRM Panel.
+
 -Expanded view of every Project Card with even more details.
 
 -Searchbar for finding Projects || Users(For Admin) more easily.
