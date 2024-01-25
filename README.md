@@ -14,6 +14,8 @@ npm run start
 Server---
 -
 server>server Terminal 
+
+
 npm install --y
 
 MongoDB---
