@@ -46,7 +46,7 @@ export default function About() {
                 <h1 className='about-heading'>Explore and Learn</h1>
                 <p className='about-p'>Each Category contains a set of Cards :</p>
             </>
-            <div className='card-frame' style={{ marginTop: "-2px" }}>
+            <div className='card-frame' style={{ marginTop: "-2px", minHeight:"200px" }}>
                 <div className='project-card'>
                     <div className='card-image about' style={{ backgroundImage: `url(/assets/myP.png)` }}></div>
                     <h1 className='card-h1'>Business Cards App</h1>

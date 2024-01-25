@@ -12,9 +12,8 @@ export default function Footer() {
             <div className='footer-content'>
                     <p style={{ marginTop: '20px' }}>Created By: <b>Aviv Shapira All rights reserved Copyright ©</b></p>
                 <>
-                    <p className='icon-p' style={{ fontSize: '26px', textAlign: 'center', color: '#f9ffe0ba' }}>
-                        <WebhookIcon sx={{ fontSize: '48px', marginBottom: '-15px', padding: '4px' }} /><b>Contact Us :</b> thedevquest@hotmail.com
-                        {/* <WebhookIcon sx={{ fontSize: '48px', marginBottom: '-15px', padding: '4px' }} /> */}
+                    <p className='icon-p' style={{ fontSize: '26px', textAlign: 'center', color: '#c4cba7ba' }}>
+                        <WebhookIcon sx={{ fontSize: '40px', marginBottom: '2px', padding: '4px' }} /><b>Contact Us :</b> thedevquest@hotmail.com
                     </p>
                 </>
                 <div className='footer-icons'>
