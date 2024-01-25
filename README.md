@@ -73,7 +73,6 @@ Dive into the source code to understand implementation details and best practice
 
 Libraries Used - 
 -
-Nodemon,
 Node.Js,
 MongoDB,
 Mongoose,
@@ -84,6 +83,7 @@ Bcrypt,
 JWT,
 Cors,
 Multer,
+Nodemon,
 Nodemailer,
 Node-Localstorage,
 dotenv,
