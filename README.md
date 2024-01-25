@@ -42,7 +42,7 @@ Create and Add their own Projects.
 Edit and delete their own Projects.
 
 Admin User:
-Have all the capabilities of Dev users, plus:
+Have all the capabilities of Dev users, Admins can Edit/Delete any project no matter who added it, plus:
 Access a CRM system for managing users.
 Perform administrative tasks, such as editing, or deleting user accounts.
 View and manage User level(Change from Dev to Admin).
