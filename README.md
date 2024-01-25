@@ -3,8 +3,13 @@ To run and install ---
 Client---
 -
 client>devquest>devquest Terminal
+
+
 npm install --y
+
+
 npm run start
+
 
 Server---
 -
