@@ -4,33 +4,18 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import React, { useState } from 'react';
+import React from 'react';
 import WebhookIcon from '@mui/icons-material/Webhook';
 import { Link, useNavigate, useResolvedPath } from 'react-router-dom';
-// import { GeneralContext } from '../App';
 import { checkPermissions, pages } from '../Config';
 import { GeneralContext } from '../App';
-// import ToggleTheme from './ToggleTheme';
+
 
 
 export default function Navbar() {
     const { roleType } = React.useContext(GeneralContext);
-    const [anchorElNav, setAnchorElNav] = useState(null);
-    const [anchorElUser, setAnchorElUser] = useState(null);
     const navigate = useNavigate();
     const path = useResolvedPath().pathname;
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
 
     return (
         <AppBar position="static">
@@ -76,7 +61,6 @@ export default function Navbar() {
                         {pages.filter(p => !p.permissions || checkPermissions(p.permissions, roleType)).map((page) => (
                             <Link to={page.route} key={page.route} style={{ textDecoration: 'none', color: 'initial' }}>
                                 <Button
-                                    onClick={handleCloseNavMenu}
                                     variant='h5'
                                     sx={{ my: 2, color: 'white', display: 'block', margin: "8px", fontFamily: "Oswald, sans-serif", fontSize: "15px", backgroundColor:'none' ,
                                     boxShadow:page.route === path ? '0px 0px 8px 4px #613789' : '' }}

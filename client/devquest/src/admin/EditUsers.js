@@ -52,7 +52,7 @@ export default function EditUsers() {
                     error
                 );
             })
-    }, []);
+    }, [id, snackbar]);
 
     const handleInputChange = ev => {
         const { id, value } = ev.target;
@@ -111,8 +111,8 @@ export default function EditUsers() {
 
             const updatedUser = await response.json();
             setUpdatedAcc(updatedUser);
-            navigate("/");
-            snackbar('User Updated Successfully');
+            snackbar( `${updatedUser.devName} Updated Successfully`);
+            navigate("/admin/sandbox");
         } catch (error) {
             console.error("Error:", error);
             snackbar('Validation Error');
@@ -190,7 +190,7 @@ export default function EditUsers() {
                         >
                             Save Changes
                         </Button >
-                        <Button style={{ backgroundColor: '#121010', color: 'white' }}
+                        <Button style={{ backgroundColor: '#121010', color: 'white', marginBottom:'250px' }}
                             type="button"
                             fullWidth
                             variant="contained"

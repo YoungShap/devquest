@@ -167,9 +167,9 @@ export default function Login() {
                         </Button>
                     </Box>
                 </Box>
-                <Grid container>
+                <Grid container >
                     <Grid item xs>
-                        <Link style={{fontSize:"16px", fontWeight:'bold', color:"#43c900", textDecoration:'none'}} href="/email" variant="body2">
+                        <Link style={{ fontSize: "16px", fontWeight: 'bold', color: "#43c900", textDecoration: 'none' }} href="/email" variant="body2">
                             Forgot password?
                         </Link>
                     </Grid>
@@ -178,8 +178,8 @@ export default function Login() {
                             {"Don't have an account? Sign Up"}
                         </Link>
                     </Grid>
-                </Grid>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                </Grid >
+                <Copyright sx={{ mt: 8, mb: 4 }} style={{marginBottom:'334px'}} />
             </Container>
         </ThemeProvider>
     );

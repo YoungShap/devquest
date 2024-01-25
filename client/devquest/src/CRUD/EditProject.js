@@ -37,7 +37,7 @@ export default function EditProject() {
                 navigate("/error");
                 snackbar('Error');
             });
-    }, []);
+    }, [id, navigate, snackbar]);
 
     const ProjectSchema = Joi.object({
         name: Joi.string().min(3).max(18).required(),
@@ -123,7 +123,7 @@ export default function EditProject() {
         <div className="container2">
             <h2>Edit Project</h2>
 
-            <form>
+            <form className='crud-form'>
                 <div className='row'>
                     <div className='column'>
                         <label>Project Name*</label>

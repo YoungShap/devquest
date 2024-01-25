@@ -35,7 +35,7 @@ export default function UserManage() {
             .finally(() => {
                 setIsLoading(false);
             })
-    }, []);
+    }, [setIsLoading, navigate, snackbar]);
 
     const deleteUser = id => {
         if (!window.confirm('Are you sure you want to remove this User?')) {
@@ -66,7 +66,7 @@ export default function UserManage() {
     }
 
     return (
-        <div className='big-container'>
+        <div className='big-container' style={{minHeight:'1000px'}}>
             <span className='MyTitle'>
                 <h1>Admin Sandbox</h1>
                 <p>Manage all Users </p><br></br><br></br>
@@ -115,7 +115,7 @@ export default function UserManage() {
                         </tbody>
                     </table>
                 ) : (
-                    <div className='Cardframe'>
+                    <div className='Cardframe' style={{marginBottom:'100px'}}>
                         {
                             users.filter(u => search(searchWord, u.firstName, u.lastName, u.email, u.devName)).map(u =>
                                 <div key={u._id} className='Card3'>

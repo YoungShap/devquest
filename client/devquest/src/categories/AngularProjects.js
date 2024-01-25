@@ -15,7 +15,7 @@ import Searchbar, { search } from '../components/SearchBar';
 import { LuExpand } from 'react-icons/lu';
 
 export default function AngualrProjects() {
-    const { user, favorite, toggleHomePage, roleType, searchWord, snackbar, setIsLoading } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord, snackbar, setIsLoading,homeProjects } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -30,16 +30,15 @@ export default function AngualrProjects() {
             .then((data) => {
                 setProjects(data.filter(p => p.category === "Angular"));
             })
-            .catch((error) => {
+            .catch(() => {
                 snackbar(
-                    "There has been a problem with your fetch operation:",
-                    error
+                    "There has been a problem with your fetch operation:"
                 );
             })
             .finally(() => {
                 setIsLoading(false);
             })
-    }, [toggleHomePage]);
+    }, [toggleHomePage, setIsLoading, snackbar,homeProjects]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -50,17 +49,16 @@ export default function AngualrProjects() {
             method: 'DELETE',
             credentials: 'include',
             headers: {
-                'Authorization': localStorage.token
+                'Authorization': localStorage.token 
             },
         })
             .then(() => {
                 setProjects(projects.filter(p => p._id !== id));
                 snackbar('Project Deleted');
             })
-            .catch((error) => {
+            .catch(() => {
                 snackbar(
-                    "There has been a problem with your fetch operation:",
-                    error
+                    "There has been a problem with your fetch operation:"
                 );
             })
             .finally(() => {

@@ -140,7 +140,7 @@ export default function SignUp() {
                         >
                             Sign Up
                         </Button >
-                        <Grid container justifyContent="center">
+                        <Grid container justifyContent="center" style={{marginBottom:'316px'}}>
                             <Grid item>
                                 <Link to="/login" style={{ color: '#ffffea' }}>
                                     Already have an account? Login

@@ -7,7 +7,7 @@ import { FaAngular, FaReact } from 'react-icons/fa';
 import { GiStoneStack } from 'react-icons/gi';
 import { GrStackOverflow } from 'react-icons/gr';
 import { SiHtml5, SiPython } from 'react-icons/si';
-import { IoLogoCss3, IoMdHome } from 'react-icons/io';
+import { IoLogoCss3} from 'react-icons/io';
 import { DiRuby } from 'react-icons/di';
 import { Link } from 'react-router-dom';
 import { RiJavascriptFill } from 'react-icons/ri';
@@ -40,7 +40,7 @@ export default function Home() {
             .finally(() => {
                 setIsLoading(false);
             })
-    }, []);
+    }, [setHomeProjects, setIsLoading, snackbar]);
 
     return (
         <div className='main-container'>

@@ -51,7 +51,7 @@ export default function MyProjects() {
             .finally(() => {
                 setIsLoading(false);
             })
-    }, []);
+    }, [setIsLoading, user]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -110,8 +110,9 @@ export default function MyProjects() {
                     }
                 </div><br></br><br></br><br></br>
             </div>
+            { projects.length ? 
             <div className='card-frame'>
-                {
+                { 
                     projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
                         <div className='project-card' key={p._id}>
                             <div className='card-image' style={{ backgroundImage: `url(http://localhost:4000/uploads/${p.imgSrc})` }}></div>
@@ -139,9 +140,12 @@ export default function MyProjects() {
                                 </div>
                             </div>
                         </div>
-                    )
+                    ) 
                 }
             </div>
+             : <div className='no-card-filler'></div>
+}
+
         </div>
     )
 }

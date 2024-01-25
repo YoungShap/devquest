@@ -38,7 +38,7 @@ export default function CardExpand() {
       .finally(() => {
         setIsLoading(false);
       })
-  }, [])
+  }, [id, setIsLoading, navigate, snackbar])
 
   return (
     <div className='one-card-frame'>

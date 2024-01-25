@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Container } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { accountStructure, editAccSchema } from '../Config';
@@ -34,7 +34,7 @@ export default function Account() {
       snackbar('Error, No User Found!');
     }
     // setIsLoading(false);
-  }, [user])
+  }, [user, snackbar])
 
   const handleInputChange = ev => {
     const { id, value } = ev.target;
@@ -157,7 +157,7 @@ export default function Account() {
             >
               Save Changes
             </Button >
-            <Button style={{ backgroundColor: '#121010', color: 'white' }}
+            <Button style={{ backgroundColor: '#121010', color: 'white', marginBottom:'334px' }}
               type="button"
               fullWidth
               variant="contained"

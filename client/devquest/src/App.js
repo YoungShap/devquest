@@ -4,17 +4,16 @@ import Router from './Router';
 import RouterAuth from './RouterAuth';
 import Navbar from './components/Navbar';
 import TopNavbar from './components/TopNavbar';
-import { useNavigate } from 'react-router-dom';
 import { RoleTypes } from './Config';
 import Snackbar from './components/Snackbar';
 import Loader from './components/Loader';
+import Footer from './components/Footer';
 
 
 export const GeneralContext = createContext();
 
 function App() {
     const [user, setUser] = useState();
-    const navigate = useNavigate();
     const [roleType, setRoleType] = useState(RoleTypes.none);
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -22,10 +21,10 @@ function App() {
     const [snackbarText, setSnackbarText] = useState('');
     const [homeProjects, setHomeProjects] = useState([]);
 
-    const snackbar = text => {
+    const snackbar = useCallback((text) => {
         setSnackbarText(text);
         setTimeout(() => setSnackbarText(''), 3 * 1000);
-    }
+    }, []);
 
     // LOGIN STATUS:
     useEffect(() => {
@@ -61,9 +60,9 @@ function App() {
 
                 });
         } else {
-           snackbar('No User Connected');
+            snackbar('No User Connected');
         }
-    }, []);
+    }, [snackbar]);
 
     // FAVORITE FUNCTION USED IN 10 MORE COMPONENTS(that is why its in the App):
     const favorite = async (id) => {
@@ -127,7 +126,7 @@ function App() {
             .finally(() => {
 
             });
-    }, [homeProjects]);
+    }, [snackbar]);
 
     return (
         <GeneralContext.Provider value={{
@@ -146,7 +145,7 @@ function App() {
                 {isLoading && <Loader />}
                 {snackbarText && <Snackbar text={snackbarText} />}
 
-
+                <Footer />
             </div>
         </GeneralContext.Provider>
     );

@@ -39,16 +39,14 @@ export default function Favorites() {
             .then((data) => {
                 setProjects(data.filter(p => user.favorites.includes(p._id)));
             })
-            .catch((error) => {
+            .catch(() => {
                 snackbar(
-                    "There has been a problem with your fetch operation:",
-                    error
-                );
+                    "There has been a problem with your fetch operation:");
             })
             .finally(() => {
                 setIsLoading(false);
             })
-    }, [user]);
+    }, [user, setIsLoading, snackbar]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -65,10 +63,9 @@ export default function Favorites() {
                 setProjects(projects.filter(p => p._id !== id));
                 snackbar('Project Deleted');
             })
-            .catch((error) => {
+            .catch(() => {
                 snackbar(
-                    "There has been a problem with your fetch operation:",
-                    error
+                    "There has been a problem with your fetch operation:"
                 );
             })
     };
@@ -95,6 +92,7 @@ export default function Favorites() {
                     <IoLogoCss3 style={{ color: "#318cc3" }} />
                 </div>
             </div>
+            { projects.length ?
             <div className='card-frame'>
                 {
                     projects.filter(p => search(searchWord, p.category, p.name, p.dev)).map(p =>
@@ -127,6 +125,8 @@ export default function Favorites() {
                     )
                 }
             </div>
+            : <div className='no-card-filler-fav'>Go Find Projects You Like! <BsFillHeartFill color='red'/></div>
+}
         </div>
     )
 }

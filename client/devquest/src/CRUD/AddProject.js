@@ -159,7 +159,7 @@ export default function AddProject() {
                         <button className='cancel' onClick={() => navigate('/')}>CANCEL</button>
                         <button className='refresh'><BiRefresh size={22} /></button>
                     </div>
-                    <button className='submitG' onClick={Add} >SUBMIT</button>
+                    <button style={{marginBottom:'116px'}} className='submitG' onClick={Add} disabled={!isValid} >SUBMIT</button> 
                 </div>
             </form>
         </div>

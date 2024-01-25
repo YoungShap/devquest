@@ -80,7 +80,6 @@ const ChangePassword = () => {
                 snackbar("Password Changed successfully!");
                 navigate("/");
             } else {
-                const errorMessage = await response.text();
                 snackbar("Error updating password:");
             }
         } catch (error) {

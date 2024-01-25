@@ -15,7 +15,7 @@ import Searchbar, { search } from '../components/SearchBar';
 import { LuExpand } from 'react-icons/lu';
 
 export default function ReactProjects() {
-    const { user, favorite, toggleHomePage, roleType, searchWord, snackbar, setIsLoading } = React.useContext(GeneralContext);
+    const { user, favorite, toggleHomePage, roleType, searchWord, snackbar, setIsLoading, homeProjects } = React.useContext(GeneralContext);
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -30,16 +30,15 @@ export default function ReactProjects() {
             .then((data) => {
                 setProjects(data.filter(p => p.category === "JS"));
             })
-            .catch((error) => {
+            .catch(() => {
                 snackbar(
-                    "There has been a problem with your fetch operation:",
-                    error
+                    "There has been a problem with your fetch operation:"
                 );
             })
             .finally(() => {
                 setIsLoading(false);
             })
-    }, [toggleHomePage]);
+    }, [toggleHomePage, setIsLoading, snackbar, homeProjects]);
 
     const deleteProject = id => {
         if (!window.confirm('Are you sure you want to remove this Project?')) {
@@ -59,8 +58,7 @@ export default function ReactProjects() {
             })
             .catch((error) => {
                 snackbar(
-                    "There has been a problem with your fetch operation:",
-                    error
+                    "There has been a problem with your fetch operation:"
                 );
             })
             .finally(() => {

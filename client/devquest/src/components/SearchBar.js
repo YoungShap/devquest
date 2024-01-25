@@ -60,7 +60,7 @@ export default function Searchbar() {
     // Clear the search term when the component mounts 
     useEffect(() => {
         setSearchWord('');
-    }, []); 
+    }, [setSearchWord]); 
 
     const handleSearchChange = (value) => {
         setSearchWord(value);
