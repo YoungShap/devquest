@@ -1,3 +1,6 @@
+@import url('https://fonts.cdnfonts.com/css/digital-7-mono');
+@import url('https://fonts.cdnfonts.com/css/digital-gothic');
+
 .footer-container {
     width: 100%;
     display: flex;
@@ -11,12 +14,10 @@
 }
 
 .footer-content p {
-    
     margin-bottom: 5px;
     font-size: 16px;
     padding: 5px;
-    color: #d9d9d9ba;
-    font-family: sans-serif;
+    color: #aaaaaaba;                                       
 }
 
 .footer-content {
@@ -29,6 +30,11 @@
     gap: 30px;
 }
 
+.icon-p b {
+    font-family: none;
+    color: rgba(190, 199, 163, 0.773);
+}
+
 .footer-icons {
     display: flex;
     align-items: center;
@@ -37,6 +43,7 @@
 }
 
 .icon-p {
+    font-family: 'Digital-7 Mono', sans-serif !important;
     display: flex;
     align-items: center;
     font-size: 20px !important;
@@ -67,7 +74,7 @@
 @media screen and (max-width:516px) {
     .footer-content .icon-p {
         font-size: 16px !important;
-    } 
+    }
 }
 
 @media screen and (max-width:355px) {
@@ -77,7 +84,7 @@
 
     .footer-content .icon-p {
         font-size: 12px !important;
-    } 
+    }
 
     .footer-content p {
         font-size: 9.5px;
