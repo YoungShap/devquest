@@ -75,6 +75,8 @@ Dive into the source code to understand implementation details and best practice
 
 -Change Display Settings from Table To Cards on the Admin CRM Panel.
 
+-Filter Content by choosing specific Categories.
+
 -Toggle Home Page On/Off for Projects(Admin Only). 
 
 -GitHub Repository link for each Project. 
