@@ -18,6 +18,10 @@ server>server Terminal
 
 npm install --y
 
+npm install -g nodemon
+
+nodemon ./server.js
+
 MongoDB---
 -
 Already connected and Live on Atlas.
