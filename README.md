@@ -73,6 +73,8 @@ Dive into the source code to understand implementation details and best practice
 
 -Toggle Home Page On/Off for Projects(Admin Only). 
 
+-GitHub Repository link for each Project. 
+
 -Expanded view of every Project Card with even more details.
 
 -Searchbar for finding Projects || Users(For Admin) more easily.
