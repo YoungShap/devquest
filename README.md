@@ -18,6 +18,10 @@ server>server Terminal
 
 npm install --y
 
+npm install -g nodemon
+
+nodemon ./server.js
+
 MongoDB---
 -
 Already connected and Live on Atlas.
@@ -70,6 +74,8 @@ Dive into the source code to understand implementation details and best practice
 -Forgot My Password Reset with Email!
 
 -Change Display Settings from Table To Cards on the Admin CRM Panel.
+
+-Filter Content by choosing specific Categories.
 
 -Toggle Home Page On/Off for Projects(Admin Only). 
 
