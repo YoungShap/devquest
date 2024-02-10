@@ -32,6 +32,8 @@ nodemon ./server.js
 
 2. **There is a .env.example file in the server folder showing the exact template that you need to follow in your '.env' file.**
 
+3. **After setting up all the required variables you are good to go! .**
+
 
 About DevQuest
 -
