@@ -30,7 +30,7 @@ nodemon ./server.js
 1. **Create a .env file:**
    - In the server folder of the project, create a file named `.env`.
 
-2. There is a .env.example file in the server folder showing the exact template that you need to follow in your '.env' file.
+2. **There is a .env.example file in the server folder showing the exact template that you need to follow in your '.env' file.**
 
 
 About DevQuest
