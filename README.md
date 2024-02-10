@@ -22,6 +22,7 @@ npm install -g nodemon
 
 nodemon ./server.js
 
+
 .ENV Configuration--- 
 - To run this project locally, you need to set up your own environment variables. Follow these steps:
 
