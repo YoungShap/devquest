@@ -22,9 +22,14 @@ npm install -g nodemon
 
 nodemon ./server.js
 
-MongoDB---
--
-Already connected and Live on Atlas.
+.ENV Configuration--- 
+- To run this project locally, you need to set up your own environment variables. Follow these steps:
+
+1. **Create a .env file:**
+   - In the server folder of the project, create a file named `.env`.
+
+2. There is a .env.example file in the server folder showing the exact template that you need to follow in your '.env' file.
+
 
 About DevQuest
 -
