@@ -1,7 +1,9 @@
 
+![home](https://github.com/YoungShap/devquest/assets/134366277/9303dd20-ca64-4154-ac41-90350771cfe6)
 
-![devquest](https://github.com/YoungShap/devquest/assets/134366277/3a297fd8-0bdd-47d7-a02d-df013a4ba823)
 
+
+![mern](https://github.com/YoungShap/devquest/assets/134366277/99dcdd81-ce36-4675-ac9c-b9f804e3c82e)
 
 
 
